@@ -1,11 +1,13 @@
-// SARIAH STARTING STATS (Matriarch: Higher Unity, Vulnerable Faith)
+// SARIAH DATA
 window.STARTING_STATS["Sariah"] = { 
     faith: 6, unity: 7, worldly_influence: 4, knowledge: 0, 
-    hasBrassPlates: false, initialScene: "intro_sariah" 
+    hasBrassPlates: false, initialScene: "intro_sariah",
+    bio: "A mother torn between faith in her husband and fear for her sons' safety in the dangerous desert."
 };
 
 // SARIAH SCENES - COMPLETE ARC
 Object.assign(window.scenes, {
+    // --- COPY/PASTE THE SCENE CONTENT FROM THE PREVIOUS TURN HERE ---
     
     // --- PART 1: THE DEPARTURE ---
     "intro_sariah": {

@@ -1,11 +1,18 @@
-// NEPHI STARTING STATS
+// NEPHI DATA
 window.STARTING_STATS["Nephi"] = { 
     faith: 6, unity: 6, worldly_influence: 2, knowledge: 0, 
-    hasBrassPlates: false, initialScene: "intro_nephi" 
+    hasBrassPlates: false, initialScene: "intro_nephi",
+    bio: "The fourth son who seeks a spiritual witness of his father's visions. He must learn to lead when his brothers rebel."
 };
 
 // NEPHI SCENES - COMPLETE ARC
 Object.assign(window.scenes, {
+    // ... (Keep all existing scenes exactly as they were in the previous update) ...
+    // Note: For brevity in this message, I am not repasting the scenes, 
+    // but you should keep the scenes we generated in the last turn.
+    // If you need me to repost the full scenes code, let me know.
+    
+    // --- COPY/PASTE THE SCENE CONTENT FROM THE PREVIOUS TURN HERE ---
     
     // --- PART 1: JERUSALEM ---
     "intro_nephi": {

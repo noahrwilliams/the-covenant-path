@@ -10,6 +10,80 @@ let gameState = {
 
 let historyStack = []; 
 
+// === MENU SYSTEM LOGIC ===
+
+// 1. Show List of Stories
+function showStorySelection() {
+    document.getElementById('start-screen').style.display = 'flex';
+    const container = document.getElementById('menu-container');
+    container.innerHTML = "<h3>Select Story</h3>";
+
+    window.STORIES.forEach(story => {
+        const btn = document.createElement("button");
+        btn.className = "story-btn";
+        btn.innerHTML = `${story.title}<small>${story.ref}</small>`;
+        
+        // Disable stories with no characters yet
+        if (!story.characters || story.characters.length === 0) {
+            btn.disabled = true;
+            btn.innerHTML += " <small>(Coming Soon)</small>";
+        } else {
+            btn.onclick = () => showStoryDetails(story);
+        }
+        
+        container.appendChild(btn);
+    });
+}
+
+// 2. Show Story Details & Characters
+function showStoryDetails(story) {
+    const container = document.getElementById('menu-container');
+    
+    let html = `
+        <div class="detail-view">
+            <button class="back-btn" onclick="showStorySelection()">← Back to Stories</button>
+            <h3>${story.title}</h3>
+            <div class="detail-desc">${story.description}</div>
+            <h4>Select Protagonist</h4>
+    `;
+
+    story.characters.forEach(charKey => {
+        const stats = window.STARTING_STATS[charKey];
+        if (stats) {
+            html += `
+                <button class="story-btn" onclick="showCharacterDetails('${charKey}', '${story.id}')">
+                    ${charKey.replace("_", " ")}
+                </button>
+            `;
+        }
+    });
+
+    html += `</div>`;
+    container.innerHTML = html;
+}
+
+// 3. Show Character Details (Bio) & Start Button
+function showCharacterDetails(charKey, storyId) {
+    const stats = window.STARTING_STATS[charKey];
+    // Find story to get back navigation
+    const story = window.STORIES.find(s => s.id === storyId); 
+
+    const container = document.getElementById('menu-container');
+    container.innerHTML = `
+        <div class="detail-view">
+            <button class="back-btn" onclick="showStoryDetails(window.STORIES.find(s => s.id === '${storyId}'))">← Back to Story</button>
+            <h3>${charKey}</h3>
+            <div class="detail-desc">${stats.bio || "No bio available."}</div>
+            
+            <button class="story-btn" style="background-color: #27ae60;" onclick="startGame('${charKey}')">
+                Begin Journey
+            </button>
+        </div>
+    `;
+}
+
+// === GAMEPLAY LOGIC ===
+
 function saveState() {
     historyStack.push(JSON.stringify(gameState));
 }
@@ -23,7 +97,7 @@ function undoLastAction() {
 
 function goToStartScreen() {
     if(confirm("Change character? Progress will be lost.")) {
-        document.getElementById('start-screen').style.display = 'flex';
+        showStorySelection(); // Go back to root menu
     }
 }
 
@@ -56,18 +130,18 @@ function checkGameOver() {
 
 function renderScene(sceneId, isUndo = false, actionFeedback = null) {
     if (sceneId === "start_screen_transition") {
-        window.location.reload(); 
+        showStorySelection(); // Return to menu
         return;
     }
 
     if (sceneId === "game_over_faith") {
         document.getElementById("story-text").innerHTML = "<h2 style='color:darkred'>Spiritual Darkness</h2>You have lost the Spirit. Without faith, the Liahona ceases to work. You wander the wilderness for years, lost and bitter, until you can go no further.<br><br><b>GAME OVER</b>";
-        document.getElementById("choices").innerHTML = "<button class='choice-btn' onclick='location.reload()'>Try Again</button>";
+        document.getElementById("choices").innerHTML = "<button class='choice-btn' onclick='showStorySelection()'>Return to Menu</button>";
         return;
     }
     if (sceneId === "game_over_unity") {
         document.getElementById("story-text").innerHTML = "<h2 style='color:darkred'>Family Fracture</h2>The contention becomes violent. The family separates in the wilderness, never to see the Promised Land. The journey has failed.<br><br><b>GAME OVER</b>";
-        document.getElementById("choices").innerHTML = "<button class='choice-btn' onclick='location.reload()'>Try Again</button>";
+        document.getElementById("choices").innerHTML = "<button class='choice-btn' onclick='showStorySelection()'>Return to Menu</button>";
         return;
     }
 
@@ -120,7 +194,6 @@ function renderScene(sceneId, isUndo = false, actionFeedback = null) {
     undoBtn.style.opacity = (historyStack.length === 0) ? "0.5" : "1";
 }
 
-// 3-STAGE COLOR LOGIC: Red <= 4, Orange 5-6, Default 7+
 function updateStatsDisplay() {
     const CRITICAL_THRESHOLD = 4;
     const WARNING_THRESHOLD = 6;
@@ -134,13 +207,12 @@ function updateStatsDisplay() {
         if (value <= CRITICAL_THRESHOLD) {
             element.style.color = "red";
         } else if (value <= WARNING_THRESHOLD) {
-            element.style.color = "#e67e22"; /* Orange */
+            element.style.color = "#e67e22"; 
         } else {
             element.style.color = "inherit";
         }
     });
 
-    // Worldly Influence (Separate Logic)
     document.getElementById("score-world").innerText = gameState.worldly_influence;
     const worldElem = document.getElementById("score-world");
     if(gameState.worldly_influence > 15) {
@@ -218,7 +290,6 @@ function makeChoice(choice) {
         gameState[choice.setFlag] = true;
     }
 
-    // CHECK FOR NEXT SCENE EVENT IMPACT (onEnter)
     let nextSceneObj = window.scenes[choice.nextScene];
     let eventText = "";
     
@@ -239,7 +310,7 @@ function makeChoice(choice) {
     if (checkGameOver()) return;
 
     let statSummary = formatStatChanges(dFaith, dUnity, dWorld, dKnowledge);
-    let actionFeedback = `You chose: "${choice.text}"<br>${statSummary}${penaltyText}${eventText}`;
+    let actionFeedback = `<b>You chose: "${choice.text}"</b><br>${choice.feedback}<br><br>${statSummary}${penaltyText}${eventText}`;
     
     gameState.lastAction = 'scene_choice'; 
     renderScene(choice.nextScene, false, actionFeedback);
@@ -250,6 +321,7 @@ function globalAction(actionType) {
 
     let dFaith = 0, dUnity = 0, dWorld = 0, dKnowledge = 0;
     let actionText = "";
+    let scriptureRef = ""; 
     let isConsecutive = (gameState.lastAction === actionType);
 
     if (actionType === 'study' && !gameState.hasBrassPlates) {
@@ -262,6 +334,7 @@ function globalAction(actionType) {
         case 'pray':
             dFaith = 2; dWorld = -3; dUnity = -1; 
             actionText = "You withdrew to pray. Peace fills your soul, but the family works without you.";
+            scriptureRef = "(See Alma 37:37)";
             break;
 
         case 'study':
@@ -269,9 +342,11 @@ function globalAction(actionType) {
             if (isConsecutive) {
                 dKnowledge = 0.2; 
                 actionText = "You studied again (diminishing returns).";
+                scriptureRef = "(See 2 Nephi 28:30)";
             } else {
                 dKnowledge = 0.8; 
                 actionText = "You poured over the plates. Your understanding deepens.";
+                scriptureRef = "(See 1 Nephi 19:23)";
             }
             
             if (dKnowledge > 0 && !gameState.covenantPathProgress.includes("Knowledge")) {
@@ -282,6 +357,7 @@ function globalAction(actionType) {
         case 'service':
             dFaith = -1; dWorld = 2; dUnity = 2;
             actionText = "You served your family. Unity grows, but your spiritual focus wanes.";
+            scriptureRef = "(See Mosiah 2:17)";
             break;
     }
     
@@ -294,7 +370,7 @@ function globalAction(actionType) {
     if (checkGameOver()) return;
 
     let statSummary = formatStatChanges(dFaith, dUnity, dWorld, dKnowledge);
-    let actionFeedback = `${actionText}<br>${statSummary}`;
+    let actionFeedback = `<b>${actionText}</b><br>${scriptureRef}<br><br>${statSummary}`;
 
     gameState.lastAction = actionType;
     
@@ -302,4 +378,9 @@ function globalAction(actionType) {
     
     document.getElementById("undo-btn").disabled = false;
     document.getElementById("undo-btn").style.opacity = "1";
+}
+
+// INITIALIZE MENU ON LOAD
+window.onload = function() {
+    showStorySelection();
 }

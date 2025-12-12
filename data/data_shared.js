@@ -2,9 +2,27 @@
 window.scenes = {}; 
 window.STARTING_STATS = {};
 
-// CONSTANTS
+// GAME CONSTANTS
 window.MAX_STAT = 20;
 window.COVENANT_STEPS = ["Knowledge", "Prayer to Seek Guidance", "Spiritual Confirmation", "Faith", "Repentance", "Baptism", "Gift of the Holy Ghost"];
+
+// STORY DEFINITIONS (THE MENU)
+window.STORIES = [
+    {
+        id: "exodus",
+        title: "The Lehite Exodus",
+        ref: "1 Nephi 2 – 18",
+        description: "Jerusalem is ripe for destruction. Commanded by the Lord, the prophet Lehi flees into the wilderness with his family. Over eight years, they must retrieve the Brass Plates, survive starvation, build a ship, and cross the great deep to a Promised Land.",
+        characters: ["Nephi", "Sariah"] // Must match keys in STARTING_STATS
+    },
+    {
+        id: "division",
+        title: "The Great Division",
+        ref: "2 Nephi 1 – 5",
+        description: "The family has arrived in the Promised Land, but peace is short-lived. As Lehi approaches death, old wounds reopen. The believers must make a heartbreaking choice: flee their brethren to establish a temple and a new society, or stay and perish.",
+        characters: [] // Coming soon
+    }
+];
 
 // ASSETS
 window.ASSETS = {
