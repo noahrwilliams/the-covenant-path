@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Covenant Path</title>
+    <style>
+        /* CORE LAYOUT */
+        body {
+            font-family: 'Georgia', serif;
+            background-color: #f4f1ea;
+            color: #2c2c2c;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            margin: 0;
+            min-height: 100vh;
+        }
+
+        #game-container {
+            max-width: 900px;
+            width: 100%;
+            background: #fff;
+            padding: 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 1px solid #d4c5a9;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* LANDSCAPE / DESKTOP VIEW */
+        @media (min-width: 900px) {
+            #game-container { flex-direction: row; height: 90vh; }
+            #left-panel { width: 45%; height: 100%; border-right: 2px solid #d4c5a9; background-color: #333; position: relative; }
+            #right-panel { width: 55%; height: 100%; overflow-y: auto; padding: 25px; display: flex; flex-direction: column; }
+            #visuals-area { height: 100% !important; }
+        }
+
+        /* PORTRAIT / MOBILE VIEW */
+        @media (max-width: 899px) {
+            #left-panel { width: 100%; height: 250px; }
+            #right-panel { padding: 20px; }
+        }
+
+        /* VISUALS */
+        #visuals-area { position: relative; width: 100%; height: 100%; overflow: hidden; background-color: #333; }
+        #background-image { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; opacity: 0.9; }
+        
+        #protagonist-portrait {
+            position: absolute; bottom: 0; left: 20px; height: 40%; max-height: 250px; width: auto;
+            object-fit: cover; z-index: 10; border: 3px solid #fff; border-bottom: none;
+            border-radius: 10px 10px 0 0; box-shadow: 2px -2px 10px rgba(0,0,0,0.5); background: #888;
+        }
+
+        #cast-portraits-container {
+            position: absolute; bottom: 10px; right: 20px; height: 25%; display: flex;
+            justify-content: flex-end; align-items: flex-end; z-index: 5; padding-left: 20px;
+        }
+
+        .cast-portrait {
+            height: 80px; width: 80px; border-radius: 50%; border: 3px solid #fff; object-fit: cover;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.4); margin-left: -30px; background: #aaa; transition: transform 0.2s;
+        }
+        .cast-portrait:hover { transform: scale(1.1); z-index: 20; }
+
+        /* TEXT & UI */
+        h1 { text-align: center; color: #6d5e41; font-size: 1.5em; margin: 0 0 15px 0; border-bottom: 2px solid #d4c5a9; padding-bottom: 10px; }
+
+        .stats-bar {
+            display: flex; flex-wrap: wrap; justify-content: space-between; background: #eee8d5;
+            padding: 10px; border-radius: 5px; margin-bottom: 15px; font-size: 0.85em; font-weight: bold; border: 1px solid #d4c5a9;
+        }
+
+        .scene-text {
+            font-size: 1.1em; line-height: 1.6; margin-bottom: 20px; padding: 10px;
+            background: #faf9f6; border-radius: 5px; border-left: 4px solid #d4c5a9;
+        }
+
+        .feedback {
+            font-style: italic; color: #2c2c2c; margin-bottom: 20px; padding: 12px;
+            background-color: #e8f4f8; border-left: 5px solid #5d737e; display: none; border-radius: 0 5px 5px 0; font-size: 0.95em;
+        }
+        .feedback.penalty { background-color: #fae3e3; border-left-color: #c0392b; }
+
+        #global-actions-bar {
+            display: none; justify-content: space-between; padding: 10px 0;
+            border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; margin-bottom: 20px; gap: 10px;
+        }
+
+        .global-action-btn {
+            background-color: #a4c3b2; color: #333; border: 1px solid #8ba89a; padding: 10px;
+            border-radius: 4px; cursor: pointer; font-size: 0.85em; font-weight: bold; transition: background 0.2s; flex: 1;
+        }
+        .global-action-btn:hover:not(:disabled) { background-color: #8ba89a; }
+        .global-action-btn:disabled { background-color: #eee; color: #999; cursor: not-allowed; border-color: #ddd; }
+
+        .choice-btn {
+            display: block; width: 100%; padding: 15px; margin: 8px 0; background-color: #5d737e;
+            color: white; border: none; border-radius: 5px; font-size: 1em; cursor: pointer; text-align: left;
+            transition: background 0.2s, transform 0.1s; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .choice-btn:hover { background-color: #4a5c66; transform: translateX(3px); }
+
+        .undo-btn {
+            display: block; width: 100%; padding: 10px; margin-top: 20px; background-color: #fff;
+            color: #7f8c8d; border: 1px solid #bdc3c7; border-radius: 5px; font-size: 0.9em; cursor: pointer; text-align: center;
+        }
+        .undo-btn:hover { background-color: #f2f2f2; color: #2c3e50; }
+
+        .covenant-tracker {
+            display: none; margin-top: auto; padding-top: 20px; font-size: 0.85em; color: #888; text-align: center;
+        }
+
+        /* START SCREEN */
+        #start-screen { padding: 40px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; }
+        .protagonist-select-btn {
+            width: 100%; max-width: 400px; padding: 20px; margin: 10px 0; background-color: #6d5e41;
+            color: white; border: none; border-radius: 5px; font-size: 1.1em; cursor: pointer;
+        }
+        .protagonist-select-btn:hover { background-color: #4a3e2b; }
+    </style>
+</head>
+<body>
+
+<div id="game-container">
+    <div id="left-panel">
+        <div id="visuals-area">
+            <img id="background-image" src="" alt="Scene Background">
+            <img id="protagonist-portrait" src="" alt="Protagonist">
+            <div id="cast-portraits-container"></div>
+        </div>
+    </div>
+
+    <div id="right-panel">
+        <div id="start-screen">
+            <h1>The Covenant Path</h1>
+            <p style="margin-bottom: 30px; line-height: 1.5;">Choose your protagonist to begin the journey.</p>
+            <button class="protagonist-select-btn" onclick="startGame('Nephi')">Play as Nephi<br><small>(Spiritual Seeker)</small></button>
+            <button class="protagonist-select-btn" onclick="startGame('Sariah')">Play as Sariah<br><small>(Matriarch & Supporter)</small></button>
+        </div>
+
+        <div id="gameplay-area" style="display:none;">
+            <h1>The Covenant Path</h1>
+            <div class="stats-bar">
+                <div class="stat-item">Faith: <span id="score-faith">10</span></div>
+                <div class="stat-item">Unity: <span id="score-unity">10</span></div>
+                <div class="stat-item">Worldly Infl.: <span id="score-world">0</span></div>
+                <div class="stat-item">Knowledge: <span id="score-knowledge">0</span></div>
+            </div>
+            <div id="story-text" class="scene-text"></div>
+            <div id="feedback" class="feedback"></div>
+            <div id="global-actions-bar">
+                <button class="global-action-btn" id="btn-pray" onclick="globalAction('pray')">🙏 Kneel in Prayer</button>
+                <button class="global-action-btn" id="btn-study" onclick="globalAction('study')">📜 Study Records</button>
+                <button class="global-action-btn" id="btn-service" onclick="globalAction('service')">❤️ Render Service</button>
+            </div>
+            <div id="choices"></div>
+            <button id="undo-btn" class="undo-btn" onclick="undoLastAction()">↺ Undo Last Choice</button>
+            <div class="covenant-tracker">
+                Next Spiritual Step: <strong id="covenant-step-display">Knowledge</strong>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SCRIPTS LOADED FROM DATA FOLDER -->
+<script src="data/data_shared.js"></script>
+<script src="data/scenes_nephi.js"></script>
+<script src="data/scenes_sariah.js"></script>
+<script src="data/engine.js"></script>
+
+</body>
+</html>
