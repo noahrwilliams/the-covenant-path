@@ -23,8 +23,8 @@ Object.assign(window.scenes, {
         backgroundAsset: "jerusalem_street",
         castAssets: ["Lehi"],
         choices: [
-            { text: "Obey immediately without question.", nextScene: "wilderness_valley", effect: { faith: 2, unity: 1, worldly: -3 }, feedback: "Your obedience strengthens your character. (See 1 Nephi 2:3)" },
-            { text: "Ask him to explain the vision first.", nextScene: "wilderness_valley", effect: { faith: 3, unity: 0, worldly: -1 }, feedback: "Lehi explains the destruction. Your understanding deepens. (See 1 Nephi 1:13)" }
+            { text: "Obey immediately without question.", nextScene: "wilderness_valley", effect: { faith: 2, unity: 1, worldly: -3 }, feedback: "Your obedience strengthens your character. You finish packing and prepare to leave. (See 1 Nephi 2:3)" },
+            { text: "Ask him to explain the vision first.", nextScene: "wilderness_valley", effect: { faith: 3, unity: 0, worldly: -1 }, feedback: "Lehi explains the destruction. Your understanding deepens, and you join the preparation to leave. (See 1 Nephi 1:13)" }
         ]
     },
     "calm_brothers_nephi": {
@@ -32,8 +32,8 @@ Object.assign(window.scenes, {
         backgroundAsset: "jerusalem_night",
         castAssets: ["Laman", "Lemuel"],
         choices: [
-            { text: "Defend your father against Laman's insults.", nextScene: "wilderness_valley", effect: { faith: 1, unity: -3, worldly: 0 }, feedback: "You speak up for truth, but it starts a tense argument. (See 1 Nephi 2:12)" },
-            { text: "Stay silent and gather your things.", nextScene: "wilderness_valley", effect: { faith: 0, unity: 0, worldly: 2 }, feedback: "You keep the peace, but the world's influence gains a small hold on you." }
+            { text: "Defend your father against Laman's insults.", nextScene: "wilderness_valley", effect: { faith: 1, unity: -3, worldly: 0 }, feedback: "You speak up for truth, but it starts a tense argument as you pack your things. (See 1 Nephi 2:12)" },
+            { text: "Stay silent and gather your things.", nextScene: "wilderness_valley", effect: { faith: 0, unity: 0, worldly: 2 }, feedback: "You keep the peace and pack your belongings, but the world's influence gains a small hold on you." }
         ]
     },
     "secret_prayer_nephi": {
@@ -42,7 +42,7 @@ Object.assign(window.scenes, {
         castAssets: [],
         choices: [
             { text: "Pour out your soul to God (Seeking Confirmation).", nextScene: "vision_confirmation_nephi", effect: { faith: 3, unity: -1, worldly: -4 }, covenantUnlock: "Spiritual Confirmation", feedback: "A sensation of pure light fills the room. (See 1 Nephi 2:16)" },
-            { text: "Simply ask for patience and ease of mind.", nextScene: "wilderness_valley", effect: { faith: 1, unity: 0, worldly: -2 }, feedback: "You feel a quiet calm, enough to follow your father." }
+            { text: "Simply ask for patience and ease of mind.", nextScene: "wilderness_valley", effect: { faith: 1, unity: 0, worldly: -2 }, feedback: "You feel a quiet calm, enough to follow your father into the wilderness." }
         ]
     },
     "vision_confirmation_nephi": {
@@ -50,13 +50,13 @@ Object.assign(window.scenes, {
         backgroundAsset: "vision_room",
         castAssets: [],
         choices: [
-            { text: "Return to your brothers and bear a powerful testimony.", nextScene: "wilderness_valley", effect: { faith: 3, unity: -1, worldly: -4 }, covenantUnlock: "Faith", feedback: "You bear a powerful testimony. Sam looks interested. (See 1 Nephi 2:17)" }
+            { text: "Return to your brothers and bear a powerful testimony.", nextScene: "wilderness_valley", effect: { faith: 3, unity: -1, worldly: -4 }, covenantUnlock: "Faith", feedback: "You bear a powerful testimony. Sam looks interested as you prepare to depart. (See 1 Nephi 2:17)" }
         ]
     },
 
     // --- PART 2: THE BRASS PLATES ---
     "wilderness_valley": {
-        text: "You have traveled three days into the wilderness. Lehi speaks: 'The Lord has commanded that you and your brothers return to Jerusalem to retrieve the Brass Plates from Laban.' Laman is furious.",
+        text: "You travel for three days. You leave your gold and silver behind. Lehi speaks: 'The Lord has commanded that you and your brothers return to Jerusalem to retrieve the Brass Plates from Laban.' Laman is furious.",
         backgroundAsset: "wilderness",
         castAssets: ["Lehi", "Laman", "Lemuel", "Sam"],
         choices: [
