@@ -1,10 +1,10 @@
-// NEPHI STARTING STATS (Adjusted for Survivability: 6/6)
+// NEPHI STARTING STATS (Survivable Start: 6/6)
 window.STARTING_STATS["Nephi"] = { 
     faith: 6, unity: 6, worldly_influence: 2, knowledge: 0, 
     hasBrassPlates: false, initialScene: "intro_nephi" 
 };
 
-// NEPHI SCENES - COMPLETE ARC (Balanced Survival)
+// NEPHI SCENES - COMPLETE ARC
 Object.assign(window.scenes, {
     
     // --- PART 1: JERUSALEM ---
@@ -14,8 +14,7 @@ Object.assign(window.scenes, {
         castAssets: ["Lehi", "Laman", "Lemuel"],
         onEnter: { faith: 0, unity: 0, worldly: 1 }, 
         choices: [
-            // Reduced Unity penalty from -2 to -1. Standing with the prophet causes distance, but not fracture yet.
-            { text: "Stand by Lehi (Requires Courage).", nextScene: "stand_by_father_nephi", effect: { faith: -1, unity: -1, worldly: -2 }, feedback: "You stand with him. The crowd mocks you, but you feel a quiet strength. (See 1 Nephi 1:18)" },
+            { text: "Stand by Lehi (Requires Courage).", nextScene: "stand_by_father_nephi", effect: { faith: -1, unity: -1, worldly: -2 }, feedback: "You stand with him. The mockery hurts, but you feel a quiet strength. (See 1 Nephi 1:18)" },
             { text: "Pull brothers aside to calm them.", nextScene: "calm_brothers_nephi", effect: { faith: -1, unity: 2, worldly: 1 }, feedback: "You keep the peace, but you feel the weight of compromise." },
             { text: "Retreat home to pray.", nextScene: "secret_prayer_nephi", effect: { faith: 3, unity: -1, worldly: -2 }, covenantUnlock: "Prayer to Seek Guidance", feedback: "You prioritize the Spirit over the immediate social crisis. (See 1 Nephi 2:16)" }
         ]
@@ -65,10 +64,8 @@ Object.assign(window.scenes, {
         text: "Three days travel. Lehi commands return for the plates. Laman murmurs: 'It is a hard thing.'",
         backgroundAsset: "wilderness",
         castAssets: ["Lehi", "Laman"],
-        // ADJUSTED: Reduced Unity erosion from -2 to -1.
         onEnter: { faith: -1, unity: -1, worldly: 1 },
         choices: [
-            // ADJUSTED: Added +1 Unity. While Laman hates it, Lehi rejoices, balancing the family dynamic.
             { text: "Declare: 'I will go and do.' (Build Faith)", nextScene: "laban_house", effect: { faith: 3, unity: 1, worldly: -2 }, feedback: "Your declaration gladdens your father. Even Laman falls silent. (See 1 Nephi 3:7)" },
             { text: "Agree quietly.", nextScene: "laban_house", effect: { faith: 0, unity: 0, worldly: 0 }, feedback: "You agree to go without complaint." }
         ]
@@ -77,7 +74,6 @@ Object.assign(window.scenes, {
         text: "JERUSALEM. Laman failed. He beats you with a rod.",
         backgroundAsset: "jerusalem_night",
         castAssets: ["Laman", "Lemuel"],
-        // ADJUSTED: Reduced erosion from -5 to -3. Survivable now.
         onEnter: { faith: -1, unity: -3, worldly: 1 },
         choices: [
             { text: "Rebuke with the Spirit (Cost: -2 Faith).", nextScene: "slaying_laban", effect: { faith: -2, unity: -1, worldly: 0 }, feedback: "You pour out your spiritual reserves. An angel appears. (See 1 Nephi 3:29)" },
@@ -118,7 +114,6 @@ Object.assign(window.scenes, {
         text: "CRISIS: Steel bow breaks. Starvation. Lehi murmurs.",
         backgroundAsset: "wilderness",
         castAssets: ["Lehi", "Laman"],
-        // ADJUSTED: Reduced erosion from -5 to -4. Major crisis, but survivable if you have buffer.
         onEnter: { faith: -4, unity: -4, worldly: 2 },
         choices: [
             { text: "Make a wood bow & ask Lehi (Cost: -2 Faith).", nextScene: "bountiful", effect: { faith: -2, unity: 4, worldly: -2 }, covenantUnlock: "Repentance", feedback: "Your humility restores Lehi's faith. (See 1 Nephi 16:23)" },
@@ -153,7 +148,6 @@ Object.assign(window.scenes, {
         text: "OCEAN STORM. You are tied up. Ship sinking.",
         backgroundAsset: "ship_deck",
         castAssets: ["Laman", "Lemuel", "Sariah"],
-        // ADJUSTED: Deadly, but survivable.
         onEnter: { faith: -3, unity: -4, worldly: 2 },
         choices: [
             { text: "Pray for calm (Cost: -3 Faith).", nextScene: "promised_land", effect: { faith: -3, unity: 2, worldly: -5 }, covenantUnlock: "Gift of the Holy Ghost", feedback: "You pour out your soul. The storm ceases. (See 1 Nephi 18:21)" },

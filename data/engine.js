@@ -120,7 +120,7 @@ function renderScene(sceneId, isUndo = false, actionFeedback = null) {
     undoBtn.style.opacity = (historyStack.length === 0) ? "0.5" : "1";
 }
 
-// MODIFIED: Implemented 3-stage color system (Red, Orange, Default)
+// 3-STAGE COLOR LOGIC: Red <= 4, Orange 5-6, Default 7+
 function updateStatsDisplay() {
     const CRITICAL_THRESHOLD = 4;
     const WARNING_THRESHOLD = 6;
@@ -135,8 +135,7 @@ function updateStatsDisplay() {
             element.style.color = "red";
         } else if (value <= WARNING_THRESHOLD) {
             element.style.color = "#e67e22"; /* Orange */
-        } 
-        else {
+        } else {
             element.style.color = "inherit";
         }
     });
