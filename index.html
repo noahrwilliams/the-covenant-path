@@ -38,11 +38,11 @@
             }
         }
 
-        /* VISUALS AREA */
+        /* VISUALS AREA (Reduced to 32% to save space) */
         #visuals-area {
             position: relative;
             width: 100%;
-            height: 38%;
+            height: 32%; 
             flex-shrink: 0;
             background-color: #333;
             overflow: hidden;
@@ -62,7 +62,7 @@
             position: absolute;
             bottom: 0;
             left: 20px;
-            height: 75%;
+            height: 80%; /* Slightly taller relative to the shorter container */
             width: auto;
             object-fit: cover;
             z-index: 10;
@@ -85,7 +85,7 @@
         }
 
         .cast-portrait {
-            height: 80px; width: 80px;
+            height: 70px; width: 70px;
             border-radius: 50%;
             border: 2px solid #fff;
             object-fit: cover;
@@ -96,7 +96,6 @@
         }
         .cast-portrait:hover { transform: scale(1.1); z-index: 20; }
 
-        /* OVERLAY BUTTONS */
         .overlay-btn {
             position: absolute;
             z-index: 100;
@@ -117,57 +116,76 @@
         #btn-change-char { bottom: 10px; left: 10px; transform: translateY(-100%); margin-bottom: 5px; } 
         #btn-modules { top: 10px; right: 10px; }
 
-        /* GAMEPLAY PANEL */
+        /* GAMEPLAY PANEL (Flexbox Column) */
         #gameplay-panel {
             flex-grow: 1;
-            overflow-y: auto;
-            padding: 20px;
             display: flex;
             flex-direction: column;
             background: #fff;
+            overflow: hidden; /* Prevents whole panel scroll */
         }
 
-        h1 {
-            text-align: center; color: #6d5e41; font-size: 1.4em; margin: 0 0 10px 0;
-            border-bottom: 1px solid #d4c5a9; padding-bottom: 5px;
+        /* 1. HEADER (Fixed) */
+        .gameplay-header {
+            padding: 10px 20px 0 20px;
+            flex-shrink: 0;
+            background: #fff;
+            z-index: 20;
         }
 
         .stats-bar {
             display: flex; flex-wrap: wrap; justify-content: space-around;
             background: #eee8d5; padding: 8px; border-radius: 5px;
-            margin-bottom: 15px; font-size: 0.8em; font-weight: bold; border: 1px solid #d4c5a9;
+            font-size: 0.8em; font-weight: bold; border: 1px solid #d4c5a9;
+        }
+
+        /* 2. SCROLLABLE CONTENT (Middle) */
+        #scrollable-content {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 10px 20px;
         }
 
         .scene-text {
-            font-size: 1.05em; line-height: 1.6; margin-bottom: 20px;
-            padding: 15px; background: #faf9f6; border-radius: 5px;
+            font-size: 1.05em; line-height: 1.5; margin-bottom: 15px;
+            padding: 12px; background: #faf9f6; border-radius: 5px;
             border-left: 4px solid #d4c5a9;
         }
         
-        .action-feedback-highlight {
-            color: #2c3e50;
-            font-weight: bold;
-            display: block;
-            margin-bottom: 10px;
-            padding-bottom: 10px;
+        .action-feedback-block {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
             border-bottom: 1px dashed #ccc;
         }
-        
-        .stat-change-text {
-            color: #27ae60;
+        .feedback-title { font-weight: bold; color: #2c3e50; display: block; margin-bottom: 3px;}
+        .feedback-stats { font-size: 0.9em; margin-bottom: 8px; display: block; }
+        .feedback-narrative { display: block; font-style: italic; color: #555; }
+
+        .event-impact-block {
+            margin-top: 10px;
             font-size: 0.9em;
-            font-style: italic;
+            border-top: 1px solid #eee;
+            padding-top: 5px;
+        }
+
+        /* 3. FOOTER (Fixed) */
+        .gameplay-footer {
+            padding: 10px 20px;
+            background: #fff;
+            border-top: 1px solid #eee;
+            flex-shrink: 0;
+            z-index: 20;
         }
 
         #global-actions-bar {
             display: flex; justify-content: space-between; gap: 5px;
-            margin-bottom: 15px;
+            margin-bottom: 5px;
         }
 
         .global-action-btn {
             background-color: #a4c3b2; color: #333; border: 1px solid #8ba89a;
-            padding: 10px 5px; border-radius: 4px; cursor: pointer;
-            font-size: 0.75em; font-weight: bold; transition: background 0.2s; flex: 1; text-align: center;
+            padding: 10px 2px; border-radius: 4px; cursor: pointer;
+            font-size: 0.7em; font-weight: bold; transition: background 0.2s; flex: 1; text-align: center;
         }
         .global-action-btn:hover:not(:disabled) { background-color: #8ba89a; }
         .global-action-btn:disabled { opacity: 0.5; cursor: not-allowed; }
@@ -181,20 +199,20 @@
         .choice-btn:hover { background-color: #4a5c66; transform: translateX(2px); }
 
         .undo-btn {
-            width: 100%; padding: 8px; margin-top: 15px; background: #fff;
+            width: 100%; padding: 8px; margin-top: 5px; background: #fff;
             color: #999; border: 1px solid #ddd; border-radius: 4px;
             font-size: 0.8em; cursor: pointer;
         }
-        .undo-btn:hover:not(:disabled) { color: #999; border-color: #666; }
+        .undo-btn:hover:not(:disabled) { color: #333; border-color: #666; }
 
         .covenant-tracker {
-            margin-top: auto; padding-top: 15px; font-size: 0.8em; color: #888; text-align: center;
+            margin-top: 5px; font-size: 0.8em; color: #888; text-align: center;
         }
 
         /* MENU / START SCREEN STYLES */
         #start-screen {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: #fff; z-index: 200; display: none; /* Initially hide static content */
+            background: #fff; z-index: 200; display: none; 
             flex-direction: column; align-items: center; justify-content: center;
             padding: 20px; box-sizing: border-box; overflow-y: auto;
         }
@@ -236,30 +254,39 @@
     </div>
 
     <div id="gameplay-panel">
-        <div class="stats-bar">
-            <div class="stat-item">Faith: <span id="score-faith">10</span></div>
-            <div class="stat-item">Unity: <span id="score-unity">10</span></div>
-            <div class="stat-item">Worldly: <span id="score-world">0</span></div>
-            <div class="stat-item">Know.: <span id="score-knowledge">0</span></div>
+        
+        <!-- FIXED HEADER -->
+        <div class="gameplay-header">
+            <div class="stats-bar">
+                <div class="stat-item">Faith: <span id="score-faith">10</span></div>
+                <div class="stat-item">Unity: <span id="score-unity">10</span></div>
+                <div class="stat-item">Worldly: <span id="score-world">0</span></div>
+                <div class="stat-item">Know.: <span id="score-knowledge">0</span></div>
+            </div>
         </div>
 
-        <div id="story-text" class="scene-text"></div>
-
-        <div id="global-actions-bar">
-            <button class="global-action-btn" id="btn-pray" onclick="globalAction('pray')">🙏 Kneel in Prayer</button>
-            <button class="global-action-btn" id="btn-study" onclick="globalAction('study')">📜 Study Records</button>
-            <button class="global-action-btn" id="btn-service" onclick="globalAction('service')">❤️ Render Service</button>
+        <!-- SCROLLABLE MIDDLE -->
+        <div id="scrollable-content">
+            <div id="story-text" class="scene-text"></div>
+            <div id="choices"></div>
         </div>
 
-        <div id="choices"></div>
-        <button id="undo-btn" class="undo-btn" onclick="undoLastAction()">↺ Undo Last Choice</button>
-
-        <div class="covenant-tracker">
-            Next Step: <strong id="covenant-step-display">Knowledge</strong>
+        <!-- FIXED FOOTER -->
+        <div class="gameplay-footer">
+            <div id="global-actions-bar">
+                <button class="global-action-btn" id="btn-pray" onclick="globalAction('pray')">🙏 Prayer</button>
+                <button class="global-action-btn" id="btn-study" onclick="globalAction('study')">📜 Records</button>
+                <button class="global-action-btn" id="btn-service" onclick="globalAction('service')">❤️ Service</button>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div class="covenant-tracker">
+                    Next Step: <strong id="covenant-step-display">Knowledge</strong>
+                </div>
+                <button id="undo-btn" class="undo-btn" style="width: auto; margin:0;" onclick="undoLastAction()">↺ Undo</button>
+            </div>
         </div>
     </div>
 
-    <!-- The start-screen content is now fully controlled by the engine.js showStorySelection function -->
     <div id="start-screen">
         <h1 class="menu-title">The Covenant Path</h1>
         <div id="menu-container" class="menu-container">
@@ -268,11 +295,11 @@
     </div>
 </div>
 
-<!-- CACHE BUSTING: v=1.4 for the new UI system -->
-<script src="data/data_shared.js?v=1.4"></script>
-<script src="data/scenes_nephi.js?v=1.4"></script>
-<script src="data/scenes_sariah.js?v=1.4"></script>
-<script src="data/engine.js?v=1.4"></script>
+<!-- CACHE BUSTING v1.5 -->
+<script src="data/data_shared.js?v=1.5"></script>
+<script src="data/scenes_nephi.js?v=1.5"></script>
+<script src="data/scenes_sariah.js?v=1.5"></script>
+<script src="data/engine.js?v=1.5"></script>
 
 </body>
 </html>

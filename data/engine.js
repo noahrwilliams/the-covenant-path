@@ -11,8 +11,6 @@ let gameState = {
 let historyStack = []; 
 
 // === MENU SYSTEM LOGIC ===
-
-// 1. Show List of Stories
 function showStorySelection() {
     document.getElementById('start-screen').style.display = 'flex';
     const container = document.getElementById('menu-container');
@@ -34,10 +32,8 @@ function showStorySelection() {
     });
 }
 
-// 2. Show Story Details & Characters
 function showStoryDetails(story) {
     const container = document.getElementById('menu-container');
-    
     let html = `
         <div class="detail-view">
             <button class="back-btn" onclick="showStorySelection()">← Back to Stories</button>
@@ -45,36 +41,25 @@ function showStoryDetails(story) {
             <div class="detail-desc">${story.description}</div>
             <h4>Select Protagonist</h4>
     `;
-
     story.characters.forEach(charKey => {
         const stats = window.STARTING_STATS[charKey];
         if (stats) {
-            html += `
-                <button class="story-btn" onclick="showCharacterDetails('${charKey}', '${story.id}')">
-                    ${charKey.replace("_", " ")}
-                </button>
-            `;
+            html += `<button class="story-btn" onclick="showCharacterDetails('${charKey}', '${story.id}')">${charKey.replace("_", " ")}</button>`;
         }
     });
-
     html += `</div>`;
     container.innerHTML = html;
 }
 
-// 3. Show Character Details (Bio) & Start Button
 function showCharacterDetails(charKey, storyId) {
     const stats = window.STARTING_STATS[charKey];
     const container = document.getElementById('menu-container');
-    
     container.innerHTML = `
         <div class="detail-view">
             <button class="back-btn" onclick="showStoryDetails(window.STORIES.find(s => s.id === '${storyId}'))">← Back to Story</button>
             <h3>${charKey}</h3>
             <div class="detail-desc">${stats.bio || "No bio available."}</div>
-            
-            <button class="story-btn" style="background-color: #27ae60;" onclick="startGame('${charKey}')">
-                Begin Journey as ${charKey}
-            </button>
+            <button class="story-btn" style="background-color: #27ae60;" onclick="startGame('${charKey}')">Begin Journey as ${charKey}</button>
         </div>
     `;
 }
@@ -89,7 +74,7 @@ function undoLastAction() {
     if (historyStack.length === 0) return;
     const previousState = JSON.parse(historyStack.pop());
     gameState = previousState;
-    renderScene(gameState.currentSceneId, true, null); 
+    renderScene(gameState.currentSceneId, true, null, null); 
 }
 
 function goToStartScreen() {
@@ -100,8 +85,6 @@ function goToStartScreen() {
 
 function startGame(characterName) {
     document.getElementById('start-screen').style.display = 'none';
-    
-    // --- Rest of startGame logic remains the same ---
     const stats = window.STARTING_STATS[characterName];
     gameState.character = characterName;
     gameState.faith = stats.faith;
@@ -116,30 +99,22 @@ function startGame(characterName) {
 }
 
 function checkGameOver() {
-    if (gameState.faith <= 0) {
-        renderScene("game_over_faith");
-        return true;
-    }
-    if (gameState.unity <= 0) {
-        renderScene("game_over_unity");
-        return true;
-    }
+    if (gameState.faith <= 0) { renderScene("game_over_faith"); return true; }
+    if (gameState.unity <= 0) { renderScene("game_over_unity"); return true; }
     return false;
 }
 
-function renderScene(sceneId, isUndo = false, actionFeedback = null) {
-    if (sceneId === "start_screen_transition") {
-        showStorySelection(); 
-        return;
-    }
+// NEW: Accepts previousActionHTML AND eventImpactHTML
+function renderScene(sceneId, isUndo = false, previousActionHTML = null, eventImpactHTML = null) {
+    if (sceneId === "start_screen_transition") { showStorySelection(); return; }
 
     if (sceneId === "game_over_faith") {
-        document.getElementById("story-text").innerHTML = "<h2 style='color:darkred'>Spiritual Darkness</h2>You have lost the Spirit. Without faith, the Liahona ceases to work. You wander the wilderness for years, lost and bitter, until you can go no further.<br><br><b>GAME OVER</b>";
+        document.getElementById("story-text").innerHTML = "<h2 style='color:darkred'>Spiritual Darkness</h2>You have lost the Spirit. Without faith, the Liahona ceases to work. You wander the wilderness for years, lost and bitter.<br><br><b>GAME OVER</b>";
         document.getElementById("choices").innerHTML = "<button class='choice-btn' onclick='showStorySelection()'>Return to Menu</button>";
         return;
     }
     if (sceneId === "game_over_unity") {
-        document.getElementById("story-text").innerHTML = "<h2 style='color:darkred'>Family Fracture</h2>The contention becomes violent. The family separates in the wilderness, never to see the Promised Land. The journey has failed.<br><br><b>GAME OVER</b>";
+        document.getElementById("story-text").innerHTML = "<h2 style='color:darkred'>Family Fracture</h2>The contention becomes violent. The family separates in the wilderness, never to see the Promised Land.<br><br><b>GAME OVER</b>";
         document.getElementById("choices").innerHTML = "<button class='choice-btn' onclick='showStorySelection()'>Return to Menu</button>";
         return;
     }
@@ -167,11 +142,22 @@ function renderScene(sceneId, isUndo = false, actionFeedback = null) {
         });
     }
 
+    // --- TEXT ASSEMBLY ---
     let fullText = "";
-    if (actionFeedback) {
-        fullText += `<div class='action-feedback-highlight'>${actionFeedback}</div>`;
+    
+    // 1. Previous Action & Stats
+    if (previousActionHTML) {
+        fullText += `<div class='action-feedback-block'>${previousActionHTML}</div>`;
     }
-    fullText += scene.text;
+    
+    // 2. Current Scene Description (with Scripture)
+    fullText += `${scene.text}`;
+
+    // 3. Event Impact (if any)
+    if (eventImpactHTML) {
+        fullText += `<div class='event-impact-block'><strong style='color:#555'>EVENT IMPACT:</strong> ${eventImpactHTML}</div>`;
+    }
+
     document.getElementById("story-text").innerHTML = fullText;
 
     updateStatsDisplay();
@@ -191,6 +177,9 @@ function renderScene(sceneId, isUndo = false, actionFeedback = null) {
     const undoBtn = document.getElementById("undo-btn");
     undoBtn.disabled = (historyStack.length === 0);
     undoBtn.style.opacity = (historyStack.length === 0) ? "0.5" : "1";
+    
+    // Auto-scroll to top of text on new scene
+    document.getElementById("scrollable-content").scrollTop = 0;
 }
 
 function updateStatsDisplay() {
@@ -202,14 +191,9 @@ function updateStatsDisplay() {
         const value = gameState[stat];
         const element = document.getElementById(`score-${stat}`);
         element.innerText = value;
-        
-        if (value <= CRITICAL_THRESHOLD) {
-            element.style.color = "red";
-        } else if (value <= WARNING_THRESHOLD) {
-            element.style.color = "#e67e22"; 
-        } else {
-            element.style.color = "inherit";
-        }
+        if (value <= CRITICAL_THRESHOLD) element.style.color = "red";
+        else if (value <= WARNING_THRESHOLD) element.style.color = "#e67e22"; 
+        else element.style.color = "inherit";
     });
 
     document.getElementById("score-world").innerText = gameState.worldly_influence;
@@ -225,11 +209,8 @@ function updateStatsDisplay() {
 
 function updateGlobalActionButtonStates() {
     const studyBtn = document.getElementById('btn-study');
-    if (!gameState.hasBrassPlates) {
-        studyBtn.disabled = true;
-    } else {
-        studyBtn.disabled = false;
-    }
+    if (!gameState.hasBrassPlates) studyBtn.disabled = true;
+    else studyBtn.disabled = false;
 }
 
 function updateCovenantDisplay() {
@@ -246,13 +227,22 @@ function clampStats() {
     gameState.knowledge = Math.min(Math.max(gameState.knowledge, 0), window.MAX_STAT);
 }
 
-function formatStatChanges(dF, dU, dW, dK) {
-    let parts = [];
-    if (dF !== 0) parts.push(`Faith ${dF > 0 ? '+' : ''}${dF}`);
-    if (dU !== 0) parts.push(`Unity ${dU > 0 ? '+' : ''}${dU}`);
-    if (dW !== 0) parts.push(`Worldly ${dW > 0 ? '+' : ''}${dW}`);
-    if (dK !== 0) parts.push(`Know. ${dK > 0 ? '+' : ''}${dK.toFixed(1)}`);
-    return parts.length > 0 ? `<span class='stat-change-text'>(${parts.join(", ")})</span>` : "";
+// HELPER: Generate Colored Strings
+function formatStatHTML(name, val, isBadIfHigh = false) {
+    if (val === 0) return "";
+    let isGood = isBadIfHigh ? val < 0 : val > 0;
+    let color = isGood ? "#27ae60" : "#c0392b"; // Green or Red
+    let sign = val > 0 ? "+" : "";
+    return `<span style="color:${color}; margin-right:8px;">${name} ${sign}${val}</span>`;
+}
+
+function getStatString(dF, dU, dW, dK) {
+    let s = "";
+    s += formatStatHTML("Faith", dF);
+    s += formatStatHTML("Unity", dU);
+    s += formatStatHTML("Worldly", dW, true); // High worldly is bad
+    s += formatStatHTML("Knowledge", dK);
+    return s;
 }
 
 function makeChoice(choice) {
@@ -265,32 +255,26 @@ function makeChoice(choice) {
 
     let penaltyText = "";
     if (gameState.worldly_influence > 15) {
-        dFaith -= 1;
-        dUnity -= 1;
-        penaltyText = " <span style='color:red'>(Penalty: High Worldly Influence)</span>";
+        dFaith -= 1; dUnity -= 1;
+        penaltyText = " <span style='color:red; font-size:0.8em;'>(High Worldly Penalty)</span>";
     }
     
-    if (gameState.knowledge >= 3 && dFaith > 0) {
-        dFaith += 1; 
-    }
+    if (gameState.knowledge >= 3 && dFaith > 0) dFaith += 1; 
 
     gameState.faith += dFaith;
     gameState.unity += dUnity;
     gameState.worldly_influence += dWorld;
     gameState.knowledge += dKnowledge;
 
-    if (choice.covenantUnlock) {
-        if (!gameState.covenantPathProgress.includes(choice.covenantUnlock)) {
-            gameState.covenantPathProgress.push(choice.covenantUnlock);
-        }
+    if (choice.covenantUnlock && !gameState.covenantPathProgress.includes(choice.covenantUnlock)) {
+        gameState.covenantPathProgress.push(choice.covenantUnlock);
     }
     
-    if (choice.setFlag) {
-        gameState[choice.setFlag] = true;
-    }
+    if (choice.setFlag) gameState[choice.setFlag] = true;
 
+    // PREPARE NEXT SCENE DATA
     let nextSceneObj = window.scenes[choice.nextScene];
-    let eventText = "";
+    let eventImpactHTML = null;
     
     if (nextSceneObj && nextSceneObj.onEnter) {
         let eF = nextSceneObj.onEnter.faith || 0;
@@ -301,18 +285,22 @@ function makeChoice(choice) {
         gameState.unity += eU;
         gameState.worldly_influence += eW;
         
-        eventText = `<br><span style="color:darkred; font-weight:bold;">EVENT IMPACT: ${formatStatChanges(eF, eU, eW, 0)}</span>`;
+        eventImpactHTML = getStatString(eF, eU, eW, 0);
     }
     
     clampStats(); 
-    
     if (checkGameOver()) return;
 
-    let statSummary = formatStatChanges(dFaith, dUnity, dWorld, dKnowledge);
-    let actionFeedback = `<b>You chose: "${choice.text}"</b><br>${choice.feedback}<br><br>${statSummary}${penaltyText}${eventText}`;
+    // BUILD PREVIOUS ACTION HTML
+    let actionStats = getStatString(dFaith, dUnity, dWorld, dKnowledge);
+    let previousActionHTML = `
+        <span class="feedback-title">You chose: "${choice.text}"</span>
+        <span class="feedback-stats">${actionStats} ${penaltyText}</span>
+        <span class="feedback-narrative">${choice.feedback}</span>
+    `;
     
     gameState.lastAction = 'scene_choice'; 
-    renderScene(choice.nextScene, false, actionFeedback);
+    renderScene(choice.nextScene, false, previousActionHTML, eventImpactHTML);
 }
 
 function globalAction(actionType) {
@@ -332,30 +320,18 @@ function globalAction(actionType) {
     switch(actionType) {
         case 'pray':
             dFaith = 2; dWorld = -3; dUnity = -1; 
-            actionText = "You withdrew to pray. Peace fills your soul, but the family works without you.";
+            actionText = "You withdrew to pray.";
             scriptureRef = "(See Alma 37:37)";
             break;
-
         case 'study':
             dFaith = 1; dWorld = -1; dUnity = -1;
-            if (isConsecutive) {
-                dKnowledge = 0.2; 
-                actionText = "You studied again (diminishing returns).";
-                scriptureRef = "(See 2 Nephi 28:30)";
-            } else {
-                dKnowledge = 0.8; 
-                actionText = "You poured over the plates. Your understanding deepens.";
-                scriptureRef = "(See 1 Nephi 19:23)";
-            }
-            
-            if (dKnowledge > 0 && !gameState.covenantPathProgress.includes("Knowledge")) {
-                gameState.covenantPathProgress.push("Knowledge");
-            }
+            if (isConsecutive) { dKnowledge = 0.2; actionText = "You studied again (diminishing returns)."; scriptureRef = "(See 2 Nephi 28:30)"; } 
+            else { dKnowledge = 0.8; actionText = "You poured over the plates."; scriptureRef = "(See 1 Nephi 19:23)"; }
+            if (dKnowledge > 0 && !gameState.covenantPathProgress.includes("Knowledge")) gameState.covenantPathProgress.push("Knowledge");
             break;
-            
         case 'service':
             dFaith = -1; dWorld = 2; dUnity = 2;
-            actionText = "You served your family. Unity grows, but your spiritual focus wanes.";
+            actionText = "You served your family.";
             scriptureRef = "(See Mosiah 2:17)";
             break;
     }
@@ -368,17 +344,22 @@ function globalAction(actionType) {
     clampStats(); 
     if (checkGameOver()) return;
 
-    let statSummary = formatStatChanges(dFaith, dUnity, dWorld, dKnowledge);
-    let actionFeedback = `<b>${actionText}</b><br>${scriptureRef}<br><br>${statSummary}`;
+    let actionStats = getStatString(dFaith, dUnity, dWorld, dKnowledge);
+    let previousActionHTML = `
+        <span class="feedback-title">${actionText}</span>
+        <span class="feedback-stats">${actionStats}</span>
+        <span class="feedback-narrative">${scriptureRef}</span>
+    `;
 
     gameState.lastAction = actionType;
     
-    renderScene(gameState.currentSceneId, false, actionFeedback);
+    // Re-render CURRENT scene with new feedback logic
+    renderScene(gameState.currentSceneId, false, previousActionHTML, null);
     
     document.getElementById("undo-btn").disabled = false;
     document.getElementById("undo-btn").style.opacity = "1";
 }
 
-// INITIALIZE MENU ON LOAD
-// This function runs when the engine loads, forcing the menu to appear immediately.
-showStorySelection();
+window.onload = function() {
+    showStorySelection();
+}
