@@ -42,7 +42,6 @@ function startGame(characterName) {
     renderScene(stats.initialScene);
 }
 
-// NEW: CHECK FOR FAILURE CONDITIONS
 function checkGameOver() {
     if (gameState.faith <= 0) {
         renderScene("game_over_faith");
@@ -61,7 +60,6 @@ function renderScene(sceneId, isUndo = false, actionFeedback = null) {
         return;
     }
 
-    // Handle Game Over Scenes dynamically if they aren't in the character file
     if (sceneId === "game_over_faith") {
         document.getElementById("story-text").innerHTML = "<h2 style='color:darkred'>Spiritual Darkness</h2>You have lost the Spirit. Without faith, the Liahona ceases to work. You wander the wilderness for years, lost and bitter, until you can go no further.<br><br><b>GAME OVER</b>";
         document.getElementById("choices").innerHTML = "<button class='choice-btn' onclick='location.reload()'>Try Again</button>";
@@ -122,12 +120,25 @@ function renderScene(sceneId, isUndo = false, actionFeedback = null) {
     undoBtn.style.opacity = (historyStack.length === 0) ? "0.5" : "1";
 }
 
+// MODIFIED: Added color logic for stats
 function updateStatsDisplay() {
-    document.getElementById("score-faith").innerText = gameState.faith;
-    document.getElementById("score-unity").innerText = gameState.unity;
-    document.getElementById("score-world").innerText = gameState.worldly_influence;
-    document.getElementById("score-knowledge").innerText = gameState.knowledge.toFixed(1);
+    const DANGER_THRESHOLD = 8;
+    const STATS = ["faith", "unity"];
 
+    STATS.forEach(stat => {
+        const value = gameState[stat];
+        const element = document.getElementById(`score-${stat}`);
+        element.innerText = value;
+        
+        if (value <= DANGER_THRESHOLD) {
+            element.style.color = "red";
+        } else {
+            element.style.color = "inherit";
+        }
+    });
+
+    // Worldly Influence (Separate Logic)
+    document.getElementById("score-world").innerText = gameState.worldly_influence;
     const worldElem = document.getElementById("score-world");
     if(gameState.worldly_influence > 15) {
         worldElem.style.color = "red";
@@ -186,13 +197,13 @@ function makeChoice(choice) {
     }
     
     if (gameState.knowledge >= 3 && dFaith > 0) {
-        dFaith += 1; // NERFED: Bonus is now +1 instead of +2
+        dFaith += 1; 
     }
 
     gameState.faith += dFaith;
-    gameState.unity += dUnity;
-    gameState.worldly_influence += dWorld;
-    gameState.knowledge += dKnowledge;
+    gameState.unity += dU;
+    gameState.worldly_influence += dW;
+    gameState.knowledge += dK;
 
     if (choice.covenantUnlock) {
         if (!gameState.covenantPathProgress.includes(choice.covenantUnlock)) {
@@ -222,10 +233,9 @@ function makeChoice(choice) {
     
     clampStats(); 
     
-    // CHECK GAME OVER
-    if (checkGameOver()) return; // Stop if game over
+    if (checkGameOver()) return;
 
-    let statSummary = formatStatChanges(dFaith, dUnity, dWorld, dKnowledge);
+    let statSummary = formatStatChanges(dF, dU, dW, dK);
     let actionFeedback = `You chose: "${choice.text}"<br>${statSummary}${penaltyText}${eventText}`;
     
     gameState.lastAction = 'scene_choice'; 
@@ -254,7 +264,7 @@ function globalAction(actionType) {
         case 'study':
             dFaith = 1; dWorld = -1; dUnity = -1;
             if (isConsecutive) {
-                dKnowledge = 0.2; // NERFED: Harder to spam
+                dKnowledge = 0.2; 
                 actionText = "You studied again (diminishing returns).";
             } else {
                 dKnowledge = 0.8; 
