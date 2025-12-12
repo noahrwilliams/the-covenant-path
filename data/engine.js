@@ -18,7 +18,7 @@ function undoLastAction() {
     if (historyStack.length === 0) return;
     const previousState = JSON.parse(historyStack.pop());
     gameState = previousState;
-    renderScene(gameState.currentSceneId, true, null); // Null feedback on undo
+    renderScene(gameState.currentSceneId, true, null);
 }
 
 function goToStartScreen() {
@@ -44,7 +44,6 @@ function startGame(characterName) {
     renderScene(stats.initialScene);
 }
 
-// MODIFIED: Accepts actionFeedback string to prepend to text
 function renderScene(sceneId, isUndo = false, actionFeedback = null) {
     if (sceneId === "start_screen_transition") {
         window.location.reload(); 
@@ -56,7 +55,6 @@ function renderScene(sceneId, isUndo = false, actionFeedback = null) {
     
     gameState.currentSceneId = sceneId;
 
-    // Visuals
     document.getElementById("background-image").src = window.ASSETS.backgrounds[scene.backgroundAsset] || window.ASSETS.backgrounds["jerusalem_street"];
     document.getElementById("protagonist-portrait").src = window.ASSETS.characters[gameState.character];
     
@@ -75,7 +73,6 @@ function renderScene(sceneId, isUndo = false, actionFeedback = null) {
         });
     }
 
-    // TEXT LOGIC: COMBINE FEEDBACK + STORY
     let fullText = "";
     if (actionFeedback) {
         fullText += `<div class='action-feedback-highlight'>${actionFeedback}</div>`;
@@ -87,13 +84,12 @@ function renderScene(sceneId, isUndo = false, actionFeedback = null) {
     updateCovenantDisplay();
     updateGlobalActionButtonStates();
 
-    // Choices
     const choicesDiv = document.getElementById("choices");
     choicesDiv.innerHTML = ""; 
     scene.choices.forEach(choice => {
         const btn = document.createElement("button");
         btn.className = "choice-btn";
-        btn.innerHTML = choice.text; // Text only, no stats
+        btn.innerHTML = choice.text; 
         btn.onclick = () => makeChoice(choice);
         choicesDiv.appendChild(btn);
     });
@@ -142,7 +138,6 @@ function clampStats() {
     gameState.knowledge = Math.min(Math.max(gameState.knowledge, 0), window.MAX_STAT);
 }
 
-// HELPER: FORMAT STAT CHANGES FOR TEXT
 function formatStatChanges(dF, dU, dW, dK) {
     let parts = [];
     if (dF !== 0) parts.push(`Faith ${dF > 0 ? '+' : ''}${dF}`);
@@ -155,6 +150,7 @@ function formatStatChanges(dF, dU, dW, dK) {
 function makeChoice(choice) {
     saveState(); 
 
+    // 1. APPLY CHOICE EFFECTS
     let dFaith = choice.effect.faith || 0;
     let dUnity = choice.effect.unity || 0;
     let dWorld = choice.effect.worldly || 0;
@@ -175,18 +171,38 @@ function makeChoice(choice) {
     gameState.unity += dUnity;
     gameState.worldly_influence += dWorld;
     gameState.knowledge += dKnowledge;
-    
-    clampStats(); 
 
     if (choice.covenantUnlock) {
         if (!gameState.covenantPathProgress.includes(choice.covenantUnlock)) {
             gameState.covenantPathProgress.push(choice.covenantUnlock);
         }
     }
+    
+    // NEW: Handle Special Flags (Brass Plates)
+    if (choice.setFlag) {
+        gameState[choice.setFlag] = true;
+    }
 
-    // CONSTRUCT FEEDBACK STRING
+    // 2. CHECK NEXT SCENE FOR AUTOMATIC EVENTS (onEnter)
+    let nextSceneObj = window.scenes[choice.nextScene];
+    let eventText = "";
+    
+    if (nextSceneObj && nextSceneObj.onEnter) {
+        let eF = nextSceneObj.onEnter.faith || 0;
+        let eU = nextSceneObj.onEnter.unity || 0;
+        let eW = nextSceneObj.onEnter.worldly || 0;
+        
+        gameState.faith += eF;
+        gameState.unity += eU;
+        gameState.worldly_influence += eW;
+        
+        eventText = `<br><span style="color:darkred; font-weight:bold;">EVENT IMPACT: ${formatStatChanges(eF, eU, eW, 0)}</span>`;
+    }
+    
+    clampStats(); 
+
     let statSummary = formatStatChanges(dFaith, dUnity, dWorld, dKnowledge);
-    let actionFeedback = `You chose: "${choice.text}"<br>${statSummary}${penaltyText}`;
+    let actionFeedback = `You chose: "${choice.text}"<br>${statSummary}${penaltyText}${eventText}`;
     
     gameState.lastAction = 'scene_choice'; 
     renderScene(choice.nextScene, false, actionFeedback);
@@ -208,7 +224,7 @@ function globalAction(actionType) {
     switch(actionType) {
         case 'pray':
             dFaith = 2; dWorld = -5; dUnity = -1; 
-            actionText = "You knelt in prayer.";
+            actionText = "You withdrew to pray. Peace fills your soul, though your family missed your help. (See Alma 37:37)";
             break;
 
         case 'study':
@@ -218,7 +234,7 @@ function globalAction(actionType) {
                 actionText = "You studied again (diminishing returns).";
             } else {
                 dKnowledge = 1.0;
-                actionText = "You studied the records.";
+                actionText = "You poured over the plates. Your understanding deepens. (See 1 Nephi 19:23)";
             }
             
             if (dKnowledge > 0 && !gameState.covenantPathProgress.includes("Knowledge")) {
@@ -228,7 +244,7 @@ function globalAction(actionType) {
             
         case 'service':
             dFaith = -1; dWorld = 2; dUnity = 2;
-            actionText = "You rendered service to the family.";
+            actionText = "You served your family. Unity grows, though your spiritual focus was briefly set aside. (See Mosiah 2:17)";
             break;
     }
     
@@ -244,6 +260,5 @@ function globalAction(actionType) {
 
     gameState.lastAction = actionType;
     
-    // Rerender CURRENT scene with feedback
     renderScene(gameState.currentSceneId, false, actionFeedback);
 }

@@ -7,7 +7,6 @@ window.MAX_STAT = 20;
 window.COVENANT_STEPS = ["Knowledge", "Prayer to Seek Guidance", "Spiritual Confirmation", "Faith", "Repentance", "Baptism", "Gift of the Holy Ghost"];
 
 // ASSETS
-// To use local images, put them in the "assets" folder and change these links to: "assets/filename.jpg"
 window.ASSETS = {
     characters: {
         "Nephi": "https://placehold.co/140x180/5d737e/FFF?text=Nephi",
@@ -22,6 +21,10 @@ window.ASSETS = {
         "jerusalem_night": "https://placehold.co/750x300/2c3e50/FFF?text=Jerusalem+Night",
         "house_interior": "https://placehold.co/750x300/5e4b35/FFF?text=House+Interior",
         "desert_gates": "https://placehold.co/750x300/c0392b/FFF?text=City+Gates",
+        "wilderness": "https://placehold.co/750x300/8e44ad/FFF?text=Wilderness+Valley",
+        "laban_house": "https://placehold.co/750x300/2c3e50/FFF?text=Jerusalem+Night+(Laban)",
+        "ship_deck": "https://placehold.co/750x300/2980b9/FFF?text=The+Ship+Deck",
+        "promised_land": "https://placehold.co/750x300/27ae60/FFF?text=The+Promised+Land",
         "vision_room": "https://placehold.co/750x300/FFF/000?text=Vision+of+Light"
     }
 };
