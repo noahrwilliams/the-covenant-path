@@ -4,7 +4,7 @@ window.STARTING_STATS["Nephi"] = {
     hasBrassPlates: false, initialScene: "intro_nephi" 
 };
 
-// NEPHI SCENES - COMPLETE ARC (References moved to Scene Text)
+// NEPHI SCENES - COMPLETE ARC (With Explicit Scripture Refs)
 Object.assign(window.scenes, {
     
     // --- PART 1: JERUSALEM ---
