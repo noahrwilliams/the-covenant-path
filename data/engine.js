@@ -18,18 +18,17 @@ function undoLastAction() {
     if (historyStack.length === 0) return;
     const previousState = JSON.parse(historyStack.pop());
     gameState = previousState;
-    renderScene(gameState.currentSceneId, true);
-    document.getElementById("feedback").style.display = "block";
-    document.getElementById("feedback").innerText = "↺ Undid last action.";
-    document.getElementById("feedback").classList.remove('penalty');
+    renderScene(gameState.currentSceneId, true, null); // Null feedback on undo
+}
+
+function goToStartScreen() {
+    if(confirm("Are you sure you want to change characters? Current progress will be lost.")) {
+        document.getElementById('start-screen').style.display = 'flex';
+    }
 }
 
 function startGame(characterName) {
     document.getElementById('start-screen').style.display = 'none';
-    document.getElementById('gameplay-area').style.display = 'block';
-    document.getElementById('left-panel').style.display = 'block';
-    document.getElementById('global-actions-bar').style.display = 'flex';
-    document.querySelector('.covenant-tracker').style.display = 'block';
 
     const stats = window.STARTING_STATS[characterName];
     gameState.character = characterName;
@@ -45,7 +44,8 @@ function startGame(characterName) {
     renderScene(stats.initialScene);
 }
 
-function renderScene(sceneId, isUndo = false) {
+// MODIFIED: Accepts actionFeedback string to prepend to text
+function renderScene(sceneId, isUndo = false, actionFeedback = null) {
     if (sceneId === "start_screen_transition") {
         window.location.reload(); 
         return;
@@ -56,6 +56,7 @@ function renderScene(sceneId, isUndo = false) {
     
     gameState.currentSceneId = sceneId;
 
+    // Visuals
     document.getElementById("background-image").src = window.ASSETS.backgrounds[scene.backgroundAsset] || window.ASSETS.backgrounds["jerusalem_street"];
     document.getElementById("protagonist-portrait").src = window.ASSETS.characters[gameState.character];
     
@@ -74,21 +75,25 @@ function renderScene(sceneId, isUndo = false) {
         });
     }
 
-    document.getElementById("story-text").innerHTML = scene.text;
+    // TEXT LOGIC: COMBINE FEEDBACK + STORY
+    let fullText = "";
+    if (actionFeedback) {
+        fullText += `<div class='action-feedback-highlight'>${actionFeedback}</div>`;
+    }
+    fullText += scene.text;
+    document.getElementById("story-text").innerHTML = fullText;
+
     updateStatsDisplay();
     updateCovenantDisplay();
     updateGlobalActionButtonStates();
 
-    if (!isUndo) {
-        document.getElementById("feedback").style.display = "none";
-    }
-
+    // Choices
     const choicesDiv = document.getElementById("choices");
     choicesDiv.innerHTML = ""; 
     scene.choices.forEach(choice => {
         const btn = document.createElement("button");
         btn.className = "choice-btn";
-        btn.innerHTML = choice.text;
+        btn.innerHTML = choice.text; // Text only, no stats
         btn.onclick = () => makeChoice(choice);
         choicesDiv.appendChild(btn);
     });
@@ -118,29 +123,16 @@ function updateGlobalActionButtonStates() {
     const studyBtn = document.getElementById('btn-study');
     if (!gameState.hasBrassPlates) {
         studyBtn.disabled = true;
-        studyBtn.title = "Action unavailable: You must retrieve the Brass Plates before you can study them.";
     } else {
         studyBtn.disabled = false;
-        studyBtn.title = "";
     }
 }
 
 function updateCovenantDisplay() {
     const nextStep = window.COVENANT_STEPS.find(step => !gameState.covenantPathProgress.includes(step));
     const display = document.getElementById("covenant-step-display");
-    display.innerText = nextStep || "Path Complete: Endure to the End";
+    display.innerText = nextStep || "Path Complete";
     display.style.color = nextStep ? "#6d5e41" : "#27ae60";
-}
-
-function displayFeedback(html, isPenalty) {
-    const feedbackDiv = document.getElementById("feedback");
-    feedbackDiv.style.display = "block";
-    feedbackDiv.innerHTML = html;
-    if (isPenalty) {
-        feedbackDiv.classList.add('penalty');
-    } else {
-        feedbackDiv.classList.remove('penalty');
-    }
 }
 
 function clampStats() {
@@ -150,27 +142,33 @@ function clampStats() {
     gameState.knowledge = Math.min(Math.max(gameState.knowledge, 0), window.MAX_STAT);
 }
 
+// HELPER: FORMAT STAT CHANGES FOR TEXT
+function formatStatChanges(dF, dU, dW, dK) {
+    let parts = [];
+    if (dF !== 0) parts.push(`Faith ${dF > 0 ? '+' : ''}${dF}`);
+    if (dU !== 0) parts.push(`Unity ${dU > 0 ? '+' : ''}${dU}`);
+    if (dW !== 0) parts.push(`Worldly ${dW > 0 ? '+' : ''}${dW}`);
+    if (dK !== 0) parts.push(`Knowledge ${dK > 0 ? '+' : ''}${dK.toFixed(1)}`);
+    return parts.length > 0 ? `<span class='stat-change-text'>(${parts.join(", ")})</span>` : "";
+}
+
 function makeChoice(choice) {
     saveState(); 
 
-    let feedbackHTML = choice.feedback + "<br><br><strong>Effects:</strong><br>";
-    let penaltyApplied = false;
-    
     let dFaith = choice.effect.faith || 0;
     let dUnity = choice.effect.unity || 0;
     let dWorld = choice.effect.worldly || 0;
     let dKnowledge = choice.effect.knowledge || 0;
 
+    let penaltyText = "";
     if (gameState.worldly_influence > 15) {
         dFaith -= 1;
         dUnity -= 1;
-        penaltyApplied = true;
+        penaltyText = " <span style='color:red'>(Penalty: High Worldly Influence)</span>";
     }
     
     if (gameState.knowledge >= 3 && dFaith > 0) {
-        const knowledgeBonus = 2;
-        dFaith += knowledgeBonus; 
-        feedbackHTML += `<span style="color:#2980b9; font-size:0.9em;">(Knowledge Bonus Applied: +${knowledgeBonus} Faith)</span><br>`;
+        dFaith += 2; 
     }
 
     gameState.faith += dFaith;
@@ -183,65 +181,54 @@ function makeChoice(choice) {
     if (choice.covenantUnlock) {
         if (!gameState.covenantPathProgress.includes(choice.covenantUnlock)) {
             gameState.covenantPathProgress.push(choice.covenantUnlock);
-            feedbackHTML += `<span style="color:#27ae60">★ COVENANT STEP ACHIEVED: ${choice.covenantUnlock}</span><br>`;
         }
     }
 
-    let details = [];
-    if (dFaith !== 0) details.push(`Faith: ${dFaith > 0 ? '+' : ''}${dFaith}`);
-    if (dUnity !== 0) details.push(`Unity: ${dUnity > 0 ? '+' : ''}${dUnity}`);
-    if (dWorld !== 0) details.push(`Worldly Infl.: ${dWorld > 0 ? '+' : ''}${dWorld}`);
-    if (dKnowledge !== 0) details.push(`Knowledge: ${dKnowledge > 0 ? '+' : ''}${dKnowledge.toFixed(1)}`);
+    // CONSTRUCT FEEDBACK STRING
+    let statSummary = formatStatChanges(dFaith, dUnity, dWorld, dKnowledge);
+    let actionFeedback = `You chose: "${choice.text}"<br>${statSummary}${penaltyText}`;
     
-    feedbackHTML += details.join(", ");
-
-    if (penaltyApplied) {
-        feedbackHTML += `<br><span style="color:red; font-size:0.9em;">(Penalty applied due to high Worldly Influence)</span>`;
-    }
-
-    displayFeedback(feedbackHTML, penaltyApplied);
     gameState.lastAction = 'scene_choice'; 
-    renderScene(choice.nextScene);
+    renderScene(choice.nextScene, false, actionFeedback);
 }
 
 function globalAction(actionType) {
     saveState(); 
 
     let dFaith = 0, dUnity = 0, dWorld = 0, dKnowledge = 0;
-    let feedback = "";
+    let actionText = "";
     let isConsecutive = (gameState.lastAction === actionType);
 
     if (actionType === 'study' && !gameState.hasBrassPlates) {
         historyStack.pop(); 
-        displayFeedback("You do not yet have the Brass Plates. You cannot study the records at this time.");
+        alert("You do not yet have the Brass Plates.");
         return;
     }
 
     switch(actionType) {
         case 'pray':
             dFaith = 2; dWorld = -5; dUnity = -1; 
-            feedback = "You withdrew to pray. Peace fills your soul, though your family missed your help. (See Alma 37:37)";
+            actionText = "You knelt in prayer.";
             break;
 
         case 'study':
             dFaith = 1; dWorld = -1; dUnity = -1;
             if (isConsecutive) {
                 dKnowledge = 0.5;
-                feedback = "You studied again. The gains are smaller as your mind tires. (See 2 Nephi 28:30)";
+                actionText = "You studied again (diminishing returns).";
             } else {
                 dKnowledge = 1.0;
-                feedback = "You poured over the plates. Your understanding deepens. (See 1 Nephi 19:23)";
+                actionText = "You studied the records.";
             }
             
             if (dKnowledge > 0 && !gameState.covenantPathProgress.includes("Knowledge")) {
-                feedback += `<br><span style="color:#27ae60">★ COVENANT STEP ACHIEVED: Knowledge</span>`;
                 gameState.covenantPathProgress.push("Knowledge");
             }
             break;
             
         case 'service':
             dFaith = -1; dWorld = 2; dUnity = 2;
-            feedback = "You served your family. Unity grows, though your spiritual focus was briefly set aside. (See Mosiah 2:17)";
+            actionText = "You rendered service to the family.";
             break;
     }
     
@@ -252,19 +239,11 @@ function globalAction(actionType) {
     
     clampStats(); 
 
-    let details = [];
-    if (dFaith !== 0) details.push(`Faith: ${dFaith > 0 ? '+' : ''}${dFaith}`);
-    if (dUnity !== 0) details.push(`Unity: ${dUnity > 0 ? '+' : ''}${dUnity}`);
-    if (dWorld !== 0) details.push(`Worldly Infl.: ${dWorld > 0 ? '+' : ''}${dWorld}`);
-    if (dKnowledge !== 0) details.push(`Knowledge: ${dKnowledge > 0 ? '+' : ''}${dKnowledge.toFixed(1)}`);
-    
-    feedback += `<br><br><strong>Effects:</strong><br>${details.join(", ")}`;
+    let statSummary = formatStatChanges(dFaith, dUnity, dWorld, dKnowledge);
+    let actionFeedback = `${actionText}<br>${statSummary}`;
 
-    displayFeedback(feedback, false);
-    updateStatsDisplay();
-    updateCovenantDisplay();
     gameState.lastAction = actionType;
     
-    document.getElementById("undo-btn").disabled = false;
-    document.getElementById("undo-btn").style.opacity = "1";
+    // Rerender CURRENT scene with feedback
+    renderScene(gameState.currentSceneId, false, actionFeedback);
 }
