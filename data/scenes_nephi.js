@@ -1,10 +1,10 @@
-// NEPHI STARTING STATS (Survivable Start: 6/6)
+// NEPHI STARTING STATS
 window.STARTING_STATS["Nephi"] = { 
     faith: 6, unity: 6, worldly_influence: 2, knowledge: 0, 
     hasBrassPlates: false, initialScene: "intro_nephi" 
 };
 
-// NEPHI SCENES - COMPLETE ARC (With Explicit Scripture Refs)
+// NEPHI SCENES - COMPLETE ARC
 Object.assign(window.scenes, {
     
     // --- PART 1: JERUSALEM ---

@@ -20,31 +20,29 @@
         }
 
         #game-container {
-            /* On Mobile: Full width */
             width: 100%;
             height: 100%;
             background: #fff;
             box-shadow: 0 0 20px rgba(0,0,0,0.2);
             display: flex;
-            flex-direction: column; /* ALWAYS Top/Bottom Split */
+            flex-direction: column;
             position: relative;
         }
 
-        /* DESKTOP TWEAKS (Keep Top/Bottom, just constrain width) */
         @media (min-width: 900px) {
             #game-container {
-                max-width: 800px; /* Wider than mobile, but contained */
-                height: 90vh; /* Floating window feel */
+                max-width: 800px;
+                height: 90vh;
                 border: 1px solid #d4c5a9;
                 border-radius: 8px;
             }
         }
 
-        /* --- VISUALS AREA (Top 35-40%) --- */
+        /* VISUALS AREA */
         #visuals-area {
             position: relative;
             width: 100%;
-            height: 38%; /* The sweet spot you requested */
+            height: 38%;
             flex-shrink: 0;
             background-color: #333;
             overflow: hidden;
@@ -64,7 +62,7 @@
             position: absolute;
             bottom: 0;
             left: 20px;
-            height: 75%; /* Larger portrait */
+            height: 75%;
             width: auto;
             object-fit: cover;
             z-index: 10;
@@ -119,10 +117,10 @@
         #btn-change-char { bottom: 10px; left: 10px; transform: translateY(-100%); margin-bottom: 5px; } 
         #btn-modules { top: 10px; right: 10px; }
 
-        /* --- GAMEPLAY PANEL (Bottom 60-65%) --- */
+        /* GAMEPLAY PANEL */
         #gameplay-panel {
             flex-grow: 1;
-            overflow-y: auto; /* Scrollable content area */
+            overflow-y: auto;
             padding: 20px;
             display: flex;
             flex-direction: column;
@@ -210,22 +208,15 @@
 <body>
 
 <div id="game-container">
-    
-    <!-- TOP: VISUALS -->
     <div id="visuals-area">
         <img id="background-image" src="" alt="Scene Background">
         <img id="protagonist-portrait" src="" alt="Protagonist">
         <div id="cast-portraits-container"></div>
-        
-        <!-- OVERLAY BUTTONS -->
         <button id="btn-change-char" class="overlay-btn" onclick="goToStartScreen()">Change Character</button>
         <button id="btn-modules" class="overlay-btn" onclick="alert('Module Selection: Coming Soon')">Select Module</button>
     </div>
 
-    <!-- BOTTOM: GAMEPLAY -->
     <div id="gameplay-panel">
-        
-        <!-- HEADER STATS -->
         <div class="stats-bar">
             <div class="stat-item">Faith: <span id="score-faith">10</span></div>
             <div class="stat-item">Unity: <span id="score-unity">10</span></div>
@@ -233,43 +224,35 @@
             <div class="stat-item">Know.: <span id="score-knowledge">0</span></div>
         </div>
 
-        <!-- MAIN TEXT AREA -->
         <div id="story-text" class="scene-text"></div>
 
-        <!-- GLOBAL ACTIONS -->
         <div id="global-actions-bar">
             <button class="global-action-btn" id="btn-pray" onclick="globalAction('pray')">🙏 Kneel in Prayer</button>
             <button class="global-action-btn" id="btn-study" onclick="globalAction('study')">📜 Study Records</button>
             <button class="global-action-btn" id="btn-service" onclick="globalAction('service')">❤️ Render Service</button>
         </div>
 
-        <!-- CHOICES -->
         <div id="choices"></div>
-
-        <!-- UNDO -->
         <button id="undo-btn" class="undo-btn" onclick="undoLastAction()">↺ Undo Last Choice</button>
 
-        <!-- TRACKER -->
         <div class="covenant-tracker">
             Next Step: <strong id="covenant-step-display">Knowledge</strong>
         </div>
     </div>
 
-    <!-- START SCREEN OVERLAY -->
     <div id="start-screen">
         <h1>The Covenant Path</h1>
         <p>Choose your protagonist:</p>
         <button class="protagonist-select-btn" onclick="startGame('Nephi')">Play as Nephi<br><small>(Spiritual Seeker)</small></button>
         <button class="protagonist-select-btn" onclick="startGame('Sariah')">Play as Sariah<br><small>(Matriarch & Supporter)</small></button>
     </div>
-
 </div>
 
-<!-- LOAD SCRIPTS -->
-<script src="data/data_shared.js"></script>
-<script src="data/scenes_nephi.js"></script>
-<script src="data/scenes_sariah.js"></script>
-<script src="data/engine.js"></script>
+<!-- CACHE BUSTING: Note the "?v=1.1" at the end of the lines below -->
+<script src="data/data_shared.js?v=1.1"></script>
+<script src="data/scenes_nephi.js?v=1.1"></script>
+<script src="data/scenes_sariah.js?v=1.1"></script>
+<script src="data/engine.js?v=1.1"></script>
 
 </body>
 </html>
