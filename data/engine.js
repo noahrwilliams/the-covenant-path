@@ -104,7 +104,6 @@ function checkGameOver() {
     return false;
 }
 
-// NEW: Accepts previousActionHTML AND eventImpactHTML
 function renderScene(sceneId, isUndo = false, previousActionHTML = null, eventImpactHTML = null) {
     if (sceneId === "start_screen_transition") { showStorySelection(); return; }
 
@@ -142,21 +141,11 @@ function renderScene(sceneId, isUndo = false, previousActionHTML = null, eventIm
         });
     }
 
-    // --- TEXT ASSEMBLY ---
+    // TEXT ASSEMBLY
     let fullText = "";
-    
-    // 1. Previous Action & Stats
-    if (previousActionHTML) {
-        fullText += `<div class='action-feedback-block'>${previousActionHTML}</div>`;
-    }
-    
-    // 2. Current Scene Description (with Scripture)
+    if (previousActionHTML) fullText += `<div class='action-feedback-block'>${previousActionHTML}</div>`;
     fullText += `${scene.text}`;
-
-    // 3. Event Impact (if any)
-    if (eventImpactHTML) {
-        fullText += `<div class='event-impact-block'><strong style='color:#555'>EVENT IMPACT:</strong> ${eventImpactHTML}</div>`;
-    }
+    if (eventImpactHTML) fullText += `<div class='event-impact-block'><strong style='color:#555'>EVENT IMPACT:</strong> ${eventImpactHTML}</div>`;
 
     document.getElementById("story-text").innerHTML = fullText;
 
@@ -178,8 +167,9 @@ function renderScene(sceneId, isUndo = false, previousActionHTML = null, eventIm
     undoBtn.disabled = (historyStack.length === 0);
     undoBtn.style.opacity = (historyStack.length === 0) ? "0.5" : "1";
     
-    // Auto-scroll to top of text on new scene
-    document.getElementById("scrollable-content").scrollTop = 0;
+    // UPDATED SCROLL ID
+    const scrollContainer = document.getElementById("story-scroll-container");
+    if(scrollContainer) scrollContainer.scrollTop = 0;
 }
 
 function updateStatsDisplay() {
@@ -227,11 +217,10 @@ function clampStats() {
     gameState.knowledge = Math.min(Math.max(gameState.knowledge, 0), window.MAX_STAT);
 }
 
-// HELPER: Generate Colored Strings
 function formatStatHTML(name, val, isBadIfHigh = false) {
     if (val === 0) return "";
     let isGood = isBadIfHigh ? val < 0 : val > 0;
-    let color = isGood ? "#27ae60" : "#c0392b"; // Green or Red
+    let color = isGood ? "#27ae60" : "#c0392b"; 
     let sign = val > 0 ? "+" : "";
     return `<span style="color:${color}; margin-right:8px;">${name} ${sign}${val}</span>`;
 }
@@ -240,7 +229,7 @@ function getStatString(dF, dU, dW, dK) {
     let s = "";
     s += formatStatHTML("Faith", dF);
     s += formatStatHTML("Unity", dU);
-    s += formatStatHTML("Worldly", dW, true); // High worldly is bad
+    s += formatStatHTML("Worldly", dW, true); 
     s += formatStatHTML("Knowledge", dK);
     return s;
 }
@@ -272,7 +261,6 @@ function makeChoice(choice) {
     
     if (choice.setFlag) gameState[choice.setFlag] = true;
 
-    // PREPARE NEXT SCENE DATA
     let nextSceneObj = window.scenes[choice.nextScene];
     let eventImpactHTML = null;
     
@@ -291,7 +279,6 @@ function makeChoice(choice) {
     clampStats(); 
     if (checkGameOver()) return;
 
-    // BUILD PREVIOUS ACTION HTML
     let actionStats = getStatString(dFaith, dUnity, dWorld, dKnowledge);
     let previousActionHTML = `
         <span class="feedback-title">You chose: "${choice.text}"</span>
@@ -353,7 +340,6 @@ function globalAction(actionType) {
 
     gameState.lastAction = actionType;
     
-    // Re-render CURRENT scene with new feedback logic
     renderScene(gameState.currentSceneId, false, previousActionHTML, null);
     
     document.getElementById("undo-btn").disabled = false;
