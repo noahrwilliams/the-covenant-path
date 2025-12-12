@@ -1,10 +1,10 @@
-// NEPHI STARTING STATS
+// NEPHI STARTING STATS (Nerfed Faith to make early game harder)
 window.STARTING_STATS["Nephi"] = { 
-    faith: 10, unity: 10, worldly_influence: 0, knowledge: 0, 
+    faith: 8, unity: 8, worldly_influence: 0, knowledge: 0, 
     hasBrassPlates: false, initialScene: "intro_nephi" 
 };
 
-// NEPHI SCENES - COMPLETE ARC (1 Nephi 2-18)
+// NEPHI SCENES - COMPLETE ARC (Harder Balance)
 Object.assign(window.scenes, {
     
     // --- PART 1: JERUSALEM ---
@@ -13,9 +13,9 @@ Object.assign(window.scenes, {
         backgroundAsset: "jerusalem_street",
         castAssets: ["Lehi", "Laman", "Lemuel"],
         choices: [
-            { text: "Approach your father and stand by his side.", nextScene: "stand_by_father_nephi", effect: { faith: 1, unity: -2, worldly: -3 }, feedback: "You stand with Lehi. The crowd mocks you. (See 1 Nephi 1:18)" },
-            { text: "Pull Laman and Lemuel aside to calm them down.", nextScene: "calm_brothers_nephi", effect: { faith: -1, unity: 3, worldly: 2 }, feedback: "You speak softly to your brothers. They calm down, but the fear of man lingers. (See 1 Nephi 2:11)" },
-            { text: "Go home and pray for understanding.", nextScene: "secret_prayer_nephi", effect: { faith: 4, unity: -1, worldly: -4 }, covenantUnlock: "Prayer to Seek Guidance", feedback: "You slip away to kneel. (See 1 Nephi 2:16)" }
+            { text: "Approach your father and stand by his side.", nextScene: "stand_by_father_nephi", effect: { faith: 1, unity: -2, worldly: -2 }, feedback: "You stand with Lehi. The crowd mocks you. (See 1 Nephi 1:18)" },
+            { text: "Pull Laman and Lemuel aside to calm them down.", nextScene: "calm_brothers_nephi", effect: { faith: -2, unity: 2, worldly: 2 }, feedback: "You appease your brothers, but your silence feels like betrayal. (See 1 Nephi 2:11)" },
+            { text: "Go home and pray for understanding.", nextScene: "secret_prayer_nephi", effect: { faith: 3, unity: -1, worldly: -2 }, covenantUnlock: "Prayer to Seek Guidance", feedback: "You slip away to kneel. (See 1 Nephi 2:16)" }
         ]
     },
     "stand_by_father_nephi": {
@@ -23,8 +23,8 @@ Object.assign(window.scenes, {
         backgroundAsset: "jerusalem_street",
         castAssets: ["Lehi"],
         choices: [
-            { text: "Obey immediately without question.", nextScene: "wilderness_valley", effect: { faith: 2, unity: 1, worldly: -3 }, feedback: "Your obedience strengthens your character. You finish packing and prepare to leave. (See 1 Nephi 2:3)" },
-            { text: "Ask him to explain the vision first.", nextScene: "wilderness_valley", effect: { faith: 3, unity: 0, worldly: -1 }, feedback: "Lehi explains the destruction. Your understanding deepens, and you join the preparation to leave. (See 1 Nephi 1:13)" }
+            { text: "Obey immediately without question.", nextScene: "wilderness_valley", effect: { faith: 1, unity: 1, worldly: -1 }, feedback: "Your obedience strengthens your character. (See 1 Nephi 2:3)" },
+            { text: "Ask him to explain the vision first.", nextScene: "wilderness_valley", effect: { faith: 2, unity: 0, worldly: 0 }, feedback: "Lehi explains. Your understanding deepens. (See 1 Nephi 1:13)" }
         ]
     },
     "calm_brothers_nephi": {
@@ -32,8 +32,8 @@ Object.assign(window.scenes, {
         backgroundAsset: "jerusalem_night",
         castAssets: ["Laman", "Lemuel"],
         choices: [
-            { text: "Defend your father against Laman's insults.", nextScene: "wilderness_valley", effect: { faith: 1, unity: -3, worldly: 0 }, feedback: "You speak up for truth, but it starts a tense argument as you pack your things. (See 1 Nephi 2:12)" },
-            { text: "Stay silent and gather your things.", nextScene: "wilderness_valley", effect: { faith: 0, unity: 0, worldly: 2 }, feedback: "You keep the peace and pack your belongings, but the world's influence gains a small hold on you." }
+            { text: "Defend your father against Laman's insults.", nextScene: "wilderness_valley", effect: { faith: 1, unity: -4, worldly: 0 }, feedback: "You speak up, sparking a bitter argument. Unity suffers. (See 1 Nephi 2:12)" },
+            { text: "Stay silent and gather your things.", nextScene: "wilderness_valley", effect: { faith: -1, unity: 0, worldly: 2 }, feedback: "You keep the peace, but feel cowardly." }
         ]
     },
     "secret_prayer_nephi": {
@@ -41,103 +41,117 @@ Object.assign(window.scenes, {
         backgroundAsset: "house_interior",
         castAssets: [],
         choices: [
-            { text: "Pour out your soul to God (Seeking Confirmation).", nextScene: "vision_confirmation_nephi", effect: { faith: 3, unity: -1, worldly: -4 }, covenantUnlock: "Spiritual Confirmation", feedback: "A sensation of pure light fills the room. (See 1 Nephi 2:16)" },
-            { text: "Simply ask for patience and ease of mind.", nextScene: "wilderness_valley", effect: { faith: 1, unity: 0, worldly: -2 }, feedback: "You feel a quiet calm, enough to follow your father into the wilderness." }
+            { text: "Pour out your soul to God (Seeking Confirmation).", nextScene: "vision_confirmation_nephi", effect: { faith: 3, unity: 0, worldly: -3 }, covenantUnlock: "Spiritual Confirmation", feedback: "A sensation of pure light fills the room. (See 1 Nephi 2:16)" },
+            { text: "Simply ask for patience.", nextScene: "wilderness_valley", effect: { faith: 1, unity: 0, worldly: -1 }, feedback: "You feel calm enough to follow, but lack fire." }
         ]
     },
     "vision_confirmation_nephi": {
-        text: "<b>The Spirit of the Lord visits you.</b> You know, with absolute certainty, that Lehi is a prophet and the Lord will lead you to a land of promise.",
+        text: "<b>The Spirit of the Lord visits you.</b> You know, with absolute certainty, that Lehi is a prophet.",
         backgroundAsset: "vision_room",
         castAssets: [],
         choices: [
-            { text: "Return to your brothers and bear a powerful testimony.", nextScene: "wilderness_valley", effect: { faith: 3, unity: -1, worldly: -4 }, covenantUnlock: "Faith", feedback: "You bear a powerful testimony. Sam looks interested as you prepare to depart. (See 1 Nephi 2:17)" }
+            { text: "Return to your brothers and bear testimony.", nextScene: "wilderness_valley", effect: { faith: 2, unity: -2, worldly: -3 }, covenantUnlock: "Faith", feedback: "You testify. Laman scoffs. (See 1 Nephi 2:17)" },
+            { text: "Keep the witness to yourself to avoid conflict.", nextScene: "wilderness_valley", effect: { faith: -1, unity: 1, worldly: 1 }, feedback: "You hide your light. The moment passes." }
         ]
     },
 
     // --- PART 2: THE BRASS PLATES ---
     "wilderness_valley": {
-        text: "You travel for three days. You leave your gold and silver behind. Lehi speaks: 'The Lord has commanded that you and your brothers return to Jerusalem to retrieve the Brass Plates from Laban.' Laman is furious.",
+        text: "Three days travel. Lehi commands you to return to Jerusalem for the plates. Laman is furious.",
         backgroundAsset: "wilderness",
-        castAssets: ["Lehi", "Laman", "Lemuel", "Sam"],
+        castAssets: ["Lehi", "Laman"],
+        // onEnter: Erosion happens here
+        onEnter: { faith: -1, unity: -1, worldly: 0 },
         choices: [
-            { text: "Declare: 'I will go and do the things which the Lord hath commanded.'", nextScene: "laban_house", effect: { faith: 4, unity: -2, worldly: -3 }, feedback: "Your declaration stands as a witness against their murmuring. (See 1 Nephi 3:7)" },
-            { text: "Try to reason with Laman about why we need the records.", nextScene: "laban_house", effect: { faith: 1, unity: 1, worldly: -1 }, feedback: "Laman grumbles but agrees to go. (See 1 Nephi 3:15)" }
+            { text: "Declare: 'I will go and do.'", nextScene: "laban_house", effect: { faith: 3, unity: -2, worldly: -2 }, feedback: "Your faith witnesses against them. (See 1 Nephi 3:7)" },
+            { text: "Quietly agree to go.", nextScene: "laban_house", effect: { faith: 0, unity: 0, worldly: 0 }, feedback: "You agree to go without complaint." }
         ]
     },
     "laban_house": {
-        text: "JERUSALEM (NIGHT). You cast lots. Laman went in and was chased out by Laban's guards. He is now beating you with a rod in the cave.",
+        text: "JERUSALEM (NIGHT). Laman failed. He beats you with a rod in the cave.",
         backgroundAsset: "jerusalem_night",
         castAssets: ["Laman", "Lemuel"],
-        onEnter: { faith: -1, unity: -3 }, // Event: Violence
+        onEnter: { faith: -2, unity: -5 }, // Violence hurts Unity bad
         choices: [
-            { text: "Stand firm and rebuke him with the power of the angel.", nextScene: "slaying_laban", effect: { faith: 3, unity: -2, worldly: 0 }, feedback: "Laman stops, shocked by your courage, but his heart is hard. (See 1 Nephi 3:29)" },
-            { text: "Humbly plead with him to stop for the sake of the family.", nextScene: "slaying_laban", effect: { faith: 1, unity: 2, worldly: 0 }, feedback: "Laman stops beating you, but he still doubts. (See 1 Nephi 3:31)" }
+            { text: "Stand firm and rebuke him.", nextScene: "slaying_laban", effect: { faith: 2, unity: -2, worldly: 0 }, feedback: "Laman stops, shocked. (See 1 Nephi 3:29)" },
+            { text: "Submit and endure the beating.", nextScene: "slaying_laban", effect: { faith: 0, unity: 1, worldly: 0 }, feedback: "You endure patiently." }
         ]
     },
     "slaying_laban": {
-        text: "You creep into the city alone. You find Laban drunk on the ground. The Spirit whispers: 'Slay him, for the Lord hath delivered him into thy hands.'",
+        text: "You find Laban drunk. The Spirit whispers: 'Slay him.'",
         backgroundAsset: "laban_house",
         castAssets: [],
         choices: [
-            { text: "Obey immediately, though it is difficult.", nextScene: "return_plates", effect: { faith: 5, worldly: -5 }, setFlag: "hasBrassPlates", feedback: "You follow the Spirit's command, prioritizing God's law over man's. (See 1 Nephi 4:18)" },
-            { text: "Hesitate and look for another way.", nextScene: "return_plates", effect: { faith: -2, worldly: 2 }, setFlag: "hasBrassPlates", feedback: "The Spirit prompts you again until you obey. You retrieve the plates. (See 1 Nephi 4:10)" }
+            { text: "Obey immediately.", nextScene: "return_plates", effect: { faith: 4, worldly: -4 }, setFlag: "hasBrassPlates", feedback: "You obey the difficult command. (See 1 Nephi 4:18)" },
+            { text: "Refuse to kill.", nextScene: "return_plates_failure", effect: { faith: -5, worldly: 2 }, feedback: "You cannot bring yourself to do it. You return empty handed." } 
+            // Note: A failure path for Laban would be complex, but for now we assume success or severe stat penalty
+        ]
+    },
+    "return_plates_failure": {
+        text: "You return without the plates. Lehi is devastated. The future of the nation is jeopardized.",
+        backgroundAsset: "wilderness",
+        castAssets: ["Lehi"],
+        choices: [
+             { text: "Weep and repent.", nextScene: "broken_bow", effect: { faith: -3, unity: -2 }, feedback: "You failed this test, but the journey continues." }
         ]
     },
     "return_plates": {
-        text: "You return to the wilderness tent. Sariah runs to embrace you—she thought you were dead.",
+        text: "You return with the plates. Sariah rejoices.",
         backgroundAsset: "wilderness",
         castAssets: ["Sariah", "Lehi"],
         choices: [
-            { text: "Show her the Brass Plates immediately (Knowledge).", nextScene: "broken_bow", effect: { faith: 1, unity: 1, knowledge: 2 }, feedback: "The records bring joy to Lehi, who begins to prophesy. (See 1 Nephi 5:10)" },
-            { text: "Testify that the Lord protected you (Faith).", nextScene: "broken_bow", effect: { faith: 3, unity: 2, knowledge: 0 }, feedback: "Sariah declares: 'Now I know of a surety that the Lord hath commanded my husband.' (See 1 Nephi 5:8)" }
+            { text: "Show her the Brass Plates immediately (Knowledge).", nextScene: "broken_bow", effect: { faith: 1, unity: 1, knowledge: 2 }, feedback: "Lehi prophesies. (See 1 Nephi 5:10)" },
+            { text: "Testify that the Lord protected you (Faith).", nextScene: "broken_bow", effect: { faith: 2, unity: 2, knowledge: 0 }, feedback: "Sariah's faith is solidified. (See 1 Nephi 5:8)" }
         ]
     },
 
     // --- PART 3: THE BROKEN BOW ---
     "broken_bow": {
-        text: "CRISIS: Your fine steel bow has broken. The families are starving. Even Lehi begins to murmur against the Lord.",
+        text: "CRISIS: Your steel bow breaks. Starvation sets in. Lehi murmurs.",
         backgroundAsset: "wilderness",
         castAssets: ["Lehi", "Laman"],
-        onEnter: { faith: -3, unity: -3 }, // Major Crisis
+        onEnter: { faith: -4, unity: -4 }, // Severe Crisis
         choices: [
-            { text: "Make a wooden bow and humbly ask Lehi where to hunt.", nextScene: "bountiful", effect: { faith: 5, unity: 3, worldly: -2 }, covenantUnlock: "Repentance", feedback: "Your humility humbles Lehi. He repents and asks the Lord. (See 1 Nephi 16:23)" },
-            { text: "Chastise the family for their lack of faith.", nextScene: "bountiful", effect: { faith: 2, unity: -4, worldly: 0 }, feedback: "You speak truth, but your harshness drives a wedge in the family." }
+            { text: "Make a wooden bow and ask Lehi where to hunt.", nextScene: "bountiful", effect: { faith: 4, unity: 3, worldly: -1 }, covenantUnlock: "Repentance", feedback: "Your humility restores Lehi's faith. (See 1 Nephi 16:23)" },
+            { text: "Chastise the family for murmuring.", nextScene: "bountiful", effect: { faith: 1, unity: -5, worldly: 0 }, feedback: "You are right, but you destroy what little unity remained." }
         ]
     },
 
     // --- PART 4: THE SHIP ---
     "bountiful": {
-        text: "You arrive at Bountiful. The Lord commands: 'Build a ship.' Laman and Lemuel mock you: 'Our brother is a fool, for he thinketh that he can build a ship.'",
-        backgroundAsset: "promised_land", // Placeholder for Bountiful
+        text: "Bountiful. The Lord commands: 'Build a ship.' Laman mocks you.",
+        backgroundAsset: "promised_land", 
         castAssets: ["Laman", "Lemuel"],
         choices: [
-            { text: "Quote scriptures to prove the Lord can do all things.", nextScene: "shock_brothers", effect: { faith: 2, knowledge: 3, unity: -1 }, feedback: "You cite Moses dividing the Red Sea. (See 1 Nephi 17:26)" },
-            { text: "Warn them not to touch you, for you are filled with power.", nextScene: "shock_brothers", effect: { faith: 4, unity: -2, worldly: -2 }, feedback: "You declare: 'Whoso shall lay his hands upon me shall wither.' (See 1 Nephi 17:48)" }
+            { text: "Quote scriptures to prove God's power.", nextScene: "shock_brothers", effect: { faith: 1, knowledge: 2, unity: -1 }, feedback: "You cite Moses. (See 1 Nephi 17:26)" },
+            { text: "Warn them not to touch you.", nextScene: "shock_brothers", effect: { faith: 3, unity: -3, worldly: -1 }, feedback: "You are filled with power. (See 1 Nephi 17:48)" }
         ]
     },
     "shock_brothers": {
-        text: "Your brothers are shaken by the power of God. They fall down to worship you.",
+        text: "Your brothers are shaken. They fall to worship you.",
         backgroundAsset: "promised_land",
         castAssets: ["Laman", "Lemuel"],
         choices: [
-            { text: "Command them: 'Worship the Lord, not me.'", nextScene: "voyage_storm", effect: { faith: 2, unity: 2, worldly: -2 }, covenantUnlock: "Baptism", feedback: "They obey and help build the ship. (See 1 Nephi 17:55)" }
+            { text: "Command: 'Worship the Lord, not me.'", nextScene: "voyage_storm", effect: { faith: 2, unity: 2, worldly: -2 }, covenantUnlock: "Baptism", feedback: "They obey. (See 1 Nephi 17:55)" },
+            { text: "Let them be, they deserve the fear.", nextScene: "voyage_storm", effect: { faith: -2, unity: -2, worldly: 3 }, feedback: "You allow your pride to grow." }
         ]
     },
 
     // --- PART 5: THE VOYAGE ---
     "voyage_storm": {
-        text: "ON THE OCEAN. Laman and Lemuel rebel and tie you up. A terrible storm rages. The Liahona stops working. The ship is about to sink.",
+        text: "ON THE OCEAN. Rebellion. You are tied up. The storm rages. The ship is sinking.",
         backgroundAsset: "ship_deck",
         castAssets: ["Laman", "Lemuel", "Sariah"],
-        onEnter: { faith: -2, unity: -5 }, // Crisis
+        onEnter: { faith: -3, unity: -6 }, // Deadly Crisis
         choices: [
-            { text: "Pray for deliverance and forgiveness for them.", nextScene: "promised_land", effect: { faith: 5, unity: 1, worldly: -5 }, covenantUnlock: "Gift of the Holy Ghost", feedback: "Laman unbinds you. You take the wheel and pray. The storm ceases. (See 1 Nephi 18:21)" }
+            { text: "Pray for deliverance and forgiveness for them.", nextScene: "promised_land", effect: { faith: 4, unity: 2, worldly: -4 }, covenantUnlock: "Gift of the Holy Ghost", feedback: "Laman unbinds you. The storm ceases. (See 1 Nephi 18:21)" },
+            { text: "Despair and give up hope.", nextScene: "game_over_faith", effect: { faith: -10 }, feedback: "You lose all hope." }
         ]
     },
     "promised_land": {
-        text: "You arrive at the Promised Land. You pitch your tents and prepare to live the law of the Lord.<br><br><b>End of Nephi's Module.</b>",
+        text: "You arrive at the Promised Land. You pitch your tents.",
         backgroundAsset: "promised_land",
-        castAssets: ["Lehi", "Sariah", "Sam", "Laman", "Lemuel"],
+        castAssets: ["Lehi", "Sariah", "Sam"],
         choices: [
             { text: "Return to Start Screen", nextScene: "start_screen_transition", effect: { faith: 0 }, feedback: "Module Complete." }
         ]

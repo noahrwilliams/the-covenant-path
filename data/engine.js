@@ -18,18 +18,17 @@ function undoLastAction() {
     if (historyStack.length === 0) return;
     const previousState = JSON.parse(historyStack.pop());
     gameState = previousState;
-    renderScene(gameState.currentSceneId, true, null);
+    renderScene(gameState.currentSceneId, true, null); 
 }
 
 function goToStartScreen() {
-    if(confirm("Are you sure you want to change characters? Current progress will be lost.")) {
+    if(confirm("Change character? Progress will be lost.")) {
         document.getElementById('start-screen').style.display = 'flex';
     }
 }
 
 function startGame(characterName) {
     document.getElementById('start-screen').style.display = 'none';
-
     const stats = window.STARTING_STATS[characterName];
     gameState.character = characterName;
     gameState.faith = stats.faith;
@@ -40,13 +39,37 @@ function startGame(characterName) {
     gameState.covenantPathProgress = [];
     gameState.lastAction = null;
     historyStack = [];
-    
     renderScene(stats.initialScene);
+}
+
+// NEW: CHECK FOR FAILURE CONDITIONS
+function checkGameOver() {
+    if (gameState.faith <= 0) {
+        renderScene("game_over_faith");
+        return true;
+    }
+    if (gameState.unity <= 0) {
+        renderScene("game_over_unity");
+        return true;
+    }
+    return false;
 }
 
 function renderScene(sceneId, isUndo = false, actionFeedback = null) {
     if (sceneId === "start_screen_transition") {
         window.location.reload(); 
+        return;
+    }
+
+    // Handle Game Over Scenes dynamically if they aren't in the character file
+    if (sceneId === "game_over_faith") {
+        document.getElementById("story-text").innerHTML = "<h2 style='color:darkred'>Spiritual Darkness</h2>You have lost the Spirit. Without faith, the Liahona ceases to work. You wander the wilderness for years, lost and bitter, until you can go no further.<br><br><b>GAME OVER</b>";
+        document.getElementById("choices").innerHTML = "<button class='choice-btn' onclick='location.reload()'>Try Again</button>";
+        return;
+    }
+    if (sceneId === "game_over_unity") {
+        document.getElementById("story-text").innerHTML = "<h2 style='color:darkred'>Family Fracture</h2>The contention becomes violent. The family separates in the wilderness, never to see the Promised Land. The journey has failed.<br><br><b>GAME OVER</b>";
+        document.getElementById("choices").innerHTML = "<button class='choice-btn' onclick='location.reload()'>Try Again</button>";
         return;
     }
 
@@ -143,14 +166,13 @@ function formatStatChanges(dF, dU, dW, dK) {
     if (dF !== 0) parts.push(`Faith ${dF > 0 ? '+' : ''}${dF}`);
     if (dU !== 0) parts.push(`Unity ${dU > 0 ? '+' : ''}${dU}`);
     if (dW !== 0) parts.push(`Worldly ${dW > 0 ? '+' : ''}${dW}`);
-    if (dK !== 0) parts.push(`Knowledge ${dK > 0 ? '+' : ''}${dK.toFixed(1)}`);
+    if (dK !== 0) parts.push(`Know. ${dK > 0 ? '+' : ''}${dK.toFixed(1)}`);
     return parts.length > 0 ? `<span class='stat-change-text'>(${parts.join(", ")})</span>` : "";
 }
 
 function makeChoice(choice) {
     saveState(); 
 
-    // 1. APPLY CHOICE EFFECTS
     let dFaith = choice.effect.faith || 0;
     let dUnity = choice.effect.unity || 0;
     let dWorld = choice.effect.worldly || 0;
@@ -164,7 +186,7 @@ function makeChoice(choice) {
     }
     
     if (gameState.knowledge >= 3 && dFaith > 0) {
-        dFaith += 2; 
+        dFaith += 1; // NERFED: Bonus is now +1 instead of +2
     }
 
     gameState.faith += dFaith;
@@ -178,12 +200,11 @@ function makeChoice(choice) {
         }
     }
     
-    // NEW: Handle Special Flags (Brass Plates)
     if (choice.setFlag) {
         gameState[choice.setFlag] = true;
     }
 
-    // 2. CHECK NEXT SCENE FOR AUTOMATIC EVENTS (onEnter)
+    // CHECK FOR NEXT SCENE EVENT IMPACT (onEnter)
     let nextSceneObj = window.scenes[choice.nextScene];
     let eventText = "";
     
@@ -200,6 +221,9 @@ function makeChoice(choice) {
     }
     
     clampStats(); 
+    
+    // CHECK GAME OVER
+    if (checkGameOver()) return; // Stop if game over
 
     let statSummary = formatStatChanges(dFaith, dUnity, dWorld, dKnowledge);
     let actionFeedback = `You chose: "${choice.text}"<br>${statSummary}${penaltyText}${eventText}`;
@@ -223,18 +247,18 @@ function globalAction(actionType) {
 
     switch(actionType) {
         case 'pray':
-            dFaith = 2; dWorld = -5; dUnity = -1; 
-            actionText = "You withdrew to pray. Peace fills your soul, though your family missed your help. (See Alma 37:37)";
+            dFaith = 2; dWorld = -3; dUnity = -1; 
+            actionText = "You withdrew to pray. Peace fills your soul, but the family works without you.";
             break;
 
         case 'study':
             dFaith = 1; dWorld = -1; dUnity = -1;
             if (isConsecutive) {
-                dKnowledge = 0.5;
+                dKnowledge = 0.2; // NERFED: Harder to spam
                 actionText = "You studied again (diminishing returns).";
             } else {
-                dKnowledge = 1.0;
-                actionText = "You poured over the plates. Your understanding deepens. (See 1 Nephi 19:23)";
+                dKnowledge = 0.8; 
+                actionText = "You poured over the plates. Your understanding deepens.";
             }
             
             if (dKnowledge > 0 && !gameState.covenantPathProgress.includes("Knowledge")) {
@@ -244,7 +268,7 @@ function globalAction(actionType) {
             
         case 'service':
             dFaith = -1; dWorld = 2; dUnity = 2;
-            actionText = "You served your family. Unity grows, though your spiritual focus was briefly set aside. (See Mosiah 2:17)";
+            actionText = "You served your family. Unity grows, but your spiritual focus wanes.";
             break;
     }
     
@@ -254,6 +278,7 @@ function globalAction(actionType) {
     gameState.knowledge += dKnowledge;
     
     clampStats(); 
+    if (checkGameOver()) return;
 
     let statSummary = formatStatChanges(dFaith, dUnity, dWorld, dKnowledge);
     let actionFeedback = `${actionText}<br>${statSummary}`;
@@ -261,4 +286,7 @@ function globalAction(actionType) {
     gameState.lastAction = actionType;
     
     renderScene(gameState.currentSceneId, false, actionFeedback);
+    
+    document.getElementById("undo-btn").disabled = false;
+    document.getElementById("undo-btn").style.opacity = "1";
 }
