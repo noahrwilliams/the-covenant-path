@@ -23,7 +23,6 @@ function showStorySelection() {
         btn.className = "story-btn";
         btn.innerHTML = `${story.title}<small>${story.ref}</small>`;
         
-        // Disable stories with no characters yet
         if (!story.characters || story.characters.length === 0) {
             btn.disabled = true;
             btn.innerHTML += " <small>(Coming Soon)</small>";
@@ -65,10 +64,8 @@ function showStoryDetails(story) {
 // 3. Show Character Details (Bio) & Start Button
 function showCharacterDetails(charKey, storyId) {
     const stats = window.STARTING_STATS[charKey];
-    // Find story to get back navigation
-    const story = window.STORIES.find(s => s.id === storyId); 
-
     const container = document.getElementById('menu-container');
+    
     container.innerHTML = `
         <div class="detail-view">
             <button class="back-btn" onclick="showStoryDetails(window.STORIES.find(s => s.id === '${storyId}'))">← Back to Story</button>
@@ -76,7 +73,7 @@ function showCharacterDetails(charKey, storyId) {
             <div class="detail-desc">${stats.bio || "No bio available."}</div>
             
             <button class="story-btn" style="background-color: #27ae60;" onclick="startGame('${charKey}')">
-                Begin Journey
+                Begin Journey as ${charKey}
             </button>
         </div>
     `;
@@ -97,12 +94,14 @@ function undoLastAction() {
 
 function goToStartScreen() {
     if(confirm("Change character? Progress will be lost.")) {
-        showStorySelection(); // Go back to root menu
+        showStorySelection(); 
     }
 }
 
 function startGame(characterName) {
     document.getElementById('start-screen').style.display = 'none';
+    
+    // --- Rest of startGame logic remains the same ---
     const stats = window.STARTING_STATS[characterName];
     gameState.character = characterName;
     gameState.faith = stats.faith;
@@ -130,7 +129,7 @@ function checkGameOver() {
 
 function renderScene(sceneId, isUndo = false, actionFeedback = null) {
     if (sceneId === "start_screen_transition") {
-        showStorySelection(); // Return to menu
+        showStorySelection(); 
         return;
     }
 
@@ -381,6 +380,5 @@ function globalAction(actionType) {
 }
 
 // INITIALIZE MENU ON LOAD
-window.onload = function() {
-    showStorySelection();
-}
+// This function runs when the engine loads, forcing the menu to appear immediately.
+showStorySelection();

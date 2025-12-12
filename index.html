@@ -185,7 +185,7 @@
             color: #999; border: 1px solid #ddd; border-radius: 4px;
             font-size: 0.8em; cursor: pointer;
         }
-        .undo-btn:hover:not(:disabled) { color: #333; border-color: #999; }
+        .undo-btn:hover:not(:disabled) { color: #999; border-color: #666; }
 
         .covenant-tracker {
             margin-top: auto; padding-top: 15px; font-size: 0.8em; color: #888; text-align: center;
@@ -194,7 +194,7 @@
         /* MENU / START SCREEN STYLES */
         #start-screen {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: #fff; z-index: 200; display: flex;
+            background: #fff; z-index: 200; display: none; /* Initially hide static content */
             flex-direction: column; align-items: center; justify-content: center;
             padding: 20px; box-sizing: border-box; overflow-y: auto;
         }
@@ -259,7 +259,7 @@
         </div>
     </div>
 
-    <!-- DYNAMIC START SCREEN -->
+    <!-- The start-screen content is now fully controlled by the engine.js showStorySelection function -->
     <div id="start-screen">
         <h1 class="menu-title">The Covenant Path</h1>
         <div id="menu-container" class="menu-container">
