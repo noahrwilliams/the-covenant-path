@@ -1,100 +1,148 @@
-// SARIAH STARTING STATS
+// SARIAH STARTING STATS (Matriarch: Higher Unity, Vulnerable Faith)
 window.STARTING_STATS["Sariah"] = { 
-    faith: 8, unity: 12, worldly_influence: 2, knowledge: 0, 
+    faith: 6, unity: 7, worldly_influence: 4, knowledge: 0, 
     hasBrassPlates: false, initialScene: "intro_sariah" 
 };
 
-// SARIAH SCENES
+// SARIAH SCENES - COMPLETE ARC
 Object.assign(window.scenes, {
+    
+    // --- PART 1: THE DEPARTURE ---
     "intro_sariah": {
-        text: "JERUSALEM, 600 BC. As Lehi shouts to the crowd, you manage the household. Your older sons are furious; Lehi's words mean losing everything. You must keep the peace.",
+        text: "JERUSALEM, 600 BC. The city is dangerous, but it is your home. Lehi has returned from a vision declaring you must leave everything—your gold, your house, your friends—and flee into the wilderness.<br><br><i>(Read 1 Nephi 2:2-4)</i>",
         backgroundAsset: "house_interior",
-        castAssets: ["Laman", "Lemuel", "Lehi"],
+        castAssets: ["Lehi", "Laman", "Lemuel"],
+        onEnter: { faith: 0, unity: 0, worldly: 1 },
         choices: [
-            {
-                text: "Go immediately to Lehi to express deep concern over the loss of wealth.",
-                nextScene: "complain_sariah",
-                effect: { faith: -1, unity: -1, worldly: 3 },
-                feedback: "Lehi is saddened by your lack of faith, but understands your worry for your family. (See 1 Nephi 5:2)"
-            },
-            {
-                text: "Settle Laman and Lemuel by promising a swift return to retrieve property.",
-                nextScene: "calm_sons_sariah",
-                effect: { faith: -2, unity: 4, worldly: 3 },
-                feedback: "You calm your sons with a promise you hope to keep. Unity is strong, but your faith is shaken."
-            },
-            {
-                text: "Kneel to pray for strength to support Lehi's words.",
-                nextScene: "faith_sariah",
-                effect: { faith: 2, unity: -1, worldly: -3 },
-                covenantUnlock: "Prayer to Seek Guidance",
-                feedback: "You receive a measure of spiritual resolve to trust your husband. (See 1 Nephi 5:8)"
-            }
+            { text: "Support Lehi, though you are afraid.", nextScene: "packing_crisis", effect: { faith: 1, unity: 1, worldly: -1 }, feedback: "You trust your husband, though the cost is high." },
+            { text: "Mourn the loss of your home.", nextScene: "packing_crisis", effect: { faith: -1, unity: 0, worldly: 2 }, feedback: "Your heart clings to your inheritance." },
+            { text: "Focus on calming Laman and Lemuel.", nextScene: "packing_crisis", effect: { faith: 0, unity: 2, worldly: 0 }, feedback: "You act as the peacemaker." }
         ]
     },
-    "complain_sariah": {
-        text: "You demand to know how Lehi will support your children. Lehi explains the vision again, firmly. He needs you to lead the packing.",
+    "packing_crisis": {
+        text: "You are packing. Laman is furious about leaving his inheritance. Lehi is focused on the Lord's command. The tension in the house is breaking your heart.<br><br><i>(Read 1 Nephi 2:11)</i>",
         backgroundAsset: "house_interior",
+        castAssets: ["Laman", "Lemuel"],
+        onEnter: { faith: 0, unity: -1, worldly: 1 },
+        choices: [
+            { text: "Rebuke Laman for his rebellion (Cost: -1 Unity).", nextScene: "leaving_jerusalem_sariah", effect: { faith: 1, unity: -1, worldly: -1 }, feedback: "You speak sharply. He obeys, but resents it." },
+            { text: "Comfort Laman with promises of safety.", nextScene: "leaving_jerusalem_sariah", effect: { faith: -1, unity: 2, worldly: 1 }, feedback: "You prioritize his feelings over the hard truth." }
+        ]
+    },
+    "leaving_jerusalem_sariah": {
+        text: "The city gates close behind you. You are in the wilderness. The sand is hot, and you have left your life behind. You pitch your tent in the valley of Lemuel.<br><br><i>(Read 1 Nephi 2:6-7)</i>",
+        backgroundAsset: "wilderness",
+        castAssets: ["Lehi", "Sam"],
+        onEnter: { faith: 0, unity: 1, worldly: -2 },
+        choices: [
+            { text: "Build an altar and give thanks.", nextScene: "sons_depart", effect: { faith: 2, unity: 1, worldly: -2 }, covenantUnlock: "Prayer to Seek Guidance", feedback: "You join Lehi in worship. (See 1 Nephi 2:7)" },
+            { text: "Worry about the food supply.", nextScene: "sons_depart", effect: { faith: -1, unity: 0, worldly: 1 }, feedback: "The practical needs weigh heavily on you." }
+        ]
+    },
+
+    // --- PART 2: THE LONG WAIT (1 Nephi 5) ---
+    "sons_depart": {
+        text: "Lehi has sent all four of your sons back to Jerusalem to get the Brass Plates. They have been gone for weeks. You fear they have perished in the hands of Laban.<br><br><i>(Read 1 Nephi 5:1-2)</i>",
+        backgroundAsset: "wilderness",
+        castAssets: ["Lehi"],
+        // EROSION: The wait is agonizing.
+        onEnter: { faith: -2, unity: 0, worldly: 0 },
+        choices: [
+            { text: "Confront Lehi in grief (Spend Unity).", nextScene: "lehis_comfort", effect: { faith: -2, unity: -3, worldly: 1 }, feedback: "You cry out: 'Thou art a visionary man! My sons are no more!' (See 1 Nephi 5:2)" },
+            { text: "Retreat to the tent to weep alone.", nextScene: "lehis_comfort", effect: { faith: -1, unity: -1, worldly: 0 }, feedback: "You hide your pain, but your faith is crumbling." }
+        ]
+    },
+    "lehis_comfort": {
+        text: "Lehi responds to your grief with his testimony. 'I know that I am a visionary man... but I know that the Lord will deliver my sons.'<br><br><i>(Read 1 Nephi 5:4-5)</i>",
+        backgroundAsset: "wilderness",
         castAssets: ["Lehi"],
         choices: [
-            {
-                text: "Obey immediately, hiding your fears for the sake of your husband.",
-                nextScene: "leaving_jerusalem",
-                effect: { faith: 1, unity: 1, worldly: -2 },
-                feedback: "Your obedience helps Lehi, and your faith increases slightly."
-            },
-            {
-                text: "Continue to mourn the loss of wealth and pack slowly.",
-                nextScene: "leaving_jerusalem",
-                effect: { faith: -1, unity: -1, worldly: 3 },
-                feedback: "The air is tense. Your actions reinforce Laman's fears."
-            }
+            { text: "Accept his testimony and pray (Build Faith).", nextScene: "sons_return_sariah", effect: { faith: 3, unity: 2, worldly: -1 }, feedback: "His words spark a hope in your heart. You wait on the Lord." },
+            { text: "Remain skeptical and bitter.", nextScene: "sons_return_sariah", effect: { faith: -2, unity: -1, worldly: 1 }, feedback: "You refuse to be comforted until you see them." }
         ]
     },
-    "calm_sons_sariah": {
-        text: "Lehi returns. He needs you to manage the younger children and quickly prepare for the journey.",
-        backgroundAsset: "house_interior",
-        castAssets: ["Lehi", "Sam"],
+    "sons_return_sariah": {
+        text: "You see figures on the horizon. It is them! Your sons have returned safe with the records. Your joy is overwhelming.<br><br><i>(Read 1 Nephi 5:7-8)</i>",
+        backgroundAsset: "wilderness",
+        castAssets: ["Nephi", "Lehi", "Laman"],
+        // RECOVERY: The miracle heals the family.
+        onEnter: { faith: 2, unity: 2, worldly: -1 },
         choices: [
-            {
-                text: "Quickly pack all essential comforts, prioritizing ease of travel.",
-                nextScene: "leaving_jerusalem",
-                effect: { faith: 0, unity: 2, worldly: 2 },
-                feedback: "The quick packing keeps the peace, but you're too focused on worldly comfort."
-            },
-            {
-                text: "Ask Lehi for a special blessing for strength before packing anything.",
-                nextScene: "leaving_jerusalem",
-                effect: { faith: 2, unity: 0, worldly: -1 },
-                feedback: "Lehi gives a blessing. You feel a strength beyond your own."
-            }
+            { text: "Declare your witness: 'Now I know of a surety.'", nextScene: "broken_bow_sariah", effect: { faith: 4, unity: 2, worldly: -3 }, covenantUnlock: "Spiritual Confirmation", feedback: "You testify that the Lord commanded your husband. (See 1 Nephi 5:8)" },
+            { text: "Prepare a feast and celebrate.", nextScene: "broken_bow_sariah", effect: { faith: 1, unity: 3, worldly: 1 }, feedback: "You focus on feeding your exhausted sons." }
         ]
     },
-    "faith_sariah": {
-        text: "After praying, you feel a surge of resolve. You know Lehi's words are true. You must now face your sons and husband.",
-        backgroundAsset: "house_interior",
-        castAssets: ["Laman", "Lehi"],
+
+    // --- PART 3: STARVATION (Broken Bow) ---
+    "broken_bow_sariah": {
+        text: "CRISIS: In the wilderness of Shazer, the bows have broken. The men return empty-handed. The children cry for food. Even Lehi begins to murmur against the Lord.<br><br><i>(Read 1 Nephi 16:19-20)</i>",
+        backgroundAsset: "wilderness",
+        castAssets: ["Lehi", "Nephi"],
+        onEnter: { faith: -3, unity: -3, worldly: 2 }, // High Erosion
         choices: [
-            {
-                text: "Go to Lehi and offer your full, spoken support to his vision.",
-                nextScene: "leaving_jerusalem",
-                effect: { faith: 3, unity: 1, worldly: -3 },
-                covenantUnlock: "Faith", 
-                feedback: "Your words lift Lehi's spirits. You declare that the Lord has commanded him. (See 1 Nephi 5:8)"
-            }
+            { text: "Gather the children and sing hymns (Cost: -2 Faith).", nextScene: "nephi_bow_sariah", effect: { faith: -2, unity: 3, worldly: -2 }, feedback: "You distract the children and invite the Spirit, though you are weak with hunger." },
+            { text: "Weep with the other women.", nextScene: "game_over_unity", effect: { faith: -2, unity: -5 }, feedback: "Your despair breaks the family's resolve." }
         ]
     },
-    "leaving_jerusalem": {
-        text: "The family is gathered at the city gates. The sun is setting. Before you lies the vast, empty desert. This is the point of no return.<br><br><b>End of Prototype Module.</b>",
-        backgroundAsset: "desert_gates",
-        castAssets: ["Lehi", "Sariah", "Sam", "Laman", "Lemuel"],
+    "nephi_bow_sariah": {
+        text: "Nephi has made a wooden bow. He asks Lehi where to hunt. Lehi is humbled and looks into the Liahona.<br><br><i>(Read 1 Nephi 16:23-25)</i>",
+        backgroundAsset: "wilderness",
+        castAssets: ["Nephi", "Lehi"],
         choices: [
-            {
-                text: "Restart Game",
-                nextScene: "start_screen_transition", 
-                effect: { faith: 0, unity: 0, worldly: 0, knowledge: 0 },
-                feedback: "Resetting..."
-            }
+            { text: "Encourage Lehi to look.", nextScene: "ishmael_tragedy", effect: { faith: 2, unity: 2 }, covenantUnlock: "Repentance", feedback: "Lehi repents. He finds the direction." },
+            { text: "Wait in silence.", nextScene: "ishmael_tragedy", effect: { faith: 0, unity: 0 }, feedback: "You wait. Nephi returns with meat. (See 1 Nephi 16:30)" }
+        ]
+    },
+
+    // --- PART 4: NAHOM & BOUNTIFUL ---
+    "ishmael_tragedy": {
+        text: "Ishmael dies at Nahom. His daughters mourn and murmur against Lehi, wanting to return to Jerusalem. Laman plots to kill Lehi and Nephi.<br><br><i>(Read 1 Nephi 16:34-37)</i>",
+        backgroundAsset: "wilderness",
+        castAssets: ["Laman", "Lemuel"],
+        onEnter: { faith: -2, unity: -4, worldly: 1 },
+        choices: [
+            { text: "Stand between Laman and Lehi (Cost: -3 Unity).", nextScene: "bountiful_sariah", effect: { faith: 2, unity: -3, worldly: -2 }, feedback: "You risk your relationship with your firstborn to save the prophet." },
+            { text: "Plead with the Lord to soften their hearts.", nextScene: "bountiful_sariah", effect: { faith: 3, unity: 1, worldly: -1 }, feedback: "The Lord chastens them. They turn away from murder. (See 1 Nephi 16:39)" }
+        ]
+    },
+    "bountiful_sariah": {
+        text: "You arrive at Bountiful. It is beautiful, but Nephi is commanded to build a ship. He is often gone. Laman and Lemuel mock him.<br><br><i>(Read 1 Nephi 17:17-18)</i>",
+        backgroundAsset: "promised_land",
+        castAssets: ["Laman", "Lemuel"],
+        onEnter: { faith: 1, unity: 0, worldly: 0 },
+        choices: [
+            { text: "Defend Nephi's work.", nextScene: "ship_built", effect: { faith: 1, unity: -2 }, feedback: "You support the ship, though you do not understand how to build it." },
+            { text: "Focus on preparing food for the voyage.", nextScene: "ship_built", effect: { faith: 0, unity: 2, worldly: 1 }, feedback: "You ensure the family has provision." }
+        ]
+    },
+    "ship_built": {
+        text: "The ship is finished. It is time to board. You must leave the land of Bountiful for the great deep.<br><br><i>(Read 1 Nephi 18:5-6)</i>",
+        backgroundAsset: "ship_deck",
+        castAssets: ["Lehi", "Nephi"],
+        choices: [
+            { text: "Board with faith.", nextScene: "voyage_grief", effect: { faith: 2, worldly: -2 }, covenantUnlock: "Faith", feedback: "You step onto the ship." }
+        ]
+    },
+
+    // --- PART 5: THE VOYAGE ---
+    "voyage_grief": {
+        text: "ON THE OCEAN. Laman and Lemuel have rebelled. They have tied up Nephi. The storm is raging. You and Lehi are sick with grief and near death.<br><br><i>(Read 1 Nephi 18:17-19)</i>",
+        backgroundAsset: "ship_deck",
+        castAssets: ["Laman", "Lemuel"],
+        // EROSION: Deadly Crisis.
+        onEnter: { faith: -3, unity: -5, worldly: 2 },
+        choices: [
+            { text: "Use your last strength to plead with Laman.", nextScene: "promised_land_sariah", effect: { faith: 2, unity: 3, worldly: -2 }, feedback: "They threaten you, but seeing your grey hairs and sickness eventually softens them. (See 1 Nephi 18:19)" },
+            { text: "Pray for Nephi's deliverance.", nextScene: "promised_land_sariah", effect: { faith: 4, unity: 0, worldly: -3 }, covenantUnlock: "Gift of the Holy Ghost", feedback: "You pray until you pass out. When you wake, the storm has ceased." },
+            { text: "Succumb to grief and give up.", nextScene: "game_over_faith", effect: { faith: -10 }, feedback: "You are about to be cast into a watery grave." }
+        ]
+    },
+    "promised_land_sariah": {
+        text: "You arrive at the Promised Land. You pitch your tents. Your family is safe.<br><br><i>(Read 1 Nephi 18:23)</i>",
+        backgroundAsset: "promised_land",
+        castAssets: ["Lehi", "Nephi"],
+        choices: [
+            { text: "Finish Module", nextScene: "start_screen_transition", effect: { faith: 0 }, feedback: "Module Complete." }
         ]
     }
 });
