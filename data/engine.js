@@ -120,9 +120,10 @@ function renderScene(sceneId, isUndo = false, actionFeedback = null) {
     undoBtn.style.opacity = (historyStack.length === 0) ? "0.5" : "1";
 }
 
-// MODIFIED: Added color logic for stats
+// MODIFIED: Implemented 3-stage color system (Red, Orange, Default)
 function updateStatsDisplay() {
-    const DANGER_THRESHOLD = 8;
+    const CRITICAL_THRESHOLD = 4;
+    const WARNING_THRESHOLD = 6;
     const STATS = ["faith", "unity"];
 
     STATS.forEach(stat => {
@@ -130,9 +131,12 @@ function updateStatsDisplay() {
         const element = document.getElementById(`score-${stat}`);
         element.innerText = value;
         
-        if (value <= DANGER_THRESHOLD) {
+        if (value <= CRITICAL_THRESHOLD) {
             element.style.color = "red";
-        } else {
+        } else if (value <= WARNING_THRESHOLD) {
+            element.style.color = "#e67e22"; /* Orange */
+        } 
+        else {
             element.style.color = "inherit";
         }
     });
@@ -201,9 +205,9 @@ function makeChoice(choice) {
     }
 
     gameState.faith += dFaith;
-    gameState.unity += dU;
-    gameState.worldly_influence += dW;
-    gameState.knowledge += dK;
+    gameState.unity += dUnity;
+    gameState.worldly_influence += dWorld;
+    gameState.knowledge += dKnowledge;
 
     if (choice.covenantUnlock) {
         if (!gameState.covenantPathProgress.includes(choice.covenantUnlock)) {
@@ -235,7 +239,7 @@ function makeChoice(choice) {
     
     if (checkGameOver()) return;
 
-    let statSummary = formatStatChanges(dF, dU, dW, dK);
+    let statSummary = formatStatChanges(dFaith, dUnity, dWorld, dKnowledge);
     let actionFeedback = `You chose: "${choice.text}"<br>${statSummary}${penaltyText}${eventText}`;
     
     gameState.lastAction = 'scene_choice'; 
