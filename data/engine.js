@@ -12,6 +12,13 @@ let historyStack = [];
 
 // === MENU SYSTEM LOGIC ===
 function showStorySelection() {
+    // Safety Check: Ensure Data is Loaded
+    if (!window.STORIES) {
+        console.error("STORIES data missing. Retrying...");
+        setTimeout(showStorySelection, 200); // Retry in 200ms
+        return;
+    }
+
     document.getElementById('start-screen').style.display = 'flex';
     document.getElementById('gameplay-area').style.display = 'none'; // Hide gameplay
     const container = document.getElementById('menu-container');
@@ -21,7 +28,6 @@ function showStorySelection() {
         const btn = document.createElement("button");
         btn.className = "story-btn";
         
-        // NEW BUTTON LAYOUT
         btn.innerHTML = `
             <div class="story-title">${story.title}</div>
             <div class="story-desc">${story.narrative || story.description || "Description unavailable."}</div>
@@ -48,16 +54,20 @@ function showStoryDetails(story) {
             <div class="detail-desc">${story.narrative || story.description}</div>
             <h4>Select Protagonist</h4>
     `;
-    story.characters.forEach(charKey => {
-        const stats = window.STARTING_STATS[charKey];
-        if (stats) {
-            html += `
-                <button class="story-btn" onclick="startGame('${charKey}')">
-                    <span class="story-title">${charKey.replace(/_/g, " ").replace("S2", "")}</span>
-                    <span class="story-desc" style="font-size:0.8em">${stats.bio || "No bio available."}</span>
-                </button>`;
-        }
-    });
+    
+    if (window.STARTING_STATS) {
+        story.characters.forEach(charKey => {
+            const stats = window.STARTING_STATS[charKey];
+            if (stats) {
+                html += `
+                    <button class="story-btn" onclick="startGame('${charKey}')">
+                        <span class="story-title">${charKey.replace(/_/g, " ").replace("S2", "")}</span>
+                        <span class="story-desc" style="font-size:0.8em">${stats.bio || "No bio available."}</span>
+                    </button>`;
+            }
+        });
+    }
+    
     html += `</div>`;
     container.innerHTML = html;
 }
@@ -85,6 +95,11 @@ function startGame(characterName) {
     document.getElementById('start-screen').style.display = 'none';
     document.getElementById('gameplay-area').style.display = 'flex'; // Show gameplay
     
+    if (!window.STARTING_STATS || !window.STARTING_STATS[characterName]) {
+        alert("Error: Character data not found. Please check data files.");
+        return;
+    }
+
     const stats = window.STARTING_STATS[characterName];
     gameState.character = characterName;
     gameState.faith = stats.faith;
@@ -119,16 +134,29 @@ function renderScene(sceneId, isUndo = false, previousActionHTML = null, eventIm
     }
 
     const scene = window.scenes[sceneId];
-    if (!scene) { console.error("Scene not found:", sceneId); return; }
+    if (!scene) { 
+        console.error("Scene not found:", sceneId); 
+        alert("Error: Scene '" + sceneId + "' not found. Check data files.");
+        return; 
+    }
     
     gameState.currentSceneId = sceneId;
 
-    document.getElementById("background-image").src = window.ASSETS.backgrounds[scene.backgroundAsset] || window.ASSETS.backgrounds["jerusalem_street"];
-    document.getElementById("protagonist-portrait").src = window.ASSETS.characters[gameState.character];
+    // Safety checks for assets
+    const bgUrl = (window.ASSETS.backgrounds && window.ASSETS.backgrounds[scene.backgroundAsset]) 
+        ? window.ASSETS.backgrounds[scene.backgroundAsset] 
+        : "https://placehold.co/750x300/d4c5a9/333?text=Missing+Background";
+        
+    const charUrl = (window.ASSETS.characters && window.ASSETS.characters[gameState.character])
+        ? window.ASSETS.characters[gameState.character]
+        : "https://placehold.co/140x180/5d737e/FFF?text=Missing+Char";
+
+    document.getElementById("background-image").src = bgUrl;
+    document.getElementById("protagonist-portrait").src = charUrl;
     
     const castContainer = document.getElementById("cast-portraits-container");
     castContainer.innerHTML = ""; 
-    if (scene.castAssets) {
+    if (scene.castAssets && window.ASSETS.characters) {
         scene.castAssets.forEach(charName => {
             if(window.ASSETS.characters[charName] && charName !== gameState.character) {
                 const img = document.createElement("img");
@@ -152,6 +180,11 @@ function renderScene(sceneId, isUndo = false, previousActionHTML = null, eventIm
     updateStatsDisplay();
     updateCovenantDisplay();
     updateGlobalActionButtonStates();
+
+    // CLEAR OLD FEEDBACK if not undoing
+    if (!isUndo) {
+        document.getElementById("feedback").style.display = "none";
+    }
 
     const choicesDiv = document.getElementById("choices");
     choicesDiv.innerHTML = ""; 
@@ -179,46 +212,59 @@ function updateStatsDisplay() {
     STATS.forEach(stat => {
         const value = gameState[stat];
         const element = document.getElementById(`score-${stat}`);
-        element.innerText = value;
-        if (value <= CRITICAL_THRESHOLD) element.style.color = "red";
-        else if (value <= WARNING_THRESHOLD) element.style.color = "#e67e22"; 
-        else element.style.color = "inherit";
+        if(element) {
+            element.innerText = value;
+            if (value <= CRITICAL_THRESHOLD) element.style.color = "red";
+            else if (value <= WARNING_THRESHOLD) element.style.color = "#e67e22"; 
+            else element.style.color = "inherit";
+        }
     });
 
-    document.getElementById("score-world").innerText = gameState.worldly_influence;
     const worldElem = document.getElementById("score-world");
-    if(gameState.worldly_influence > 15) {
-        worldElem.style.color = "red";
-        worldElem.style.fontWeight = "900";
-    } else {
-        worldElem.style.color = "inherit";
-        worldElem.style.fontWeight = "bold";
+    if(worldElem) {
+        worldElem.innerText = gameState.worldly_influence;
+        if(gameState.worldly_influence > 15) {
+            worldElem.style.color = "red";
+            worldElem.style.fontWeight = "900";
+        } else {
+            worldElem.style.color = "inherit";
+            worldElem.style.fontWeight = "bold";
+        }
     }
+    
+    const knowElem = document.getElementById("score-knowledge");
+    if(knowElem) knowElem.innerText = gameState.knowledge.toFixed(1);
 }
 
 function updateGlobalActionButtonStates() {
     const studyBtn = document.getElementById('btn-study');
-    if (!gameState.hasBrassPlates) {
-        studyBtn.disabled = true;
-        studyBtn.title = "Action unavailable: You must retrieve the Brass Plates before you can study them.";
-    } else {
-        studyBtn.disabled = false;
-        studyBtn.title = "";
+    if(studyBtn) {
+        if (!gameState.hasBrassPlates) {
+            studyBtn.disabled = true;
+            studyBtn.title = "Action unavailable: You must retrieve the Brass Plates before you can study them.";
+        } else {
+            studyBtn.disabled = false;
+            studyBtn.title = "";
+        }
     }
 }
 
 function updateCovenantDisplay() {
+    if (!window.COVENANT_STEPS) return;
     const nextStep = window.COVENANT_STEPS.find(step => !gameState.covenantPathProgress.includes(step));
     const display = document.getElementById("covenant-step-display");
-    display.innerText = nextStep || "Path Complete";
-    display.style.color = nextStep ? "#6d5e41" : "#27ae60";
+    if(display) {
+        display.innerText = nextStep || "Path Complete";
+        display.style.color = nextStep ? "#6d5e41" : "#27ae60";
+    }
 }
 
 function clampStats() {
-    gameState.faith = Math.min(Math.max(gameState.faith, 0), window.MAX_STAT);
-    gameState.unity = Math.min(Math.max(gameState.unity, 0), window.MAX_STAT);
-    gameState.worldly_influence = Math.min(Math.max(gameState.worldly_influence, 0), window.MAX_STAT);
-    gameState.knowledge = Math.min(Math.max(gameState.knowledge, 0), window.MAX_STAT);
+    const max = window.MAX_STAT || 20;
+    gameState.faith = Math.min(Math.max(gameState.faith, 0), max);
+    gameState.unity = Math.min(Math.max(gameState.unity, 0), max);
+    gameState.worldly_influence = Math.min(Math.max(gameState.worldly_influence, 0), max);
+    gameState.knowledge = Math.min(Math.max(gameState.knowledge, 0), max);
 }
 
 function formatStatHTML(name, val, isBadIfHigh = false) {
@@ -252,7 +298,10 @@ function makeChoice(choice) {
         penaltyText = " <span style='color:red; font-size:0.8em;'>(High Worldly Penalty)</span>";
     }
     
-    if (gameState.knowledge >= 3 && dFaith > 0) dFaith += 1; 
+    if (gameState.knowledge >= 3 && dFaith > 0) {
+        const knowledgeBonus = 2; // Fixed bonus from knowledge
+        dFaith += 1; 
+    }
 
     gameState.faith += dFaith;
     gameState.unity += dUnity;
@@ -350,6 +399,21 @@ function globalAction(actionType) {
     document.getElementById("undo-btn").style.opacity = "1";
 }
 
-window.onload = function() {
-    showStorySelection();
-}
+// === INITIALIZATION ===
+// Use DOMContentLoaded to ensure HTML elements exist, 
+// then try to init. If data files (window.STORIES) are missing, wait/retry.
+document.addEventListener('DOMContentLoaded', () => {
+    if (window.STORIES) {
+        showStorySelection();
+    } else {
+        // Simple retry mechanism if data.js loads slightly slower than engine.js
+        setTimeout(() => {
+            if(window.STORIES) {
+                showStorySelection();
+            } else {
+                // If this alert shows, it confirms the data files are NOT loading.
+                alert("Error: Game data files missing or not loaded. Check your folder structure.");
+            }
+        }, 300);
+    }
+});
