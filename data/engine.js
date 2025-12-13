@@ -21,7 +21,7 @@ function showStorySelection() {
         const btn = document.createElement("button");
         btn.className = "story-btn";
         
-        // NEW BUTTON LAYOUT
+        // NEW BUTTON LAYOUT (Matches v2.6 Request)
         btn.innerHTML = `
             <div class="story-title">${story.title}</div>
             <div class="story-desc">${story.narrative || story.description || "Description unavailable."}</div>
@@ -350,6 +350,8 @@ function globalAction(actionType) {
     document.getElementById("undo-btn").style.opacity = "1";
 }
 
+// === INITIALIZATION ===
+// Use simple window.onload as requested, matching v2.3 functionality
 window.onload = function() {
     showStorySelection();
 }
