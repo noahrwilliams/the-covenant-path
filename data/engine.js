@@ -12,25 +12,42 @@ let historyStack = [];
 
 // === MENU SYSTEM LOGIC ===
 function showStorySelection() {
-    document.getElementById('start-screen').style.display = 'flex';
-    document.getElementById('gameplay-area').style.display = 'none'; // Hide gameplay
-    const container = document.getElementById('menu-container');
-    container.innerHTML = "<h3>Select Story</h3>";
+    // Hide gameplay panel if it was visible
+    const gameplayPanel = document.getElementById('gameplay-panel');
+    const visualsArea = document.getElementById('visuals-area');
+    if(gameplayPanel) gameplayPanel.style.display = 'none';
+    if(visualsArea) visualsArea.style.display = 'none';
 
+    const startScreen = document.getElementById('start-screen');
+    startScreen.style.display = 'flex';
+    
+    const container = document.getElementById('menu-container');
+    container.innerHTML = "<h3 style='color:#6d5e41; margin-bottom:20px;'>Choose a Story Module</h3>";
+
+    // Loop through ALL stories in window.STORIES
     window.STORIES.forEach(story => {
         const btn = document.createElement("button");
         btn.className = "story-btn";
         
-        // NEW BUTTON LAYOUT
+        // Map data from data_shared.js
+        const title = story.title || "Untitled Story";
+        const narrative = story.narrative || "The record of this time period is preserved for your learning.";
+        const reference = story.ref || "Scriptures Reference";
+        const isAvailable = (story.characters && story.characters.length > 0);
+
         btn.innerHTML = `
-            <div class="story-title">${story.title}</div>
-            <div class="story-desc">${story.narrative || story.description || "Description unavailable."}</div>
-            <div class="story-ref">${story.ref}</div>
+            <div class="story-title">${title}</div>
+            <div class="story-desc">${narrative}</div>
+            <div class="story-ref">${reference}</div>
         `;
         
-        if (!story.characters || story.characters.length === 0) {
+        if (!isAvailable) {
             btn.disabled = true;
-            btn.innerHTML += " <div style='font-size:0.75em; margin-top:5px; font-weight:normal; color:#ddd;'>(Coming Soon)</div>";
+            btn.style.opacity = "0.6";
+            btn.innerHTML += `
+                <div style="font-size:0.7em; margin-top:8px; color:#ffd700; font-weight:bold; text-transform:uppercase;">
+                    🔒 Coming Soon
+                </div>`;
         } else {
             btn.onclick = () => showStoryDetails(story);
         }
@@ -43,21 +60,26 @@ function showStoryDetails(story) {
     const container = document.getElementById('menu-container');
     let html = `
         <div class="detail-view">
-            <button class="back-btn" onclick="showStorySelection()">← Back to Stories</button>
-            <h3>${story.title}</h3>
-            <div class="detail-desc">${story.narrative || story.description}</div>
-            <h4>Select Protagonist</h4>
+            <button class="back-btn" onclick="showStorySelection()">← Back to Library</button>
+            <h2 style="color:#6d5e41; border-bottom:1px solid #d4c5a9; padding-bottom:10px;">${story.title}</h2>
+            <div class="detail-desc">${story.narrative}</div>
+            <h4 style="margin-top:20px; color:#2c3e50;">Choose Your Perspective</h4>
+            <p style="font-size:0.85em; color:#666; margin-bottom:15px;">Select a character to begin their unique covenant journey.</p>
     `;
+    
     story.characters.forEach(charKey => {
         const stats = window.STARTING_STATS[charKey];
         if (stats) {
+            // Remove underscores and "S2" suffixes for display
+            const displayName = charKey.replace(/_/g, " ").replace("S2", "").replace("WifeOf", "Wife of ");
             html += `
-                <button class="story-btn" onclick="startGame('${charKey}')">
-                    <span class="story-title">${charKey.replace(/_/g, " ").replace("S2", "")}</span>
-                    <span class="story-desc" style="font-size:0.8em">${stats.bio || "No bio available."}</span>
+                <button class="story-btn" onclick="startGame('${charKey}')" style="background-color:#5d737e;">
+                    <span class="story-title" style="color:white;">${displayName}</span>
+                    <span class="story-desc" style="font-size:0.85em; color:#eee;">${stats.bio || "Embark on the path of faith."}</span>
                 </button>`;
         }
     });
+    
     html += `</div>`;
     container.innerHTML = html;
 }
@@ -76,16 +98,22 @@ function undoLastAction() {
 }
 
 function goToStartScreen() {
-    if(confirm("Change character? Progress will be lost.")) {
+    if(confirm("Change character? Progress in this module will be lost.")) {
         showStorySelection(); 
     }
 }
 
 function startGame(characterName) {
     document.getElementById('start-screen').style.display = 'none';
-    document.getElementById('gameplay-area').style.display = 'flex'; // Show gameplay
+    document.getElementById('gameplay-panel').style.display = 'flex'; 
+    document.getElementById('visuals-area').style.display = 'block';
     
     const stats = window.STARTING_STATS[characterName];
+    if(!stats) {
+        console.error("Stats not found for character:", characterName);
+        return;
+    }
+
     gameState.character = characterName;
     gameState.faith = stats.faith;
     gameState.unity = stats.unity;
@@ -108,23 +136,29 @@ function renderScene(sceneId, isUndo = false, previousActionHTML = null, eventIm
     if (sceneId === "start_screen_transition") { showStorySelection(); return; }
 
     if (sceneId === "game_over_faith") {
-        document.getElementById("story-text").innerHTML = "<h2 style='color:darkred'>Spiritual Darkness</h2>You have lost the Spirit. Without faith, the Liahona ceases to work. You wander the wilderness for years, lost and bitter.<br><br><b>GAME OVER</b>";
+        document.getElementById("story-text").innerHTML = "<h2 style='color:darkred'>Spiritual Darkness</h2>You have lost the Spirit. Without faith, your direction is lost. You wander the wilderness for years, lost and bitter.<br><br><b>GAME OVER</b>";
         document.getElementById("choices").innerHTML = "<button class='choice-btn' onclick='showStorySelection()'>Return to Menu</button>";
         return;
     }
     if (sceneId === "game_over_unity") {
-        document.getElementById("story-text").innerHTML = "<h2 style='color:darkred'>Family Fracture</h2>The contention becomes violent. The family separates in the wilderness, never to see the Promised Land.<br><br><b>GAME OVER</b>";
+        document.getElementById("story-text").innerHTML = "<h2 style='color:darkred'>Family Fracture</h2>The contention becomes violent. The family separates in anger, and the covenant bond is broken.<br><br><b>GAME OVER</b>";
         document.getElementById("choices").innerHTML = "<button class='choice-btn' onclick='showStorySelection()'>Return to Menu</button>";
         return;
     }
 
     const scene = window.scenes[sceneId];
-    if (!scene) { console.error("Scene not found:", sceneId); return; }
+    if (!scene) { 
+        console.error("Scene not found:", sceneId); 
+        document.getElementById("story-text").innerHTML = "Error: Scene not found. Returning to menu...";
+        setTimeout(showStorySelection, 2000);
+        return; 
+    }
     
     gameState.currentSceneId = sceneId;
 
-    document.getElementById("background-image").src = window.ASSETS.backgrounds[scene.backgroundAsset] || window.ASSETS.backgrounds["jerusalem_street"];
-    document.getElementById("protagonist-portrait").src = window.ASSETS.characters[gameState.character];
+    // Visual Updates
+    document.getElementById("background-image").src = window.ASSETS.backgrounds[scene.backgroundAsset] || "https://placehold.co/750x300/333/FFF?text=Scene+Background";
+    document.getElementById("protagonist-portrait").src = window.ASSETS.characters[gameState.character] || "https://placehold.co/140x180/888/FFF?text=Character";
     
     const castContainer = document.getElementById("cast-portraits-container");
     castContainer.innerHTML = ""; 
@@ -141,7 +175,7 @@ function renderScene(sceneId, isUndo = false, previousActionHTML = null, eventIm
         });
     }
 
-    // TEXT ASSEMBLY
+    // Text Display
     let fullText = "";
     if (previousActionHTML) fullText += `<div class='action-feedback-block'>${previousActionHTML}</div>`;
     fullText += `${scene.text}`;
@@ -153,6 +187,7 @@ function renderScene(sceneId, isUndo = false, previousActionHTML = null, eventIm
     updateCovenantDisplay();
     updateGlobalActionButtonStates();
 
+    // Choices
     const choicesDiv = document.getElementById("choices");
     choicesDiv.innerHTML = ""; 
     scene.choices.forEach(choice => {
@@ -163,6 +198,7 @@ function renderScene(sceneId, isUndo = false, previousActionHTML = null, eventIm
         choicesDiv.appendChild(btn);
     });
 
+    // UI elements
     const undoBtn = document.getElementById("undo-btn");
     undoBtn.disabled = (historyStack.length === 0);
     undoBtn.style.opacity = (historyStack.length === 0) ? "0.5" : "1";
@@ -172,46 +208,37 @@ function renderScene(sceneId, isUndo = false, previousActionHTML = null, eventIm
 }
 
 function updateStatsDisplay() {
-    const CRITICAL_THRESHOLD = 4;
-    const WARNING_THRESHOLD = 6;
     const STATS = ["faith", "unity"];
-
     STATS.forEach(stat => {
         const value = gameState[stat];
         const element = document.getElementById(`score-${stat}`);
-        element.innerText = value;
-        if (value <= CRITICAL_THRESHOLD) element.style.color = "red";
-        else if (value <= WARNING_THRESHOLD) element.style.color = "#e67e22"; 
-        else element.style.color = "inherit";
+        if(element) {
+            element.innerText = value;
+            element.style.color = (value <= 5) ? "#c0392b" : "inherit";
+        }
     });
 
-    document.getElementById("score-world").innerText = gameState.worldly_influence;
     const worldElem = document.getElementById("score-world");
-    if(gameState.worldly_influence > 15) {
-        worldElem.style.color = "red";
-        worldElem.style.fontWeight = "900";
-    } else {
-        worldElem.style.color = "inherit";
-        worldElem.style.fontWeight = "bold";
-    }
+    const knowElem = document.getElementById("score-knowledge");
+    if(worldElem) worldElem.innerText = Math.floor(gameState.worldly_influence);
+    if(knowElem) knowElem.innerText = Math.floor(gameState.knowledge);
 }
 
 function updateGlobalActionButtonStates() {
     const studyBtn = document.getElementById('btn-study');
-    if (!gameState.hasBrassPlates) {
-        studyBtn.disabled = true;
-        studyBtn.title = "Action unavailable: You must retrieve the Brass Plates before you can study them.";
-    } else {
-        studyBtn.disabled = false;
-        studyBtn.title = "";
+    if (studyBtn) {
+        studyBtn.disabled = !gameState.hasBrassPlates;
+        studyBtn.style.opacity = gameState.hasBrassPlates ? "1" : "0.5";
     }
 }
 
 function updateCovenantDisplay() {
     const nextStep = window.COVENANT_STEPS.find(step => !gameState.covenantPathProgress.includes(step));
     const display = document.getElementById("covenant-step-display");
-    display.innerText = nextStep || "Path Complete";
-    display.style.color = nextStep ? "#6d5e41" : "#27ae60";
+    if(display) {
+        display.innerText = nextStep || "Path Complete";
+        display.style.color = nextStep ? "#6d5e41" : "#27ae60";
+    }
 }
 
 function clampStats() {
@@ -234,7 +261,7 @@ function getStatString(dF, dU, dW, dK) {
     s += formatStatHTML("Faith", dF);
     s += formatStatHTML("Unity", dU);
     s += formatStatHTML("Worldly", dW, true); 
-    s += formatStatHTML("Knowledge", dK);
+    s += formatStatHTML("Know.", dK);
     return s;
 }
 
@@ -246,13 +273,9 @@ function makeChoice(choice) {
     let dWorld = choice.effect.worldly || 0;
     let dKnowledge = choice.effect.knowledge || 0;
 
-    let penaltyText = "";
-    if (gameState.worldly_influence > 15) {
-        dFaith -= 1; dUnity -= 1;
-        penaltyText = " <span style='color:red; font-size:0.8em;'>(High Worldly Penalty)</span>";
-    }
-    
-    if (gameState.knowledge >= 3 && dFaith > 0) dFaith += 1; 
+    // Mechanics
+    if (gameState.worldly_influence > 15) { dFaith -= 1; dUnity -= 1; }
+    if (gameState.knowledge >= 5 && dFaith > 0) dFaith += 1; 
 
     gameState.faith += dFaith;
     gameState.unity += dUnity;
@@ -269,15 +292,10 @@ function makeChoice(choice) {
     let eventImpactHTML = null;
     
     if (nextSceneObj && nextSceneObj.onEnter) {
-        let eF = nextSceneObj.onEnter.faith || 0;
-        let eU = nextSceneObj.onEnter.unity || 0;
-        let eW = nextSceneObj.onEnter.worldly || 0;
-        
-        gameState.faith += eF;
-        gameState.unity += eU;
-        gameState.worldly_influence += eW;
-        
-        eventImpactHTML = getStatString(eF, eU, eW, 0);
+        gameState.faith += (nextSceneObj.onEnter.faith || 0);
+        gameState.unity += (nextSceneObj.onEnter.unity || 0);
+        gameState.worldly_influence += (nextSceneObj.onEnter.worldly || 0);
+        eventImpactHTML = getStatString(nextSceneObj.onEnter.faith || 0, nextSceneObj.onEnter.unity || 0, nextSceneObj.onEnter.worldly || 0, 0);
     }
     
     clampStats(); 
@@ -286,8 +304,8 @@ function makeChoice(choice) {
     let actionStats = getStatString(dFaith, dUnity, dWorld, dKnowledge);
     let previousActionHTML = `
         <span class="feedback-title">You chose: "${choice.text}"</span>
-        <span class="feedback-stats">${actionStats} ${penaltyText}</span>
-        <span class="feedback-narrative">${choice.feedback}</span>
+        <span class="feedback-stats">${actionStats}</span>
+        <span class="feedback-narrative">${choice.feedback || ""}</span>
     `;
     
     gameState.lastAction = 'scene_choice'; 
@@ -296,17 +314,9 @@ function makeChoice(choice) {
 
 function globalAction(actionType) {
     saveState(); 
-
     let dFaith = 0, dUnity = 0, dWorld = 0, dKnowledge = 0;
     let actionText = "";
     let scriptureRef = ""; 
-    let isConsecutive = (gameState.lastAction === actionType);
-
-    if (actionType === 'study' && !gameState.hasBrassPlates) {
-        historyStack.pop(); 
-        alert("You do not yet have the Brass Plates.");
-        return;
-    }
 
     switch(actionType) {
         case 'pray':
@@ -315,13 +325,12 @@ function globalAction(actionType) {
             scriptureRef = "(See Alma 37:37)";
             break;
         case 'study':
-            dFaith = 1; dWorld = -1; dUnity = -1;
-            if (isConsecutive) { dKnowledge = 0.2; actionText = "You studied again (diminishing returns)."; scriptureRef = "(See 2 Nephi 28:30)"; } 
-            else { dKnowledge = 0.8; actionText = "You poured over the plates."; scriptureRef = "(See 1 Nephi 19:23)"; }
-            if (dKnowledge > 0 && !gameState.covenantPathProgress.includes("Knowledge")) gameState.covenantPathProgress.push("Knowledge");
+            dFaith = 1; dWorld = -1; dKnowledge = 1;
+            actionText = "You poured over the plates.";
+            scriptureRef = "(See 1 Nephi 19:23)";
             break;
         case 'service':
-            dFaith = -1; dWorld = 2; dUnity = 2;
+            dFaith = -1; dWorld = 1; dUnity = 2;
             actionText = "You served your family.";
             scriptureRef = "(See Mosiah 2:17)";
             break;
@@ -341,13 +350,7 @@ function globalAction(actionType) {
         <span class="feedback-stats">${actionStats}</span>
         <span class="feedback-narrative">${scriptureRef}</span>
     `;
-
-    gameState.lastAction = actionType;
-    
     renderScene(gameState.currentSceneId, false, previousActionHTML, null);
-    
-    document.getElementById("undo-btn").disabled = false;
-    document.getElementById("undo-btn").style.opacity = "1";
 }
 
 window.onload = function() {

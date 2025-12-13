@@ -20,7 +20,7 @@ window.STORIES = [
         title: "The Great Division",
         ref: "1 Nephi 19 – 2 Nephi 5",
         narrative: "Upon arriving in the new land, the family fractures into two nations, forcing believers to choose between tradition and revelation.",
-        characters: [] // Coming Soon
+        characters: ["Nephi_S2", "WifeOfNephi", "Zoram"]
     },
     {
         id: "vineyard",
@@ -154,7 +154,10 @@ window.STORIES = [
 window.ASSETS = {
     characters: {
         "Nephi": "https://placehold.co/140x180/5d737e/FFF?text=Nephi",
+        "Nephi_S2": "https://placehold.co/140x180/5d737e/FFF?text=Nephi",
         "Sariah": "https://placehold.co/140x180/8c7e5d/FFF?text=Sariah",
+        "WifeOfNephi": "https://placehold.co/140x180/8c7e5d/FFF?text=Wife+of+Nephi",
+        "Zoram": "https://placehold.co/140x180/5d737e/FFF?text=Zoram",
         "Lehi": "https://placehold.co/100x100/6d5e41/FFF?text=Lehi",
         "Laman": "https://placehold.co/100x100/963838/FFF?text=Laman",
         "Lemuel": "https://placehold.co/100x100/9e6b38/FFF?text=Lemuel",
@@ -169,6 +172,7 @@ window.ASSETS = {
         "laban_house": "https://placehold.co/750x300/2c3e50/FFF?text=Jerusalem+Night+(Laban)",
         "ship_deck": "https://placehold.co/750x300/2980b9/FFF?text=The+Ship+Deck",
         "promised_land": "https://placehold.co/750x300/27ae60/FFF?text=The+Promised+Land",
+        "settlement": "https://placehold.co/750x300/6d5e41/FFF?text=Settlement",
         "vision_room": "https://placehold.co/750x300/FFF/000?text=Vision+of+Light"
     }
 };
