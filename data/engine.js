@@ -13,17 +13,24 @@ let historyStack = [];
 // === MENU SYSTEM LOGIC ===
 function showStorySelection() {
     document.getElementById('start-screen').style.display = 'flex';
+    document.getElementById('gameplay-area').style.display = 'none'; // Hide gameplay
     const container = document.getElementById('menu-container');
     container.innerHTML = "<h3>Select Story</h3>";
 
     window.STORIES.forEach(story => {
         const btn = document.createElement("button");
         btn.className = "story-btn";
-        btn.innerHTML = `${story.title}<small>${story.ref}</small>`;
+        
+        // NEW BUTTON LAYOUT
+        btn.innerHTML = `
+            <div class="story-title">${story.title}</div>
+            <div class="story-desc">${story.narrative || story.description || "Description unavailable."}</div>
+            <div class="story-ref">${story.ref}</div>
+        `;
         
         if (!story.characters || story.characters.length === 0) {
             btn.disabled = true;
-            btn.innerHTML += " <small>(Coming Soon)</small>";
+            btn.innerHTML += " <div style='font-size:0.75em; margin-top:5px; font-weight:normal; color:#ddd;'>(Coming Soon)</div>";
         } else {
             btn.onclick = () => showStoryDetails(story);
         }
@@ -38,30 +45,21 @@ function showStoryDetails(story) {
         <div class="detail-view">
             <button class="back-btn" onclick="showStorySelection()">← Back to Stories</button>
             <h3>${story.title}</h3>
-            <div class="detail-desc">${story.description}</div>
+            <div class="detail-desc">${story.narrative || story.description}</div>
             <h4>Select Protagonist</h4>
     `;
     story.characters.forEach(charKey => {
         const stats = window.STARTING_STATS[charKey];
         if (stats) {
-            html += `<button class="story-btn" onclick="showCharacterDetails('${charKey}', '${story.id}')">${charKey.replace("_", " ")}</button>`;
+            html += `
+                <button class="story-btn" onclick="startGame('${charKey}')">
+                    <span class="story-title">${charKey.replace(/_/g, " ").replace("S2", "")}</span>
+                    <span class="story-desc" style="font-size:0.8em">${stats.bio || "No bio available."}</span>
+                </button>`;
         }
     });
     html += `</div>`;
     container.innerHTML = html;
-}
-
-function showCharacterDetails(charKey, storyId) {
-    const stats = window.STARTING_STATS[charKey];
-    const container = document.getElementById('menu-container');
-    container.innerHTML = `
-        <div class="detail-view">
-            <button class="back-btn" onclick="showStoryDetails(window.STORIES.find(s => s.id === '${storyId}'))">← Back to Story</button>
-            <h3>${charKey}</h3>
-            <div class="detail-desc">${stats.bio || "No bio available."}</div>
-            <button class="story-btn" style="background-color: #27ae60;" onclick="startGame('${charKey}')">Begin Journey as ${charKey}</button>
-        </div>
-    `;
 }
 
 // === GAMEPLAY LOGIC ===
@@ -85,6 +83,8 @@ function goToStartScreen() {
 
 function startGame(characterName) {
     document.getElementById('start-screen').style.display = 'none';
+    document.getElementById('gameplay-area').style.display = 'flex'; // Show gameplay
+    
     const stats = window.STARTING_STATS[characterName];
     gameState.character = characterName;
     gameState.faith = stats.faith;
@@ -167,7 +167,6 @@ function renderScene(sceneId, isUndo = false, previousActionHTML = null, eventIm
     undoBtn.disabled = (historyStack.length === 0);
     undoBtn.style.opacity = (historyStack.length === 0) ? "0.5" : "1";
     
-    // UPDATED SCROLL ID
     const scrollContainer = document.getElementById("story-scroll-container");
     if(scrollContainer) scrollContainer.scrollTop = 0;
 }
@@ -199,8 +198,13 @@ function updateStatsDisplay() {
 
 function updateGlobalActionButtonStates() {
     const studyBtn = document.getElementById('btn-study');
-    if (!gameState.hasBrassPlates) studyBtn.disabled = true;
-    else studyBtn.disabled = false;
+    if (!gameState.hasBrassPlates) {
+        studyBtn.disabled = true;
+        studyBtn.title = "Action unavailable: You must retrieve the Brass Plates before you can study them.";
+    } else {
+        studyBtn.disabled = false;
+        studyBtn.title = "";
+    }
 }
 
 function updateCovenantDisplay() {

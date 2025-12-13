@@ -32,7 +32,7 @@
         @media (min-width: 900px) {
             #game-container {
                 max-width: 800px;
-                height: 95vh; /* Taller on desktop to fit more */
+                height: 95vh;
                 border: 1px solid #d4c5a9;
                 border-radius: 8px;
             }
@@ -105,7 +105,7 @@
             overflow: hidden;
         }
 
-        /* 1. HEADER (Fixed) */
+        /* HEADER */
         .gameplay-header {
             padding: 8px 15px 0 15px;
             flex-shrink: 0;
@@ -119,7 +119,7 @@
             font-size: 0.75em; font-weight: bold; border: 1px solid #d4c5a9;
         }
 
-        /* 2. SCROLLABLE TEXT (Middle) */
+        /* SCROLLABLE TEXT */
         #story-scroll-container {
             flex-grow: 1;
             overflow-y: auto;
@@ -141,7 +141,7 @@
         .feedback-narrative { display: block; font-style: italic; color: #555; font-size: 0.9em;}
         .event-impact-block { margin-top: 8px; font-size: 0.85em; border-top: 1px solid #eee; padding-top: 4px; }
 
-        /* 3. CONTROLS DECK (Fixed Bottom) */
+        /* CONTROLS DECK */
         #controls-area {
             padding: 10px 20px;
             background: #fff;
@@ -179,26 +179,33 @@
 
         .covenant-tracker { font-size: 0.75em; color: #888; }
 
-        /* START SCREEN */
+        /* START SCREEN / MENU */
         #start-screen {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: #fff; z-index: 200; display: none; 
-            flex-direction: column; align-items: center; justify-content: center;
+            flex-direction: column; align-items: center; justify-content: flex-start;
             padding: 20px; box-sizing: border-box; overflow-y: auto;
         }
         
         .menu-title { color: #6d5e41; font-size: 1.8em; margin-bottom: 20px; border-bottom: 2px solid #d4c5a9; }
-        .menu-container { width: 100%; max-width: 500px; text-align: center; }
+        .menu-container { width: 100%; max-width: 500px; text-align: center; padding-bottom: 40px; }
+        
+        /* UPDATED BUTTON STYLES FOR v2.6 */
         .story-btn {
             display: block; width: 100%; padding: 15px; margin: 10px 0;
             background-color: #6d5e41; color: white; border: none;
-            border-radius: 5px; font-size: 1.1em; cursor: pointer; text-align: left;
+            border-radius: 5px; cursor: pointer; text-align: left;
+            transition: background 0.2s; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-        .story-btn small { display: block; font-size: 0.7em; opacity: 0.8; margin-top: 3px; }
         .story-btn:hover { background-color: #4a3e2b; }
-        .story-btn:disabled { background-color: #ccc; cursor: not-allowed; }
+        .story-btn:disabled { background-color: #ccc; cursor: not-allowed; opacity: 0.7; }
+
+        .story-title { font-size: 1.1em; font-weight: bold; display: block; margin-bottom: 5px; }
+        .story-desc { font-size: 0.85em; display: block; margin-bottom: 5px; opacity: 0.95; font-style: italic; line-height: 1.3; }
+        .story-ref { font-size: 0.75em; display: block; opacity: 0.7; text-transform: uppercase; letter-spacing: 1px; margin-top: 5px; border-top: 1px solid rgba(255,255,255,0.3); padding-top: 5px;}
+
         .detail-view { text-align: left; animation: fadeIn 0.3s; }
-        .detail-desc { background: #f9f9f9; padding: 15px; border-left: 4px solid #6d5e41; margin-bottom: 20px; line-height: 1.5; }
+        .detail-desc { background: #f9f9f9; padding: 15px; border-left: 4px solid #6d5e41; margin-bottom: 20px; line-height: 1.5; color: #333; }
         .back-btn {
             background: transparent; color: #666; border: 1px solid #ccc;
             padding: 8px 15px; border-radius: 4px; cursor: pointer; margin-bottom: 15px;
@@ -237,7 +244,7 @@
 
         <!-- FIXED CONTROLS DECK -->
         <div id="controls-area">
-            <div id="choices"></div> <!-- Choices now live here -->
+            <div id="choices"></div> 
             
             <div id="global-actions-bar">
                 <button class="global-action-btn" id="btn-pray" onclick="globalAction('pray')">🙏 Prayer</button>
@@ -260,11 +267,11 @@
     </div>
 </div>
 
-<!-- CACHE BUSTING v1.6 -->
-<script src="data/data_shared.js?v=1.6"></script>
-<script src="data/scenes_nephi.js?v=1.6"></script>
-<script src="data/scenes_sariah.js?v=1.6"></script>
-<script src="data/engine.js?v=1.6"></script>
+<!-- CACHE BUSTING v2.6 -->
+<script src="data/data_shared.js?v=2.6"></script>
+<script src="data/scenes_nephi.js?v=2.6"></script>
+<script src="data/scenes_sariah.js?v=2.6"></script>
+<script src="data/engine.js?v=2.6"></script>
 
 </body>
 </html>
