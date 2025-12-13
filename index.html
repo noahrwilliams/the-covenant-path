@@ -190,7 +190,6 @@
         .menu-title { color: #6d5e41; font-size: 1.8em; margin-bottom: 20px; border-bottom: 2px solid #d4c5a9; }
         .menu-container { width: 100%; max-width: 500px; text-align: center; padding-bottom: 40px; }
         
-        /* UPDATED BUTTON STYLES FOR v2.6 */
         .story-btn {
             display: block; width: 100%; padding: 15px; margin: 10px 0;
             background-color: #6d5e41; color: white; border: none;
@@ -226,23 +225,19 @@
     </div>
 
     <div id="gameplay-panel">
-        
-        <!-- HEADER -->
         <div class="gameplay-header">
             <div class="stats-bar">
-                <div class="stat-item">Faith: <span id="score-faith">10</span></div>
-                <div class="stat-item">Unity: <span id="score-unity">10</span></div>
+                <div class="stat-item">Faith: <span id="score-faith">0</span></div>
+                <div class="stat-item">Unity: <span id="score-unity">0</span></div>
                 <div class="stat-item">Worldly: <span id="score-world">0</span></div>
                 <div class="stat-item">Know.: <span id="score-knowledge">0</span></div>
             </div>
         </div>
 
-        <!-- SCROLLABLE TEXT ONLY -->
         <div id="story-scroll-container">
             <div id="story-text" class="scene-text"></div>
         </div>
 
-        <!-- FIXED CONTROLS DECK -->
         <div id="controls-area">
             <div id="choices"></div> 
             
@@ -267,11 +262,15 @@
     </div>
 </div>
 
-<!-- CACHE BUSTING v2.6 -->
-<script src="data/data_shared.js?v=2.6"></script>
-<script src="data/scenes_nephi.js?v=2.6"></script>
-<script src="data/scenes_sariah.js?v=2.6"></script>
-<script src="data/engine.js?v=2.6"></script>
+<script src="data/data_shared.js?v=3.0"></script>
+<script src="data/engine.js?v=3.0"></script>
+
+<script src="data/scenes_nephi.js?v=3.0"></script>
+<script src="data/scenes_sariah.js?v=3.0"></script>
+
+<script src="data/scenes_s2_nephi.js?v=3.0"></script>
+<script src="data/scenes_s2_wife.js?v=3.0"></script>
+<script src="data/scenes_s2_zoram.js?v=3.0"></script>
 
 </body>
 </html>
