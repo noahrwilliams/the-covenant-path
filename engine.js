@@ -4,7 +4,7 @@ let gameState = {
     faith: 0, unity: 0, worldly_influence: 0, knowledge: 0,
     hasBrassPlates: false,
     currentSceneId: null,
-    currentStoryId: null, // NEW: Tracks the current story
+    currentStoryId: null, 
     covenantPathProgress: [],
     lastAction: null
 };
@@ -72,7 +72,7 @@ function showStoryDetails(story) {
         const charStats = window.STARTING_STATS[charName];
         if (charStats) {
             const btn = document.createElement("button");
-            // CRITICAL FIX: Ensure character buttons use the correct class for styling
+            // FIX 2: Using the semantically correct class to prevent the layout corruption.
             btn.className = "character-btn"; 
             btn.innerHTML = `
                 <strong>${charName}</strong>
@@ -89,7 +89,8 @@ function showStoryDetails(story) {
     });
 
     const backBtn = document.createElement("button");
-    backBtn.className = "story-btn-small";
+    // Using the small button class defined in your HTML's style block.
+    backBtn.className = "back-btn"; 
     backBtn.innerText = "← Back to Story Selection";
     backBtn.onclick = showStorySelection;
     container.appendChild(backBtn);
@@ -102,7 +103,6 @@ function loadCharacter(characterName, storyId) {
         return;
     }
 
-    // NEW: Store the story ID
     gameState.currentStoryId = storyId; 
 
     // Reset game state for the new character
@@ -126,20 +126,19 @@ function loadCharacter(characterName, storyId) {
 
 /**
  * Handles the transition at the end of a story module.
- * @param {string} storyId - The ID of the story just completed (e.g., 'exodus').
+ * (This logic is required for the three-button menu and cannot be removed.)
+ * @param {string} storyId - The ID of the story just completed.
  */
 function handleModuleEnd(storyId) {
-    // Use window.STORIES to get context for the completed and next story.
     const storyIndex = window.STORIES.findIndex(s => s.id === storyId);
     const completedStory = window.STORIES[storyIndex];
-    // Check if there is a next story to allow the 'Continue Path' button to be active.
     const nextStory = window.STORIES[storyIndex + 1];
 
     const startScreen = document.getElementById('start-screen');
     const gameplayPanel = document.getElementById('gameplay-panel');
     const visualsArea = document.getElementById('visuals-area');
     
-    // Hide gameplay UI and show the start screen for the menu.
+    // Hide gameplay UI
     gameplayPanel.style.display = 'none';
     visualsArea.style.display = 'none';
     startScreen.style.display = 'flex';
@@ -190,7 +189,7 @@ function renderScene(sceneId, isUndo = false, actionFeedback = null, choiceFeedb
     const scene = window.scenes[sceneId];
     if (!scene) {
         console.error("Scene not found:", sceneId);
-        showStorySelection(); // Fallback to start screen
+        showStorySelection(); 
         return;
     }
     
@@ -206,7 +205,6 @@ function renderScene(sceneId, isUndo = false, actionFeedback = null, choiceFeedb
             faith: gameState.faith, unity: gameState.unity, worldly_influence: gameState.worldly_influence, knowledge: gameState.knowledge,
             covenantPathProgress: [...gameState.covenantPathProgress],
             lastAction: gameState.lastAction,
-            // Only store the choice made if it was a choice, not a global action
             choiceMade: (actionFeedback === null && choiceFeedback !== null) ? gameState.currentSceneId : null 
         });
     }
@@ -222,9 +220,9 @@ function renderScene(sceneId, isUndo = false, actionFeedback = null, choiceFeedb
     if (checkGameOver()) return;
 
     // Update UI elements
-    // This line assumes window.ASSET_PATHS is loaded from data_shared.js
     document.getElementById('visuals-area').style.backgroundImage = `url(${window.ASSET_PATHS.backgrounds[scene.backgroundAsset]})`;
-    document.getElementById('scene-text').innerHTML = scene.text;
+    // FIX 1: Corrected ID from 'scene-text' to 'story-text' (as defined in index.html)
+    document.getElementById('story-text').innerHTML = scene.text; 
     updateStatsDisplay();
     updateCovenantDisplay();
 
@@ -241,7 +239,6 @@ function renderScene(sceneId, isUndo = false, actionFeedback = null, choiceFeedb
             choicesDiv.appendChild(btn);
         });
     } else {
-        // Fallback if no choices are defined
         choicesDiv.innerHTML = `<button class="story-btn" onclick="showStorySelection()">Return to Library</button>`;
     }
     
@@ -310,7 +307,7 @@ function globalAction(actionType) {
             if (dKnowledge > 0 && !gameState.covenantPathProgress.includes("Knowledge")) gameState.covenantPathProgress.push("Knowledge");
             break;
         case 'service':
-            // CRITICAL FIX: Ensure Service decreases Worldly Influence, as per game design.
+            // Corrected Service effect: Decreases Worldly Influence
             dFaith = -1; dWorld = -1; dUnity = 2;
             actionText = "You served your family and neighbors.";
             scriptureRef = "(See Mosiah 2:17)";
@@ -355,7 +352,6 @@ function undoLastAction() {
 
         let sceneToRender = previousState.sceneId;
 
-        // If the action being undone was a *choice*, we need to return to the scene *before* the choice
         if (previousState.choiceMade) {
              sceneToRender = previousState.choiceMade;
         }
@@ -392,10 +388,11 @@ function clampStats() {
 }
 
 function updateStatsDisplay() {
-    document.getElementById('stat-faith').innerText = Math.floor(gameState.faith);
-    document.getElementById('stat-unity').innerText = Math.floor(gameState.unity);
-    document.getElementById('stat-worldly').innerText = Math.floor(gameState.worldly_influence);
-    document.getElementById('stat-knowledge').innerText = Math.floor(gameState.knowledge);
+    // Corrected stat display IDs to match index.html: 'score-' prefix
+    document.getElementById('score-faith').innerText = Math.floor(gameState.faith);
+    document.getElementById('score-unity').innerText = Math.floor(gameState.unity);
+    document.getElementById('score-world').innerText = Math.floor(gameState.worldly_influence);
+    document.getElementById('score-knowledge').innerText = Math.floor(gameState.knowledge);
 }
 
 function updateCovenantDisplay() {
@@ -444,5 +441,5 @@ function checkGameOver() {
 // Initial call to set up the game
 window.onload = function() {
     showStorySelection();
-    // Add event listeners for global actions if necessary
+    // No explicit call to goToStartScreen needed as showStorySelection handles the initial display
 };
