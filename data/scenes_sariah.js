@@ -144,7 +144,8 @@ Object.assign(window.scenes, {
         backgroundAsset: "promised_land",
         castAssets: ["Lehi", "Nephi"],
         choices: [
-            { text: "Finish Module", nextScene: "start_screen_transition", effect: { faith: 0 }, feedback: "Module Complete." }
+            { text: "Focus entirely on healing and rest.", nextScene: "module_end_story_exodus", effect: { unity: 1, worldly: -1 }, feedback: "Story Module Complete." },
+            { text: "Pray for the souls who remained in Jerusalem.", nextScene: "module_end_story_exodus", effect: { faith: 2 }, feedback: "Story Module Complete." }
         ]
     }
 });

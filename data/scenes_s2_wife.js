@@ -120,9 +120,9 @@ Object.assign(window.scenes, {
         backgroundAsset: "settlement",
         castAssets: ["Nephi"],
         choices: [
-            { text: "Teach the children to pray for the Lamanites and love them.", nextScene: "start_screen_transition", effect: { faith: 2, unity: 1 }, feedback: "Story Module Complete." },
-            { text: "Teach caution and fear of the 'darkened' Lamanites to ensure survival.", nextScene: "start_screen_transition", effect: { worldly: 2, knowledge: 1 }, feedback: "Story Module Complete." },
-            { text: "Work to establish new, unified traditions that bind the Nephite group together.", nextScene: "start_screen_transition", effect: { unity: 2 }, feedback: "Story Module Complete." }
+            { text: "Teach the children to pray for the Lamanites and love them.", nextScene: "module_end_story_division", effect: { faith: 2, unity: 1 }, feedback: "Story Module Complete." },
+            { text: "Teach caution and fear of the 'darkened' Lamanites to ensure survival.", nextScene: "module_end_story_division", effect: { worldly: 2, knowledge: 1 }, feedback: "Story Module Complete." },
+            { text: "Work to establish new, unified traditions that bind the Nephite people together.", nextScene: "module_end_story_division", effect: { unity: 3 }, feedback: "Story Module Complete." }
         ]
     }
 });

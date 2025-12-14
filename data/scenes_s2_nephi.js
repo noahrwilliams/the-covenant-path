@@ -128,9 +128,9 @@ Object.assign(window.scenes, {
         backgroundAsset: "settlement",
         castAssets: ["Zoram", "Sam"],
         choices: [
-            { text: "Humbly refuse, saying: 'I will be your teacher and servant.'", nextScene: "start_screen_transition", effect: { faith: 1, unity: 1 }, feedback: "Story Module Complete." },
-            { text: "Accept the title, believing you must bear the full temporal burden.", nextScene: "start_screen_transition", effect: { knowledge: 1, unity: 1, faith: -3 }, feedback: "Story Module Complete." },
-            { text: "Deflect the attention to the Temple: 'Build the House of the Lord first.'", nextScene: "start_screen_transition", effect: { faith: 3, worldly: -1 }, feedback: "Story Module Complete." }
+            { text: "Humbly refuse, saying: 'I will be your teacher and servant.'", nextScene: "module_end_story_division", effect: { faith: 1, unity: 1 }, feedback: "Story Module Complete." },
+            { text: "Accept the title, believing you must bear the full temporal burden.", nextScene: "module_end_story_division", effect: { knowledge: 1, unity: 1, faith: -3 }, feedback: "Story Module Complete." },
+            { text: "Deflect the attention to the Temple: 'Build the House of the Lord first.'", nextScene: "module_end_story_division", effect: { faith: 3, unity: 1 }, feedback: "Story Module Complete." }
         ]
     }
 });

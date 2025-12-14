@@ -160,7 +160,8 @@ Object.assign(window.scenes, {
         backgroundAsset: "promised_land",
         castAssets: ["Lehi", "Sariah"],
         choices: [
-            { text: "Finish Module", nextScene: "start_screen_transition", effect: { faith: 0 }, feedback: "Module Complete." }
+            { text: "Give thanks and begin building.", nextScene: "module_end_story_exodus", effect: { faith: 1, unity: 1 }, feedback: "Story Module Complete." },
+            { text: "Seek revelation for a new assignment.", nextScene: "module_end_story_exodus", effect: { faith: 2, knowledge: 1 }, feedback: "Story Module Complete." }
         ]
     }
 });

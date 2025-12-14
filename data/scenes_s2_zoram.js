@@ -108,9 +108,9 @@ Object.assign(window.scenes, {
         backgroundAsset: "settlement",
         castAssets: ["Nephi"],
         choices: [
-            { text: "Fully embrace the name 'Nephite' as your new identity.", nextScene: "start_screen_transition", effect: { unity: 2, faith: 1 }, feedback: "Story Module Complete." },
-            { text: "Ask to keep the distinction of 'Zoramite' for your descendants.", nextScene: "start_screen_transition", effect: { knowledge: 1, worldly: 1 }, feedback: "Story Module Complete." },
-            { text: "Insist that the focus should be on building a unified military strength, not names.", nextScene: "start_screen_transition", effect: { worldly: 2, faith: -1 }, feedback: "Story Module Complete." }
+            { text: "Fully embrace the name 'Nephite' as your new identity.", nextScene: "module_end_story_division", effect: { unity: 2, faith: 1 }, feedback: "Story Module Complete." },
+            { text: "Ask to keep the distinction of 'Zoramite' for your descendants.", nextScene: "module_end_story_division", effect: { knowledge: 1, worldly: 1 }, feedback: "Story Module Complete." },
+            { text: "Insist that the focus should be on building a unified military strength, not names.", nextScene: "module_end_story_division", effect: { worldly: 2, unity: 1 }, feedback: "Story Module Complete." }
         ]
     }
 });
