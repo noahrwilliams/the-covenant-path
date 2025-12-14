@@ -1,3 +1,4 @@
+// ZORAM DATA - STORY 2: THE GREAT DIVISION
 window.STARTING_STATS["Zoram"] = { 
     faith: 6, unity: 10, worldly_influence: 5, knowledge: 2, 
     hasBrassPlates: true, initialScene: "s2_zoram_intro",
@@ -6,110 +7,110 @@ window.STARTING_STATS["Zoram"] = {
 
 Object.assign(window.scenes, {
     "s2_zoram_intro": {
-        text: "THE PROMISED LAND. You have married the eldest daughter of Ishmael. She misses Jerusalem.<br><br><i>(Read 1 Nephi 16:7)</i>",
+        text: "THE PROMISED LAND. You are bound by oath to Nephi, but your wife, the eldest daughter of Ishmael, is deeply unhappy. She weeps for the lost prosperity and safety of Jerusalem.<br><br><i>(Read 1 Nephi 16:7)</i>",
         backgroundAsset: "promised_land",
         castAssets: ["WifeOfNephi"],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
-            { text: "Prophesy of Jerusalem's destruction.", nextScene: "s2_zoram_outsider", effect: { faith: 1, unity: -1 }, feedback: "You speak hard truth." },
-            { text: "Build her fine furniture.", nextScene: "s2_zoram_outsider", effect: { worldly: 2, unity: 1 }, feedback: "You provide material comfort." },
-            { text: "Remind her of freedom.", nextScene: "s2_zoram_outsider", effect: { knowledge: 1, faith: 1 }, feedback: "You provide perspective." }
+            { text: "Declare that Jerusalem's destruction was God's judgment.", nextScene: "s2_zoram_outsider", effect: { faith: 1, unity: -1 }, feedback: "You speak hard truth." },
+            { text: "Dedicate your time to building a more luxurious home for her.", nextScene: "s2_zoram_outsider", effect: { worldly: 2, unity: 1 }, feedback: "You provide material comfort." },
+            { text: "Remind her that in the wilderness, you are a free man, not a servant.", nextScene: "s2_zoram_outsider", effect: { knowledge: 1, faith: 1 }, feedback: "You provide perspective." }
         ]
     },
     "s2_zoram_outsider": {
-        text: "Laman mocks your background as a servant.<br><br><i>(Context: Social Tension)</i>",
+        text: "Laman publicly mocks you, calling you 'Laban’s runaway slave.' He tries to turn others against you by highlighting your former status.<br><br><i>(Context: Social Tension)</i>",
         backgroundAsset: "settlement",
         castAssets: ["Laman"],
         onEnter: { faith: 0, unity: -1, worldly: 0 },
         choices: [
-            { text: "Bear humble testimony.", nextScene: "s2_zoram_oath", effect: { faith: 2, worldly: -1 }, feedback: "You turn the other cheek." },
-            { text: "Defend your skills.", nextScene: "s2_zoram_oath", effect: { worldly: 1, unity: -1 }, feedback: "You rely on pride." },
-            { text: "Ignore him.", nextScene: "s2_zoram_oath", effect: { unity: 1 }, feedback: "Stoicism." }
+            { text: "Bear humble testimony of your freedom through God.", nextScene: "s2_zoram_oath", effect: { faith: 2, worldly: -1 }, feedback: "You turn the other cheek." },
+            { text: "Boast of your worth and superior skills as a smith.", nextScene: "s2_zoram_oath", effect: { worldly: 1, unity: -1 }, feedback: "You rely on pride." },
+            { text: "Ignore his taunts entirely and walk away.", nextScene: "s2_zoram_oath", effect: { unity: 1 }, feedback: "Stoicism." }
         ]
     },
     "s2_zoram_oath": {
-        text: "The separation looms. Nephi asks if your oath to Lehi still stands.<br><br><i>(Read 1 Nephi 4:33)</i>",
+        text: "With Lehi nearing death and the family's division imminent, Nephi approaches you, asking for a reaffirmation of the solemn oath you made in Jerusalem.<br><br><i>(Read 1 Nephi 4:33)</i>",
         backgroundAsset: "house_interior",
         castAssets: ["Nephi"],
         onEnter: { faith: -1, unity: 0, worldly: 0 },
         choices: [
-            { text: "Reaffirm it publicly.", nextScene: "s2_zoram_blessing", effect: { faith: 2, unity: -2 }, feedback: "You draw clear lines." },
-            { text: "Reaffirm it privately.", nextScene: "s2_zoram_blessing", effect: { unity: 1, worldly: 1 }, feedback: "You choose prudence." },
-            { text: "Pledge loyalty to 'the family'.", nextScene: "s2_zoram_blessing", effect: { unity: 2, faith: -1 }, feedback: "Diplomatic ambiguity." }
+            { text: "Reaffirm your oath publicly and declare your fidelity to Nephi.", nextScene: "s2_zoram_blessing", effect: { faith: 2, unity: -2 }, feedback: "You draw clear lines." },
+            { text: "Reaffirm your oath to Nephi privately, avoiding the notice of Laman.", nextScene: "s2_zoram_blessing", effect: { unity: 1, worldly: 1 }, feedback: "You choose prudence." },
+            { text: "Pledge loyalty to 'the family unit,' rather than to Nephi alone.", nextScene: "s2_zoram_blessing", effect: { unity: 2, faith: -1 }, feedback: "Diplomatic ambiguity." }
         ]
     },
     "s2_zoram_blessing": {
-        text: "Lehi blesses your seed to be numbered with Nephi's.<br><br><i>(Read 2 Nephi 1:30-32)</i>",
+        text: "In his final words, Lehi declares a sacred blessing over you: that your seed shall be numbered with Nephi's seed. This is a promise of inclusion.<br><br><i>(Read 2 Nephi 1:30-32)</i>",
         backgroundAsset: "house_interior",
         castAssets: ["Lehi"],
         choices: [
-            { text: "Accept with gratitude.", nextScene: "s2_zoram_offer", effect: { faith: 2, unity: 1 }, covenantUnlock: "Faith", feedback: "Covenant acceptance." },
-            { text: "Fear losing your heritage.", nextScene: "s2_zoram_offer", effect: { worldly: 1, unity: -1 }, feedback: "Identity struggle." },
-            { text: "Ask about your inheritance.", nextScene: "s2_zoram_offer", effect: { knowledge: 1, worldly: 1 }, feedback: "Pragmatism." }
+            { text: "Humbly accept this covenant promise with deep gratitude.", nextScene: "s2_zoram_offer", effect: { faith: 2, unity: 1 }, covenantUnlock: "Faith", feedback: "Covenant acceptance." },
+            { text: "Worry that this new identity will cause you to lose your former heritage.", nextScene: "s2_zoram_offer", effect: { worldly: 1, unity: -1 }, feedback: "Identity struggle." },
+            { text: "Ask Lehi for clarification on your material inheritance in the new land.", nextScene: "s2_zoram_offer", effect: { knowledge: 1, worldly: 1 }, feedback: "Pragmatism." }
         ]
     },
     "s2_zoram_offer": {
-        text: "Laman offers you a leadership role if you turn on Nephi.<br><br><i>(Context: Temptation)</i>",
+        text: "Laman and Lemuel privately approach you, offering you a high place of leadership and riches if you will break your oath and join their cause.<br><br><i>(Context: Temptation)</i>",
         backgroundAsset: "settlement",
         castAssets: ["Laman"],
         onEnter: { faith: -1, unity: -1, worldly: 2 },
         choices: [
-            { text: "Rebuke him.", nextScene: "s2_zoram_plot", effect: { faith: 1, unity: -2 }, feedback: "Loyalty." },
-            { text: "Feign interest to spy.", nextScene: "s2_zoram_plot", effect: { knowledge: 2, faith: -2 }, feedback: "Deception." },
-            { text: "Politely decline.", nextScene: "s2_zoram_plot", effect: { unity: 1, worldly: 1 }, feedback: "Safety." }
+            { text: "Rebuke their wicked scheme with bold words.", nextScene: "s2_zoram_plot", effect: { faith: 1, unity: -2 }, feedback: "Loyalty." },
+            { text: "Feign interest in their offer to learn the details of their plot.", nextScene: "s2_zoram_plot", effect: { knowledge: 2, faith: -2 }, feedback: "Deception." },
+            { text: "Politely decline their offer, prioritizing your own safety.", nextScene: "s2_zoram_plot", effect: { unity: 1, worldly: 1 }, feedback: "Safety." }
         ]
     },
     "s2_zoram_plot": {
-        text: "You learn Laman plans to kill Nephi.<br><br><i>(Read 2 Nephi 5:3)</i>",
+        text: "Whether by revelation or espionage, the awful truth is clear: Laman and Lemuel intend to murder Nephi.<br><br><i>(Read 2 Nephi 5:3)</i>",
         backgroundAsset: "settlement",
         castAssets: ["Laman", "Nephi"],
         onEnter: { faith: 0, unity: -1, worldly: 0 },
         choices: [
-            { text: "Tell Nephi immediately.", nextScene: "s2_zoram_ultimatum", effect: { faith: 1, unity: 1 }, feedback: "Duty." },
-            { text: "Confront Laman.", nextScene: "s2_zoram_ultimatum", effect: { unity: -2, worldly: 1 }, feedback: "Vigilante justice." },
-            { text: "Secure weapons.", nextScene: "s2_zoram_ultimatum", effect: { knowledge: 1, worldly: 1 }, feedback: "Preparation." }
+            { text: "Go to Nephi immediately and inform him of the deadly plot.", nextScene: "s2_zoram_ultimatum", effect: { faith: 1, unity: 1 }, feedback: "Duty." },
+            { text: "Confront Laman alone, hoping to shame him into stopping.", nextScene: "s2_zoram_ultimatum", effect: { unity: -2, worldly: 1 }, feedback: "Vigilante justice." },
+            { text: "Secretly secure weapons and stand guard over Nephi.", nextScene: "s2_zoram_ultimatum", effect: { knowledge: 1, worldly: 1 }, feedback: "Preparation." }
         ]
     },
     "s2_zoram_ultimatum": {
-        text: "Departure time. Your wife is hesitant to leave her sisters.<br><br><i>(Context: Family Split)</i>",
+        text: "The Lord commands Nephi to flee. Your wife, one of the daughters of Ishmael, is hesitant to leave her beloved sisters (Laman's wives) behind.<br><br><i>(Context: Family Split)</i>",
         backgroundAsset: "house_interior",
         castAssets: ["WifeOfNephi"],
         onEnter: { faith: 0, unity: -1, worldly: 2 },
         choices: [
-            { text: "Command: 'We follow the Prophet.'", nextScene: "s2_zoram_house", effect: { faith: 2, unity: -1 }, feedback: "Patriarchal authority." },
-            { text: "Logic: 'We choose safety.'", nextScene: "s2_zoram_house", effect: { worldly: 1, unity: 1 }, feedback: "Reason." },
-            { text: "Plead: 'I cannot go without you.'", nextScene: "s2_zoram_house", effect: { unity: 2, faith: -2 }, feedback: "Prioritizing marriage." }
+            { text: "Command your wife: 'We follow the Prophet and his word, regardless of the cost.'", nextScene: "s2_zoram_house", effect: { faith: 2, unity: -1 }, feedback: "Patriarchal authority." },
+            { text: "Appeal to logic: 'Our safety requires us to leave now.'", nextScene: "s2_zoram_house", effect: { worldly: 1, unity: 1 }, feedback: "Reason." },
+            { text: "Plead with her: 'My life depends on your decision to follow me.'", nextScene: "s2_zoram_house", effect: { unity: 2, faith: -2 }, feedback: "Prioritizing marriage." }
         ]
     },
     "s2_zoram_house": {
-        text: "Abandoning the sturdy home you built.<br><br><i>(Context: Sacrifice)</i>",
+        text: "You must walk away from the sturdy home you helped build and furnish. This material loss is immense, and Laman's group will claim it all.<br><br><i>(Context: Sacrifice)</i>",
         backgroundAsset: "settlement",
         castAssets: [],
         onEnter: { faith: 0, unity: 0, worldly: 2 },
         choices: [
-            { text: "Walk away.", nextScene: "s2_zoram_march", effect: { faith: 2, worldly: -1 }, feedback: "Lot's wife lesson." },
-            { text: "Trade it for supplies.", nextScene: "s2_zoram_march", effect: { worldly: 2, knowledge: 1 }, feedback: "Resource gathering." },
-            { text: "Give it to Laman.", nextScene: "s2_zoram_march", effect: { unity: 2, faith: -1 }, feedback: "Bridge burning with love." }
+            { text: "Turn your back and walk away without a second look.", nextScene: "s2_zoram_march", effect: { faith: 2, worldly: -1 }, feedback: "Lot's wife lesson." },
+            { text: "Quickly trade the home's contents for immediate provisions.", nextScene: "s2_zoram_march", effect: { worldly: 2, knowledge: 1 }, feedback: "Resource gathering." },
+            { text: "Leave a formal note giving Laman ownership of the property.", nextScene: "s2_zoram_march", effect: { unity: 2, faith: -1 }, feedback: "Bridge burning with love." }
         ]
     },
     "s2_zoram_march": {
-        text: "The group moves slowly in the dark.<br><br><i>(Read 2 Nephi 5:7)</i>",
+        text: "You lead the small company into the wilderness. The darkness and the threat of pursuit make the pace slow and fearful.<br><br><i>(Read 2 Nephi 5:7)</i>",
         backgroundAsset: "wilderness",
         castAssets: ["Nephi"],
         choices: [
-            { text: "Scout the rear.", nextScene: "s2_zoram_identity", effect: { knowledge: 1, worldly: 1 }, feedback: "Guardian role." },
-            { text: "Carry the children.", nextScene: "s2_zoram_identity", effect: { unity: 2, faith: 1 }, feedback: "Nurturing role." },
-            { text: "Walk with Nephi.", nextScene: "s2_zoram_identity", effect: { faith: 1, knowledge: 1 }, feedback: "Leadership role." }
+            { text: "Take position in the rear to watch for Laman's pursuit.", nextScene: "s2_zoram_identity", effect: { knowledge: 1, worldly: 1 }, feedback: "Guardian role." },
+            { text: "Spend your strength carrying the youngest children and burdens.", nextScene: "s2_zoram_identity", effect: { unity: 2, faith: 1 }, feedback: "Nurturing role." },
+            { text: "Walk closely with Nephi, offering counsel and support.", nextScene: "s2_zoram_identity", effect: { faith: 1, knowledge: 1 }, feedback: "Leadership role." }
         ]
     },
     "s2_zoram_identity": {
-        text: "In the new land, Nephi categorizes the people.<br><br><i>(Read Jacob 1:13)</i>",
+        text: "You settle and Nephi begins to categorize the believers as 'Nephites' and the apostates as 'Lamanites.' He must decide where to place you.<br><br><i>(Read Jacob 1:13)</i>",
         backgroundAsset: "settlement",
         castAssets: ["Nephi"],
         choices: [
-            { text: "Embrace 'Nephite'.", nextScene: "start_screen_transition", effect: { unity: 2, faith: 1 }, feedback: "Story Module Complete." },
-            { text: "Keep 'Zoramite' distinction.", nextScene: "start_screen_transition", effect: { knowledge: 1, worldly: 1 }, feedback: "Story Module Complete." },
-            { text: "Focus on military strength.", nextScene: "start_screen_transition", effect: { worldly: 2, faith: -1 }, feedback: "Story Module Complete." }
+            { text: "Fully embrace the name 'Nephite' as your new identity.", nextScene: "start_screen_transition", effect: { unity: 2, faith: 1 }, feedback: "Story Module Complete." },
+            { text: "Ask to keep the distinction of 'Zoramite' for your descendants.", nextScene: "start_screen_transition", effect: { knowledge: 1, worldly: 1 }, feedback: "Story Module Complete." },
+            { text: "Insist that the focus should be on building a unified military strength, not names.", nextScene: "start_screen_transition", effect: { worldly: 2, faith: -1 }, feedback: "Story Module Complete." }
         ]
     }
 });

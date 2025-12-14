@@ -22,7 +22,7 @@ function showStorySelection() {
     startScreen.style.display = 'flex';
     
     const container = document.getElementById('menu-container');
-    container.innerHTML = "<h3 style='color:#6d5e41; margin-bottom:20px;'>Choose a Story Module</h3>";
+    container.innerHTML = "<h3 style='color:#6d5e41; margin-bottom:20px;'>Choose a Story</h3>";
 
     // Loop through ALL stories in window.STORIES
     window.STORIES.forEach(story => {
@@ -365,7 +365,7 @@ function globalAction(actionType) {
         case 'study':
             dFaith = 1; dWorld = -1; dUnity = -1;
             // Diminishing returns on Knowledge gain
-            if (isConsecutive) { dKnowledge = 0.2; actionText = "You studied again (diminishing returns)."; scriptureRef = "(See 2 Nephi 28:30)"; } 
+            if (isConsecutive) { dKnowledge = 0.2; actionText = "You studied again, but are having trouble focusing."; scriptureRef = "(See 2 Nephi 28:30)"; } 
             else { dKnowledge = 0.8; actionText = "You poured over the plates."; scriptureRef = "(See 1 Nephi 19:23)"; }
             if (dKnowledge > 0 && !gameState.covenantPathProgress.includes("Knowledge")) gameState.covenantPathProgress.push("Knowledge");
             break;
