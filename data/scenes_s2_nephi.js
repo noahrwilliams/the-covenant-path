@@ -30,6 +30,7 @@ Object.assign(window.scenes, {
         text: "Lehi is old. Laman and Lemuel complain about the difficulty of the new settlement.<br><br><i>(Read 2 Nephi 1:2)</i>",
         backgroundAsset: "settlement",
         castAssets: ["Lehi", "Laman", "Lemuel"],
+        onEnter: { faith: 0, unity: -2, worldly: 0 },
         choices: [
             { text: "Call them to repentance.", nextScene: "s2_nephi_blessing", effect: { faith: 2, unity: -2 }, feedback: "You speak with boldness, causing immediate friction." },
             { text: "Organize a feast.", nextScene: "s2_nephi_blessing", effect: { unity: 2, worldly: 1, faith: -1 }, feedback: "You offer a social solution to a spiritual problem." },
@@ -40,16 +41,18 @@ Object.assign(window.scenes, {
         text: "Lehi gives his final blessing. He rebukes Laman and warns him. Laman accuses you of seeking power.<br><br><i>(Read 2 Nephi 1:25-27)</i>",
         backgroundAsset: "house_interior",
         castAssets: ["Lehi", "Laman"],
+        onEnter: { faith: 0, unity: -1, worldly: 0 },
         choices: [
             { text: "Second your father's warning.", nextScene: "s2_nephi_death", effect: { faith: 1, unity: -3 }, feedback: "You stand with the prophet, further alienating your brothers." },
             { text: "Remain silent.", nextScene: "s2_nephi_death", effect: { unity: 1, faith: -1 }, feedback: "You avoid conflict, but show weakness." },
-            { text: "Offer to serve them.", nextScene: "s2_nephi_death", effect: { unity: 2, worldly: -1 }, feedback: "You show humility, though they may despise it." }
+            { text: "Offer to serve them.", nextScene: "s2_nephi_death", effect: { unity: 1, worldly: -1 }, feedback: "You show humility, though they may despise it." }
         ]
     },
     "s2_nephi_death": {
         text: "Lehi dies. The spiritual anchor is gone. Laman asserts his right to rule.<br><br><i>(Read 2 Nephi 4:12-13)</i>",
         backgroundAsset: "house_interior",
         castAssets: ["Laman", "Lemuel"],
+        onEnter: { faith: -2, unity: -3, worldly: 2 },
         choices: [
             { text: "Submit to Laman.", nextScene: "s2_nephi_psalm", effect: { unity: 3, faith: -3 }, feedback: "You choose peace at the cost of the Covenant." },
             { text: "Assert your priesthood keys.", nextScene: "s2_nephi_psalm", effect: { faith: 2, unity: -2 }, feedback: "You speak truth, but it is interpreted as ambition." },
@@ -60,6 +63,7 @@ Object.assign(window.scenes, {
         text: "You feel wretched because of your anger toward your brethren. Your soul grieves.<br><br><i>(Read 2 Nephi 4:17-19)</i>",
         backgroundAsset: "wilderness",
         castAssets: [],
+        onEnter: { faith: 0, unity: -1, worldly: 1 },
         choices: [
             { text: "Cry unto God (Psalm of Nephi).", nextScene: "s2_nephi_plot", effect: { faith: 3, worldly: -2 }, covenantUnlock: "Repentance", feedback: "You trust in the Rock of your salvation. (See 2 Nephi 4:30-35)" },
             { text: "Lose yourself in hard labor.", nextScene: "s2_nephi_plot", effect: { worldly: 2, faith: -1 }, feedback: "You use work to cope with sorrow." },
@@ -70,6 +74,7 @@ Object.assign(window.scenes, {
         text: "The Lord warns you that Laman plans to take your life.<br><br><i>(Read 2 Nephi 5:2-4)</i>",
         backgroundAsset: "settlement",
         castAssets: ["Laman"],
+        onEnter: { faith: 0, unity: -1, worldly: 0 },
         choices: [
             { text: "Pray for their hearts to soften.", nextScene: "s2_nephi_flee", effect: { faith: 2 }, feedback: "You maintain spiritual optimism." },
             { text: "Prepare a defense.", nextScene: "s2_nephi_flee", effect: { knowledge: 1, worldly: 1 }, feedback: "You prepare for physical violence." },
@@ -80,10 +85,11 @@ Object.assign(window.scenes, {
         text: "The Lord commands you to flee into the wilderness. This means abandoning your home.<br><br><i>(Read 2 Nephi 5:5)</i>",
         backgroundAsset: "wilderness",
         castAssets: ["Sam", "Zoram"],
+        onEnter: { faith: 0, unity: 0, worldly: 3 },
         choices: [
-            { text: "Obey immediately.", nextScene: "s2_nephi_items", effect: { faith: 2, unity: -1 }, covenantUnlock: "Faith", feedback: "Exact obedience." },
+            { text: "Obey immediately.", nextScene: "s2_nephi_items", effect: { faith: 2, unity: -1, worldly: -3 }, covenantUnlock: "Faith", feedback: "Exact obedience." },
             { text: "Plead for one last chance to save them.", nextScene: "s2_nephi_items", effect: { unity: 1 }, feedback: "You are reluctant to sever ties." },
-            { text: "Plan a secret evacuation.", nextScene: "s2_nephi_items", effect: { knowledge: 1, worldly: 1 }, feedback: "You focus on logistics." }
+            { text: "Plan a secret evacuation.", nextScene: "s2_nephi_items", effect: { knowledge: 1, worldly: 1, worldly: -1 }, feedback: "You focus on logistics." }
         ]
     },
     "s2_nephi_items": {
@@ -122,7 +128,7 @@ Object.assign(window.scenes, {
         castAssets: ["Zoram", "Sam"],
         choices: [
             { text: "Refuse: 'I will be your teacher.'", nextScene: "start_screen_transition", effect: { faith: 1, unity: 1 }, feedback: "Story Module Complete." },
-            { text: "Accept: 'I will bear the burden.'", nextScene: "start_screen_transition", effect: { knowledge: 1, unity: 1, faith: -1 }, feedback: "Story Module Complete." },
+            { text: "Accept: 'I will bear the burden.'", nextScene: "start_screen_transition", effect: { knowledge: 1, unity: 1, faith: -3 }, feedback: "Story Module Complete." },
             { text: "Deflect: 'Build the Temple first.'", nextScene: "start_screen_transition", effect: { faith: 3, worldly: -1 }, feedback: "Story Module Complete." }
         ]
     }

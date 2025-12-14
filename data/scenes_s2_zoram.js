@@ -20,6 +20,7 @@ Object.assign(window.scenes, {
         text: "Laman mocks your background as a servant.<br><br><i>(Context: Social Tension)</i>",
         backgroundAsset: "settlement",
         castAssets: ["Laman"],
+        onEnter: { faith: 0, unity: -1, worldly: 0 },
         choices: [
             { text: "Bear humble testimony.", nextScene: "s2_zoram_oath", effect: { faith: 2, worldly: -1 }, feedback: "You turn the other cheek." },
             { text: "Defend your skills.", nextScene: "s2_zoram_oath", effect: { worldly: 1, unity: -1 }, feedback: "You rely on pride." },
@@ -30,6 +31,7 @@ Object.assign(window.scenes, {
         text: "The separation looms. Nephi asks if your oath to Lehi still stands.<br><br><i>(Read 1 Nephi 4:33)</i>",
         backgroundAsset: "house_interior",
         castAssets: ["Nephi"],
+        onEnter: { faith: -1, unity: 0, worldly: 0 },
         choices: [
             { text: "Reaffirm it publicly.", nextScene: "s2_zoram_blessing", effect: { faith: 2, unity: -2 }, feedback: "You draw clear lines." },
             { text: "Reaffirm it privately.", nextScene: "s2_zoram_blessing", effect: { unity: 1, worldly: 1 }, feedback: "You choose prudence." },
@@ -50,6 +52,7 @@ Object.assign(window.scenes, {
         text: "Laman offers you a leadership role if you turn on Nephi.<br><br><i>(Context: Temptation)</i>",
         backgroundAsset: "settlement",
         castAssets: ["Laman"],
+        onEnter: { faith: -1, unity: -1, worldly: 2 },
         choices: [
             { text: "Rebuke him.", nextScene: "s2_zoram_plot", effect: { faith: 1, unity: -2 }, feedback: "Loyalty." },
             { text: "Feign interest to spy.", nextScene: "s2_zoram_plot", effect: { knowledge: 2, faith: -2 }, feedback: "Deception." },
@@ -60,6 +63,7 @@ Object.assign(window.scenes, {
         text: "You learn Laman plans to kill Nephi.<br><br><i>(Read 2 Nephi 5:3)</i>",
         backgroundAsset: "settlement",
         castAssets: ["Laman", "Nephi"],
+        onEnter: { faith: 0, unity: -1, worldly: 0 },
         choices: [
             { text: "Tell Nephi immediately.", nextScene: "s2_zoram_ultimatum", effect: { faith: 1, unity: 1 }, feedback: "Duty." },
             { text: "Confront Laman.", nextScene: "s2_zoram_ultimatum", effect: { unity: -2, worldly: 1 }, feedback: "Vigilante justice." },
@@ -70,6 +74,7 @@ Object.assign(window.scenes, {
         text: "Departure time. Your wife is hesitant to leave her sisters.<br><br><i>(Context: Family Split)</i>",
         backgroundAsset: "house_interior",
         castAssets: ["WifeOfNephi"],
+        onEnter: { faith: 0, unity: -1, worldly: 2 },
         choices: [
             { text: "Command: 'We follow the Prophet.'", nextScene: "s2_zoram_house", effect: { faith: 2, unity: -1 }, feedback: "Patriarchal authority." },
             { text: "Logic: 'We choose safety.'", nextScene: "s2_zoram_house", effect: { worldly: 1, unity: 1 }, feedback: "Reason." },
@@ -80,9 +85,10 @@ Object.assign(window.scenes, {
         text: "Abandoning the sturdy home you built.<br><br><i>(Context: Sacrifice)</i>",
         backgroundAsset: "settlement",
         castAssets: [],
+        onEnter: { faith: 0, unity: 0, worldly: 2 },
         choices: [
             { text: "Walk away.", nextScene: "s2_zoram_march", effect: { faith: 2, worldly: -1 }, feedback: "Lot's wife lesson." },
-            { text: "Trade it for supplies.", nextScene: "s2_zoram_march", effect: { worldly: 1, knowledge: 1 }, feedback: "Resource gathering." },
+            { text: "Trade it for supplies.", nextScene: "s2_zoram_march", effect: { worldly: 2, knowledge: 1 }, feedback: "Resource gathering." },
             { text: "Give it to Laman.", nextScene: "s2_zoram_march", effect: { unity: 2, faith: -1 }, feedback: "Bridge burning with love." }
         ]
     },

@@ -129,6 +129,7 @@ function startGame(characterName) {
 function checkGameOver() {
     if (gameState.faith <= 0) { renderScene("game_over_faith"); return true; }
     if (gameState.unity <= 0) { renderScene("game_over_unity"); return true; }
+    if (gameState.worldly_influence >= 10) { renderScene("game_over_worldly"); return true; } // V3.1: Worldly Game Over at 10+
     return false;
 }
 
@@ -136,12 +137,18 @@ function renderScene(sceneId, isUndo = false, previousActionHTML = null, eventIm
     if (sceneId === "start_screen_transition") { showStorySelection(); return; }
 
     if (sceneId === "game_over_faith") {
-        document.getElementById("story-text").innerHTML = "<h2 style='color:darkred'>Spiritual Darkness</h2>You have lost the Spirit. Without faith, your direction is lost. You wander the wilderness for years, lost and bitter.<br><br><b>GAME OVER</b>";
+        document.getElementById("story-text").innerHTML = "<h2 style='color:darkred'>Spiritual Darkness</h2>You have lost the Spirit. Without faith, the Liahona ceases to work. You wander the wilderness for years, lost and bitter.<br><br><b>GAME OVER</b>";
         document.getElementById("choices").innerHTML = "<button class='choice-btn' onclick='showStorySelection()'>Return to Menu</button>";
         return;
     }
     if (sceneId === "game_over_unity") {
-        document.getElementById("story-text").innerHTML = "<h2 style='color:darkred'>Family Fracture</h2>The contention becomes violent. The family separates in anger, and the covenant bond is broken.<br><br><b>GAME OVER</b>";
+        document.getElementById("story-text").innerHTML = "<h2 style='color:darkred'>Family Fracture</h2>The contention becomes violent. The family separates in the wilderness, never to see the Promised Land.<br><br><b>GAME OVER</b>";
+        document.getElementById("choices").innerHTML = "<button class='choice-btn' onclick='showStorySelection()'>Return to Menu</button>";
+        return;
+    }
+    // V3.1: NEW WORLDLY GAME OVER SCENE
+    if (sceneId === "game_over_worldly") {
+        document.getElementById("story-text").innerHTML = "<h2 style='color:darkred'>Pride and Destruction</h2>You chose the wealth and ways of the world over the covenant. Your heart is hardened, and you are cut off from the promises. <br><br><b>GAME OVER</b>";
         document.getElementById("choices").innerHTML = "<button class='choice-btn' onclick='showStorySelection()'>Return to Menu</button>";
         return;
     }
@@ -208,26 +215,36 @@ function renderScene(sceneId, isUndo = false, previousActionHTML = null, eventIm
 }
 
 function updateStatsDisplay() {
+    const CRITICAL_THRESHOLD = 4;
+    const WARNING_THRESHOLD = 6;
     const STATS = ["faith", "unity"];
+
     STATS.forEach(stat => {
         const value = gameState[stat];
         const element = document.getElementById(`score-${stat}`);
-        if(element) {
-            element.innerText = value;
-            element.style.color = (value <= 5) ? "#c0392b" : "inherit";
-        }
+        element.innerText = value;
+        if (value <= CRITICAL_THRESHOLD) element.style.color = "red";
+        else if (value <= WARNING_THRESHOLD) element.style.color = "#e67e22"; 
+        else element.style.color = "inherit";
     });
 
+    document.getElementById("score-world").innerText = gameState.worldly_influence;
     const worldElem = document.getElementById("score-world");
-    const knowElem = document.getElementById("score-knowledge");
-    if(worldElem) worldElem.innerText = Math.floor(gameState.worldly_influence);
-    if(knowElem) knowElem.innerText = Math.floor(gameState.knowledge);
+    if(gameState.worldly_influence >= 7) { // V3.1: Worldly warning color at 7+
+        worldElem.style.color = "red";
+        worldElem.style.fontWeight = "900";
+    } else {
+        worldElem.style.color = "inherit";
+        worldElem.style.fontWeight = "bold";
+    }
+    document.getElementById("score-knowledge").innerText = gameState.knowledge; // Ensure knowledge also updates
 }
 
 function updateGlobalActionButtonStates() {
     const studyBtn = document.getElementById('btn-study');
     if (studyBtn) {
         studyBtn.disabled = !gameState.hasBrassPlates;
+        studyBtn.title = !gameState.hasBrassPlates ? "Action unavailable: You must retrieve the Brass Plates before you can study them." : "";
         studyBtn.style.opacity = gameState.hasBrassPlates ? "1" : "0.5";
     }
 }
@@ -261,7 +278,7 @@ function getStatString(dF, dU, dW, dK) {
     s += formatStatHTML("Faith", dF);
     s += formatStatHTML("Unity", dU);
     s += formatStatHTML("Worldly", dW, true); 
-    s += formatStatHTML("Know.", dK);
+    s += formatStatHTML("Knowledge", dK);
     return s;
 }
 
@@ -273,9 +290,17 @@ function makeChoice(choice) {
     let dWorld = choice.effect.worldly || 0;
     let dKnowledge = choice.effect.knowledge || 0;
 
-    // Mechanics
-    if (gameState.worldly_influence > 15) { dFaith -= 1; dUnity -= 1; }
-    if (gameState.knowledge >= 5 && dFaith > 0) dFaith += 1; 
+    let penaltyText = "";
+    // V3.1 MECHANIC: High Worldly penalty applied to positive Faith/Unity actions starting at 7+
+    if (gameState.worldly_influence >= 7) {
+        // Penalty is applied to positive gains for Faith and Unity (if they exist)
+        if (dFaith > 0) { dFaith = Math.max(0, dFaith - 1); }
+        if (dUnity > 0) { dUnity = Math.max(0, dUnity - 1); }
+        penaltyText = " <span style='color:red; font-size:0.8em;'>(Rising Worldly Influence Penalty Applied)</span>";
+    }
+    
+    // MECHANIC: Knowledge Bonus
+    if (gameState.knowledge >= 3 && dFaith > 0) dFaith += 1; 
 
     gameState.faith += dFaith;
     gameState.unity += dUnity;
@@ -292,10 +317,15 @@ function makeChoice(choice) {
     let eventImpactHTML = null;
     
     if (nextSceneObj && nextSceneObj.onEnter) {
-        gameState.faith += (nextSceneObj.onEnter.faith || 0);
-        gameState.unity += (nextSceneObj.onEnter.unity || 0);
-        gameState.worldly_influence += (nextSceneObj.onEnter.worldly || 0);
-        eventImpactHTML = getStatString(nextSceneObj.onEnter.faith || 0, nextSceneObj.onEnter.unity || 0, nextSceneObj.onEnter.worldly || 0, 0);
+        let eF = nextSceneObj.onEnter.faith || 0;
+        let eU = nextSceneObj.onEnter.unity || 0;
+        let eW = nextSceneObj.onEnter.worldly || 0;
+        
+        gameState.faith += eF;
+        gameState.unity += eU;
+        gameState.worldly_influence += eW;
+        
+        eventImpactHTML = getStatString(eF, eU, eW, 0);
     }
     
     clampStats(); 
@@ -304,7 +334,7 @@ function makeChoice(choice) {
     let actionStats = getStatString(dFaith, dUnity, dWorld, dKnowledge);
     let previousActionHTML = `
         <span class="feedback-title">You chose: "${choice.text}"</span>
-        <span class="feedback-stats">${actionStats}</span>
+        <span class="feedback-stats">${actionStats} ${penaltyText}</span>
         <span class="feedback-narrative">${choice.feedback || ""}</span>
     `;
     
@@ -314,9 +344,17 @@ function makeChoice(choice) {
 
 function globalAction(actionType) {
     saveState(); 
+
     let dFaith = 0, dUnity = 0, dWorld = 0, dKnowledge = 0;
     let actionText = "";
     let scriptureRef = ""; 
+    let isConsecutive = (gameState.lastAction === actionType);
+
+    if (actionType === 'study' && !gameState.hasBrassPlates) {
+        historyStack.pop(); 
+        alert("You do not yet have the Brass Plates.");
+        return;
+    }
 
     switch(actionType) {
         case 'pray':
@@ -325,12 +363,14 @@ function globalAction(actionType) {
             scriptureRef = "(See Alma 37:37)";
             break;
         case 'study':
-            dFaith = 1; dWorld = -1; dKnowledge = 1;
-            actionText = "You poured over the plates.";
-            scriptureRef = "(See 1 Nephi 19:23)";
+            dFaith = 1; dWorld = -1; dUnity = -1;
+            // Diminishing returns on Knowledge gain
+            if (isConsecutive) { dKnowledge = 0.2; actionText = "You studied again (diminishing returns)."; scriptureRef = "(See 2 Nephi 28:30)"; } 
+            else { dKnowledge = 0.8; actionText = "You poured over the plates."; scriptureRef = "(See 1 Nephi 19:23)"; }
+            if (dKnowledge > 0 && !gameState.covenantPathProgress.includes("Knowledge")) gameState.covenantPathProgress.push("Knowledge");
             break;
         case 'service':
-            dFaith = -1; dWorld = 1; dUnity = 2;
+            dFaith = -1; dWorld = 2; dUnity = 2;
             actionText = "You served your family.";
             scriptureRef = "(See Mosiah 2:17)";
             break;
@@ -350,7 +390,13 @@ function globalAction(actionType) {
         <span class="feedback-stats">${actionStats}</span>
         <span class="feedback-narrative">${scriptureRef}</span>
     `;
+
+    gameState.lastAction = actionType;
+    
     renderScene(gameState.currentSceneId, false, previousActionHTML, null);
+    
+    document.getElementById("undo-btn").disabled = false;
+    document.getElementById("undo-btn").style.opacity = "1";
 }
 
 window.onload = function() {
