@@ -129,15 +129,17 @@ function loadCharacter(characterName, storyId) {
  * @param {string} storyId - The ID of the story just completed (e.g., 'exodus').
  */
 function handleModuleEnd(storyId) {
+    // Use window.STORIES to get context for the completed and next story.
     const storyIndex = window.STORIES.findIndex(s => s.id === storyId);
     const completedStory = window.STORIES[storyIndex];
+    // Check if there is a next story to allow the 'Continue Path' button to be active.
     const nextStory = window.STORIES[storyIndex + 1];
 
     const startScreen = document.getElementById('start-screen');
     const gameplayPanel = document.getElementById('gameplay-panel');
     const visualsArea = document.getElementById('visuals-area');
     
-    // Hide gameplay UI
+    // Hide gameplay UI and show the start screen for the menu.
     gameplayPanel.style.display = 'none';
     visualsArea.style.display = 'none';
     startScreen.style.display = 'flex';
@@ -153,7 +155,6 @@ function handleModuleEnd(storyId) {
     btnContinue.className = "story-btn";
     if (nextStory) {
         btnContinue.innerText = `Continue Path: Start ${nextStory.title}`;
-        // showStoryDetails is used here as it loads the character selection for the next story
         btnContinue.onclick = () => showStoryDetails(nextStory); 
     } else {
         btnContinue.innerText = "End of Available Content (Congratulations!)";
@@ -162,14 +163,14 @@ function handleModuleEnd(storyId) {
     }
     container.appendChild(btnContinue);
     
-    // 2. Change Perspective Button (Replay Current Story with a different character)
+    // 2. Change Perspective Button
     const btnChange = document.createElement("button");
     btnChange.className = "story-btn";
     btnChange.innerText = `Change Perspective: Replay ${completedStory.title}`;
     btnChange.onclick = () => showStoryDetails(completedStory); 
     container.appendChild(btnChange);
 
-    // 3. Story Selection Button (Back to Library)
+    // 3. Story Selection Button
     const btnLibrary = document.createElement("button");
     btnLibrary.className = "story-btn";
     btnLibrary.innerText = "Story Selection";
@@ -221,6 +222,7 @@ function renderScene(sceneId, isUndo = false, actionFeedback = null, choiceFeedb
     if (checkGameOver()) return;
 
     // Update UI elements
+    // This line assumes window.ASSET_PATHS is loaded from data_shared.js
     document.getElementById('visuals-area').style.backgroundImage = `url(${window.ASSET_PATHS.backgrounds[scene.backgroundAsset]})`;
     document.getElementById('scene-text').innerHTML = scene.text;
     updateStatsDisplay();
@@ -239,7 +241,7 @@ function renderScene(sceneId, isUndo = false, actionFeedback = null, choiceFeedb
             choicesDiv.appendChild(btn);
         });
     } else {
-        // If no choices, it's usually a game over or a temporary scene.
+        // Fallback if no choices are defined
         choicesDiv.innerHTML = `<button class="story-btn" onclick="showStorySelection()">Return to Library</button>`;
     }
     
@@ -308,7 +310,7 @@ function globalAction(actionType) {
             if (dKnowledge > 0 && !gameState.covenantPathProgress.includes("Knowledge")) gameState.covenantPathProgress.push("Knowledge");
             break;
         case 'service':
-            // FIX APPLIED HERE: Service should decrease Worldly Influence, not increase it.
+            // CRITICAL FIX: Ensure Service decreases Worldly Influence, as per game design.
             dFaith = -1; dWorld = -1; dUnity = 2;
             actionText = "You served your family and neighbors.";
             scriptureRef = "(See Mosiah 2:17)";
