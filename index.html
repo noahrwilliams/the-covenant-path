@@ -127,10 +127,11 @@
             border-bottom: 1px solid #eee;
         }
 
-        #story-text { /* Target the story-text ID used in engine.js */
+        #story-text { 
             font-size: 1em; line-height: 1.5;
             padding: 10px; background: #faf9f6; border-radius: 5px;
             border-left: 4px solid #d4c5a9;
+            margin-top: 10px; /* Add margin to separate from feedback */
         }
         
         .action-feedback-block {
@@ -140,6 +141,10 @@
         .feedback-stats { font-size: 0.85em; margin-bottom: 5px; display: block; }
         .feedback-narrative { display: block; font-style: italic; color: #555; font-size: 0.9em;}
         .event-impact-block { margin-top: 8px; font-size: 0.85em; border-top: 1px solid #eee; padding-top: 4px; }
+        
+        /* COLOR CODING */
+        .positive-change { color: #27ae60; } /* Green */
+        .negative-change { color: #c0392b; } /* Red */
 
         /* CONTROLS DECK */
         #controls-area {
@@ -199,13 +204,12 @@
         .story-btn:hover { background-color: #4a3e2b; }
         .story-btn:disabled { background-color: #ccc; cursor: not-allowed; opacity: 0.7; }
 
-        /* CRITICAL FIX: Add style for the character selection buttons used by engine.js */
         .character-btn {
             display: block; 
             width: 100%;
             padding: 15px;
             margin: 10px 0;
-            background-color: #92836b; /* Different color to distinguish from story-btn */
+            background-color: #92836b; 
             color: white;
             border: none;
             border-radius: 5px;
@@ -279,15 +283,15 @@
     </div>
 </div>
 
-<script src="data/data_shared.js"></script>
-<script src="data/engine.js"></script>
+<script src="data/data_shared.js?v=3.3.4"></script>
+<script src="data/engine.js?v=3.3.4"></script>
 
-<script src="data/scenes_nephi.js"></script>
-<script src="data/scenes_sariah.js"></script>
+<script src="data/scenes_nephi.js?v=3.3.4"></script>
+<script src="data/scenes_sariah.js?v=3.3.4"></script>
 
-<script src="data/scenes_s2_nephi.js"></script>
-<script src="data/scenes_s2_wife.js"></script>
-<script src="data/scenes_s2_zoram.js"></script>
+<script src="data/scenes_s2_nephi.js?v=3.3.4"></script>
+<script src="data/scenes_s2_wife.js?v=3.3.4"></script>
+<script src="data/scenes_s2_zoram.js?v=3.3.4"></script>
 
 </body>
 </html>

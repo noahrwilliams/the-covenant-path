@@ -36,6 +36,7 @@ function showStorySelection() {
         const reference = story.ref || "Scriptures Reference";
         const isAvailable = (story.characters && story.characters.length > 0);
 
+        // Corrected Story Button Layout (matching your previous successful structure)
         btn.innerHTML = `
             <span class="story-title">${title}</span>
             <span class="story-desc">${narrative}</span>
@@ -72,7 +73,6 @@ function showStoryDetails(story) {
         const charStats = window.STARTING_STATS[charName];
         if (charStats) {
             const btn = document.createElement("button");
-            // Uses the "character-btn" class now defined in index.html
             btn.className = "character-btn"; 
             btn.innerHTML = `
                 <strong>${charName}</strong>
@@ -80,7 +80,6 @@ function showStoryDetails(story) {
             `;
             btn.onclick = () => {
                 startScreen.style.display = 'none';
-                // Switches gameplay-panel to 'flex' for correct layout
                 document.getElementById('gameplay-panel').style.display = 'flex'; 
                 document.getElementById('visuals-area').style.display = 'block';
                 loadCharacter(charName, story.id);
@@ -228,6 +227,8 @@ function renderScene(sceneId, isUndo = false, actionFeedback = null, choiceFeedb
     // Update UI elements
     const protagonistPortrait = document.getElementById('protagonist-portrait');
     const castPortraitsContainer = document.getElementById('cast-portraits-container');
+    const storyScrollContainer = document.getElementById('story-scroll-container');
+
 
     // Update main portrait
     protagonistPortrait.src = window.ASSETS.characters[gameState.character];
@@ -250,38 +251,13 @@ function renderScene(sceneId, isUndo = false, actionFeedback = null, choiceFeedb
         });
     }
     
-    // CRITICAL FIX: The correct HTML ID is 'story-text'
-    document.getElementById('story-text').innerHTML = scene.text; 
-    
-    updateStatsDisplay();
-    updateCovenantDisplay();
-
-    // Render Choices
-    const choicesDiv = document.getElementById('choices');
-    choicesDiv.innerHTML = ''; // Clear previous choices
-    
-    if (scene.choices && scene.choices.length > 0) {
-        scene.choices.forEach((choice, index) => {
-            const btn = document.createElement('button');
-            btn.className = 'choice-btn';
-            btn.innerText = choice.text;
-            btn.onclick = () => handleChoice(index, sceneId);
-            choicesDiv.appendChild(btn);
-        });
-    } else {
-        choicesDiv.innerHTML = `<button class="story-btn" onclick="showStorySelection()">Return to Library</button>`;
-    }
-    
-    // Render Feedback
-    const storyScrollContainer = document.getElementById('story-scroll-container');
-    
     // Clear previous feedback block if it exists
     const previousFeedback = storyScrollContainer.querySelector('.action-feedback-block');
     if (previousFeedback) {
         storyScrollContainer.removeChild(previousFeedback);
     }
 
-    // Create a temporary element to hold new feedback
+    // Render Feedback at the top of the scroll container
     const tempFeedbackDiv = document.createElement('div');
     tempFeedbackDiv.className = 'action-feedback-block';
 
@@ -293,10 +269,39 @@ function renderScene(sceneId, isUndo = false, actionFeedback = null, choiceFeedb
             tempFeedbackDiv.innerHTML += `<div class="choice-feedback">${choiceFeedback}</div>`;
         }
         
-        // Insert feedback block right after the main scene text
-        storyScrollContainer.insertBefore(tempFeedbackDiv, document.getElementById('story-text').nextSibling);
+        // Insert feedback block BEFORE the main scene text
+        storyScrollContainer.insertBefore(tempFeedbackDiv, document.getElementById('story-text'));
     }
 
+    document.getElementById('story-text').innerHTML = scene.text; 
+    
+    updateStatsDisplay();
+    updateCovenantDisplay();
+    updateButtonStates(); // FIX: Update button states (Records/Study button)
+
+    // Render Choices
+    const choicesDiv = document.getElementById('choices');
+    choicesDiv.innerHTML = ''; // Clear previous choices
+    
+    if (scene.choices && scene.choices.length > 0) {
+        scene.choices.forEach((choice, index) => {
+            // FIX: Strip parenthetical text from button label
+            let buttonText = choice.text;
+            const parenIndex = buttonText.indexOf('(');
+            if (parenIndex !== -1) {
+                buttonText = buttonText.substring(0, parenIndex).trim();
+            }
+
+            const btn = document.createElement('button');
+            btn.className = 'choice-btn';
+            btn.innerText = buttonText; // Use the cleaned text
+            btn.onclick = () => handleChoice(index, sceneId);
+            choicesDiv.appendChild(btn);
+        });
+    } else {
+        choicesDiv.innerHTML = `<button class="story-btn" onclick="showStorySelection()">Return to Library</button>`;
+    }
+    
     // Scroll to the bottom of the scroll container to show new text/feedback
     storyScrollContainer.scrollTop = storyScrollContainer.scrollHeight;
 }
@@ -305,10 +310,12 @@ function handleChoice(choiceIndex, sceneId) {
     const scene = window.scenes[sceneId];
     const choice = scene.choices[choiceIndex];
 
+    // Prepare stat effect object for display and state change
+    // IMPORTANT: Use 'worldly' for scene/choice effects to match data_shared.js structure
+    const effect = choice.effect || { faith: 0, unity: 0, worldly: 0, knowledge: 0 };
+    
     // Apply choice effects
-    if (choice.effect) {
-        applyStats(choice.effect);
-    }
+    applyStats(effect);
     
     // Check for Covenant Unlock
     if (choice.covenantUnlock && !gameState.covenantPathProgress.includes(choice.covenantUnlock)) {
@@ -318,8 +325,8 @@ function handleChoice(choiceIndex, sceneId) {
     clampStats();
     if (checkGameOver()) return;
 
-    // Prepare choice feedback for next render
-    let choiceStats = getStatString(choice.effect.faith, choice.effect.unity, choice.effect.worldly || 0, choice.effect.knowledge || 0);
+    // Generate choice feedback using the applied effect values
+    let choiceStats = getStatString(effect.faith, effect.unity, effect.worldly || 0, effect.knowledge || 0);
     let feedbackHTML = `
         <span class="feedback-title">Choice: ${choice.text}</span>
         <span class="feedback-stats">${choiceStats}</span>
@@ -338,27 +345,43 @@ function globalAction(actionType) {
 
     switch(actionType) {
         case 'pray':
-            dFaith = 2; dUnity = -1;
-            // Diminishing returns on Faith gain
+            // CORRECTED LOGIC: Increase Faith, Decrease Unity, Decrease Worldly
+            dUnity = -1.0; 
+            dWorld = -0.5; // Small reduction of worldly influence
+            
             if (isConsecutive) { dFaith = 0.5; actionText = "You prayed again, but it felt routine."; scriptureRef = "(See 3 Nephi 18:16)"; } 
             else { dFaith = 1.5; actionText = "You poured out your soul in prayer."; scriptureRef = "(See Alma 34:27)"; }
+            
             if (dFaith > 0 && !gameState.covenantPathProgress.includes("Prayer to Seek Guidance")) gameState.covenantPathProgress.push("Prayer to Seek Guidance");
             break;
         case 'study':
-            dKnowledge = 1; dUnity = -1;
-            // Diminishing returns on Knowledge gain
-            if (isConsecutive) { dKnowledge = 0.5; actionText = "You studied again, but are having trouble focusing."; scriptureRef = "(See 2 Nephi 28:30)"; } 
-            else { dKnowledge = 1.5; actionText = "You poured over the plates."; scriptureRef = "(See 1 Nephi 19:23)"; }
+            // CORRECTED LOGIC: Increase Knowledge, Decrease Unity
+            dUnity = -0.5; 
+            dWorld = 0; // No change to Worldly (explicitly zeroed out)
+
+            if (gameState.hasBrassPlates) {
+                if (isConsecutive) { dKnowledge = 0.5; actionText = "You studied again, but are having trouble focusing."; scriptureRef = "(See 2 Nephi 28:30)"; } 
+                else { dKnowledge = 1.5; actionText = "You poured over the plates."; scriptureRef = "(See 1 Nephi 19:23)"; }
+            } else {
+                 dUnity = 0; // No unity change if you can't study
+                 dKnowledge = 0;
+                 actionText = "You have no records to study. You feel unfulfilled.";
+                 scriptureRef = "";
+            }
+            
             if (dKnowledge > 0 && !gameState.covenantPathProgress.includes("Knowledge")) gameState.covenantPathProgress.push("Knowledge");
             break;
         case 'service':
-            // Service effect: Decreases Worldly Influence
-            dFaith = 0; dWorld = -1; dUnity = 2; // Adjusted Faith from -1 to 0 for better balance
+            // CORRECTED LOGIC: Increase Unity, Decrease Worldly. No change to Faith.
+            dFaith = 0; 
+            dWorld = -1.0; 
+            dUnity = 2.0; 
             actionText = "You served your family and neighbors.";
             scriptureRef = "(See Mosiah 2:17)";
             break;
     }
     
+    // Apply calculated changes
     gameState.faith += dFaith;
     gameState.unity += dUnity;
     gameState.worldly_influence += dWorld;
@@ -367,11 +390,12 @@ function globalAction(actionType) {
     clampStats(); 
     if (checkGameOver()) return;
 
+    // Generate feedback string using the FINAL calculated changes (dFaith, dUnity, dWorld, dKnowledge)
     let actionStats = getStatString(dFaith, dUnity, dWorld, dKnowledge);
     let previousActionHTML = `
         <span class="feedback-title">Action: ${actionType.charAt(0).toUpperCase() + actionType.slice(1)}</span>
         <span class="feedback-stats">${actionStats}</span>
-        <span class="feedback-narrative">${scriptureRef}</span>
+        <span class="feedback-narrative">${actionText} ${scriptureRef}</span>
     `;
 
     gameState.lastAction = actionType;
@@ -396,7 +420,6 @@ function undoLastAction() {
 
         let sceneToRender = previousState.sceneId;
 
-        // If the last thing in history was a choice, re-render the scene where the choice was made
         if (previousState.choiceMade) {
              sceneToRender = previousState.choiceMade;
         }
@@ -406,13 +429,6 @@ function undoLastAction() {
 
         // Render the scene without applying onEnter effects (isUndo=true)
         renderScene(sceneToRender, true, null, null);
-        
-        // Manually remove the last feedback block if it exists
-        const storyScrollContainer = document.getElementById('story-scroll-container');
-        const feedbackBlock = storyScrollContainer.querySelector('.action-feedback-block');
-        if (feedbackBlock) {
-            storyScrollContainer.removeChild(feedbackBlock);
-        }
     }
 }
 
@@ -447,12 +463,47 @@ function updateCovenantDisplay() {
     document.getElementById('covenant-step-display').innerText = nextStep;
 }
 
+// Toggles the Records button based on game state
+function updateButtonStates() {
+    const studyBtn = document.getElementById('btn-study');
+    if (studyBtn) {
+        studyBtn.disabled = !gameState.hasBrassPlates;
+        studyBtn.title = studyBtn.disabled ? "The Records must first be obtained." : "";
+    }
+}
+
+
+// Adds color coding to stat changes (ensures display matches application)
 function getStatString(dF, dU, dW, dK) {
-    let parts = [];
-    if (dF) parts.push(`Faith: ${dF > 0 ? '+' : ''}${Math.round(dF * 10) / 10}`);
-    if (dU) parts.push(`Unity: ${dU > 0 ? '+' : ''}${Math.round(dU * 10) / 10}`);
-    if (dW) parts.push(`Worldly: ${dW > 0 ? '+' : ''}${Math.round(dW * 10) / 10}`);
-    if (dK) parts.push(`Knowledge: ${dK > 0 ? '+' : ''}${Math.round(dK * 10) / 10}`);
+    // Helper to format a single stat
+    const formatStat = (val, label) => {
+        // Only display if there's a change
+        if (val === 0) return null;
+        
+        const sign = val > 0 ? '+' : '';
+        let className = '';
+
+        // Worldly is inverted: a reduction (negative val) is good (positive-change)
+        if (label === 'Worldly') {
+            className = val < 0 ? 'positive-change' : 'negative-change';
+        } else {
+            // Faith, Unity, Knowledge: an increase (positive val) is good (positive-change)
+            className = val > 0 ? 'positive-change' : 'negative-change';
+        }
+
+        // Round to 1 decimal place for display consistency
+        const roundedVal = Math.round(val * 10) / 10;
+
+        return `<span class="${className}">${label}: ${sign}${roundedVal}</span>`;
+    };
+
+    let parts = [
+        formatStat(dF, 'Faith'),
+        formatStat(dU, 'Unity'),
+        formatStat(dW, 'Worldly'),
+        formatStat(dK, 'Knowledge')
+    ].filter(p => p !== null);
+
     return parts.join(' | ');
 }
 
