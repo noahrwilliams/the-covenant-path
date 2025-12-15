@@ -94,10 +94,13 @@ function showStoryDetails(story) {
     characterList.forEach(charName => {
         const charStats = window.STARTING_STATS[charName];
         if (charStats) {
+            // Use the displayName property for the button text, or default to the unique key (charName)
+            const displayName = charStats.displayName || charName;
+
             const btn = document.createElement("button");
             btn.className = "character-btn"; 
             btn.innerHTML = `
-                <strong>${charName}</strong>
+                <strong>${displayName}</strong>
                 <small><i>${charStats.bio}</i></small>
             `;
             btn.onclick = () => {

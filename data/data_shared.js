@@ -84,11 +84,13 @@ window.STARTING_STATS["Sariah"] = {
 
 // DEFAULT STARTING STATS FOR STORY 2 (The Great Division)
 window.STARTING_STATS["Nephi_S2"] = { 
+    displayName: "Nephi", // <--- ADDED LINE
     faith: 12, unity: 8, worldly_influence: 0, knowledge: 5, 
     hasBrassPlates: true, initialScene: "s2_nephi_intro",
     bio: "The spiritual leader of the group. He carries the burden of the plates and the responsibility to lead those who will follow."
 };
 window.STARTING_STATS["WifeOfNephi"] = { 
+    displayName: "Wife of Nephi", // <--- ADDED LINE
     faith: 10, unity: 12, worldly_influence: 2, knowledge: 3, 
     hasBrassPlates: true, initialScene: "s2_wife_intro",
     bio: "One of Ishmael's daughters. She bears the emotional weight of the family schism, trying to maintain the 'manner of happiness' amidst sorrow."
