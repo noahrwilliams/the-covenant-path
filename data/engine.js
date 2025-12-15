@@ -309,35 +309,54 @@ function renderScene(sceneId, isUndo = false, actionFeedback = null, choiceFeedb
 function handleChoice(choiceIndex, sceneId) {
     const scene = window.scenes[sceneId];
     const choice = scene.choices[choiceIndex];
+    
+    // 1. Save state BEFORE change (for accurate feedback calculation)
+    const oldFaith = gameState.faith;
+    const oldUnity = gameState.unity;
+    const oldWorld = gameState.worldly_influence;
+    const oldKnowledge = gameState.knowledge;
 
     // Prepare stat effect object for display and state change
-    // IMPORTANT: Use 'worldly' for scene/choice effects to match data_shared.js structure
     const effect = choice.effect || { faith: 0, unity: 0, worldly: 0, knowledge: 0 };
     
-    // Apply choice effects
+    // 2. Apply choice effects
     applyStats(effect);
     
-    // Check for Covenant Unlock
-    if (choice.covenantUnlock && !gameState.covenantPathProgress.includes(choice.covenantUnlock)) {
-        gameState.covenantPathProgress.push(choice.covenantUnlock);
-    }
-
+    // 3. Clamp (modifies gameState)
     clampStats();
     if (checkGameOver()) return;
 
-    // Generate choice feedback using the applied effect values
-    let choiceStats = getStatString(effect.faith, effect.unity, effect.worldly || 0, effect.knowledge || 0);
+    // 4. Check for Covenant Unlock
+    if (choice.covenantUnlock && !gameState.covenantPathProgress.includes(choice.covenantUnlock)) {
+        gameState.covenantPathProgress.push(choice.covenantUnlock);
+    }
+    
+    // 5. Calculate ACTUAL change after clamping
+    const actualDFaith = gameState.faith - oldFaith;
+    const actualDUnity = gameState.unity - oldUnity;
+    const actualDWorld = gameState.worldly_influence - oldWorld;
+    const actualDKnowledge = gameState.knowledge - oldKnowledge;
+
+
+    // 6. Generate choice feedback using the ACTUAL applied effect values
+    let choiceStats = getStatString(actualDFaith, actualDUnity, actualDWorld, actualDKnowledge);
     let feedbackHTML = `
         <span class="feedback-title">Choice: ${choice.text}</span>
         <span class="feedback-stats">${choiceStats}</span>
         <span class="feedback-narrative">${choice.feedback}</span>
     `;
 
-    // Proceed to next scene
+    // 7. Proceed to next scene
     renderScene(choice.nextScene, false, null, feedbackHTML);
 }
 
 function globalAction(actionType) {
+    // 1. Save state BEFORE change
+    const oldFaith = gameState.faith;
+    const oldUnity = gameState.unity;
+    const oldWorld = gameState.worldly_influence;
+    const oldKnowledge = gameState.knowledge;
+    
     // Check if the same action was taken last turn (for diminishing returns)
     let isConsecutive = gameState.lastAction === actionType;
     let dFaith = 0, dUnity = 0, dWorld = 0, dKnowledge = 0;
@@ -381,17 +400,24 @@ function globalAction(actionType) {
             break;
     }
     
-    // Apply calculated changes
+    // 2. Apply calculated changes (using the intended d-variables)
     gameState.faith += dFaith;
     gameState.unity += dUnity;
     gameState.worldly_influence += dWorld;
     gameState.knowledge += dKnowledge;
     
+    // 3. Clamp (modifies gameState if it exceeded min/max)
     clampStats(); 
     if (checkGameOver()) return;
+    
+    // 4. Calculate ACTUAL change after clamping
+    const actualDFaith = gameState.faith - oldFaith;
+    const actualDUnity = gameState.unity - oldUnity;
+    const actualDWorld = gameState.worldly_influence - oldWorld;
+    const actualDKnowledge = gameState.knowledge - oldKnowledge;
 
-    // Generate feedback string using the FINAL calculated changes (dFaith, dUnity, dWorld, dKnowledge)
-    let actionStats = getStatString(dFaith, dUnity, dWorld, dKnowledge);
+    // 5. Generate feedback string using the ACTUAL calculated changes
+    let actionStats = getStatString(actualDFaith, actualDUnity, actualDWorld, actualDKnowledge);
     let previousActionHTML = `
         <span class="feedback-title">Action: ${actionType.charAt(0).toUpperCase() + actionType.slice(1)}</span>
         <span class="feedback-stats">${actionStats}</span>
@@ -400,7 +426,7 @@ function globalAction(actionType) {
 
     gameState.lastAction = actionType;
     
-    // Render the current scene again with action feedback
+    // 6. Render the current scene again with action feedback
     renderScene(gameState.currentSceneId, false, previousActionHTML, null);
     
     document.getElementById("undo-btn").disabled = false;
@@ -452,10 +478,11 @@ function clampStats() {
 }
 
 function updateStatsDisplay() {
-    document.getElementById('score-faith').innerText = Math.floor(gameState.faith);
-    document.getElementById('score-unity').innerText = Math.floor(gameState.unity);
-    document.getElementById('score-world').innerText = Math.floor(gameState.worldly_influence);
-    document.getElementById('score-knowledge').innerText = Math.floor(gameState.knowledge);
+    // Uses toFixed(1) to display all stats with one decimal place (e.g., 10.0)
+    document.getElementById('score-faith').innerText = gameState.faith.toFixed(1);
+    document.getElementById('score-unity').innerText = gameState.unity.toFixed(1);
+    document.getElementById('score-world').innerText = gameState.worldly_influence.toFixed(1);
+    document.getElementById('score-knowledge').innerText = gameState.knowledge.toFixed(1);
 }
 
 function updateCovenantDisplay() {
@@ -477,7 +504,7 @@ function updateButtonStates() {
 function getStatString(dF, dU, dW, dK) {
     // Helper to format a single stat
     const formatStat = (val, label) => {
-        // Only display if there's a change
+        // Only display if there's a non-zero change
         if (val === 0) return null;
         
         const sign = val > 0 ? '+' : '';
@@ -493,8 +520,10 @@ function getStatString(dF, dU, dW, dK) {
 
         // Round to 1 decimal place for display consistency
         const roundedVal = Math.round(val * 10) / 10;
+        // Use toFixed(1) to ensure .0 is present (e.g., +2.0)
+        const displayVal = Math.abs(roundedVal).toFixed(1);
 
-        return `<span class="${className}">${label}: ${sign}${roundedVal}</span>`;
+        return `<span class="${className}">${label}: ${sign}${displayVal}</span>`;
     };
 
     let parts = [
