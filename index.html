@@ -292,12 +292,12 @@
             flex-grow: 1;
         }
 
-        /* --- START OF COLOR RESTORATION FIX (v3.7.1) --- */
+        /* --- START OF COLOR RESTORATION FIX (v3.7.2) --- */
         .story-btn, .character-btn {
             display: block;
             width: 100%;
-            background-color: #6d5e41; /* RESTORED: Dark background color */
-            border: none; /* REMOVED: The light border */
+            background-color: #6d5e41 !important; /* FORCE RESTORED: Dark background color */
+            border: none !important; /* FORCE REMOVED: The light border */
             text-align: left;
             padding: 15px;
             margin-bottom: 10px;
@@ -308,36 +308,36 @@
         
         /* RESTORED HOVER STATE */
         .story-btn:hover:not(:disabled), .character-btn:hover:not(:disabled) {
-            background-color: #4a3e2b; /* Darker brown for hover */
-            border-color: transparent; /* Keep no border on hover */
+            background-color: #4a3e2b !important; /* Darker brown for hover */
+            border-color: transparent !important; /* Keep no border on hover */
         }
 
         /* DISABLED BUTTONS */
         .story-btn:disabled, .character-btn:disabled {
-            background-color: #ccc;
-            border: 1px solid #aaa;
-            opacity: 0.7;
+            background-color: #ccc !important;
+            border: 1px solid #aaa !important;
+            opacity: 0.7 !important;
             cursor: not-allowed;
         }
         
         .story-title, .character-btn strong {
             font-size: 1.2em;
             font-weight: bold;
-            color: white; /* RESTORED: White text for contrast */
+            color: white !important; /* FORCE RESTORED: White text for contrast */
             display: block;
             margin-bottom: 5px;
         }
 
         .story-desc {
             font-size: 1em;
-            color: white; /* RESTORED: White text for contrast */
+            color: white !important; /* FORCE RESTORED: White text for contrast */
             display: block;
             margin-bottom: 5px;
         }
         
         .story-ref {
             font-size: 0.8em;
-            color: rgba(255, 255, 255, 0.8); /* Muted white for secondary text */
+            color: rgba(255, 255, 255, 0.8) !important; /* FORCE Muted white for secondary text */
             font-style: italic;
             display: block;
         }
@@ -345,7 +345,7 @@
         .character-btn small {
             display: block;
             margin-top: 5px;
-            color: rgba(255, 255, 255, 0.8); /* Muted white for secondary text */
+            color: rgba(255, 255, 255, 0.8) !important; /* FORCE Muted white for secondary text */
             font-size: 0.9em;
             line-height: 1.3;
         }
@@ -439,16 +439,16 @@
         </div>
     </div>
 
-<script src="data/data_shared.js?v=3.7.1"></script>
-<script src="data/engine.js?v=3.7.1"></script>
+<script src="data/data_shared.js?v=3.7.2"></script>
+<script src="data/engine.js?v=3.7.2"></script>
 
-<script src="data/scenes_nephi.js?v=3.7.1"></script>
-<script src="data/scenes_sariah.js?v=3.7.1"></script>
-<script src="data/scenes_s2_nephi.js?v=3.7.1"></script>
-<script src="data/scenes_s2_wife.js?v=3.7.1"></script>
-<script src="data/scenes_s2_zoram.js?v=3.7.1"></script>
+<script src="data/scenes_nephi.js?v=3.7.2"></script>
+<script src="data/scenes_sariah.js?v=3.7.2"></script>
+<script src="data/scenes_s2_nephi.js?v=3.7.2"></script>
+<script src="data/scenes_s2_wife.js?v=3.7.2"></script>
+<script src="data/scenes_s2_zoram.js?v=3.7.2"></script>
 
-<script src="engine.js?v=3.7.1"></script>
-<script src="data/data_shared.js?v=3.7.1"></script>
+<script src="engine.js?v=3.7.2"></script>
+<script src="data/data_shared.js?v=3.7.2"></script>
 </body>
 </html>
