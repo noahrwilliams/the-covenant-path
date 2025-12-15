@@ -46,7 +46,7 @@
             flex-shrink: 0;
             background-color: #444;
             overflow: hidden;
-            border-bottom: 4px solid #d4c5a9; /* restored border separator */
+            border-bottom: 4px solid #d4c5a9;
         }
 
         #background-image {
@@ -70,7 +70,7 @@
             z-index: 10;
             border: 3px solid #fff; 
             border-bottom: none; 
-            border-radius: 10px 10px 0 0; /* Rounded top edges */
+            border-radius: 10px 10px 0 0; 
             box-shadow: 2px -2px 10px rgba(0,0,0,0.5);
             background: #888;
         }
@@ -89,18 +89,18 @@
 
         .cast-portrait {
             height: 60px; 
-            width: 60px; /* Fixed circular size */
-            border-radius: 50%; /* Perfect circle */
+            width: 60px; 
+            border-radius: 50%; 
             border: 2px solid #fff; 
             object-fit: cover;
             box-shadow: 0 2px 5px rgba(0,0,0,0.4); 
-            margin-left: -20px; /* Slight overlap */
+            margin-left: -20px; 
             background: #aaa; 
             transition: transform 0.2s;
         }
         .cast-portrait:hover { transform: scale(1.1); z-index: 20; }
 
-        /* OVERLAY BUTTONS (Character/Story Select) */
+        /* OVERLAY BUTTONS */
         .overlay-btn {
             position: absolute; z-index: 100;
             background: rgba(0, 0, 0, 0.6); color: #fff;
@@ -417,7 +417,7 @@
                 <img id="protagonist-portrait" src="" alt="Protagonist">
                 <div id="cast-portraits-container"></div>
                 
-                <button id="btn-change-char" class="overlay-btn" onclick="goToStartScreen()">Change Character</button>
+                <button id="btn-change-char" class="overlay-btn" onclick="showCurrentCharacterSelection()">Change Character</button>
                 <button id="btn-modules" class="overlay-btn" onclick="showStorySelection()">Select Story</button>
                 
                 <div class="difficulty-tracker" style="position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.5); padding: 5px 10px; border-radius: 4px; font-size: 0.8em; color: white;">
@@ -455,14 +455,14 @@
         </div>
     </div>
 
-<script src="data/data_shared.js?v=3.9"></script>
+<script src="data/data_shared.js?v=3.10"></script>
 
-<script src="data/scenes_nephi.js?v=3.9"></script>
-<script src="data/scenes_sariah.js?v=3.9"></script>
-<script src="data/scenes_s2_nephi.js?v=3.9"></script>
-<script src="data/scenes_s2_wife.js?v=3.9"></script>
-<script src="data/scenes_s2_zoram.js?v=3.9"></script>
+<script src="data/scenes_nephi.js?v=3.10"></script>
+<script src="data/scenes_sariah.js?v=3.10"></script>
+<script src="data/scenes_s2_nephi.js?v=3.10"></script>
+<script src="data/scenes_s2_wife.js?v=3.10"></script>
+<script src="data/scenes_s2_zoram.js?v=3.10"></script>
 
-<script src="data/engine.js?v=3.9"></script>
+<script src="data/engine.js?v=3.10"></script>
 </body>
 </html>

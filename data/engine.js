@@ -86,7 +86,7 @@ function showStoryDetails(story) {
     characterList.forEach(charName => {
         const charStats = window.STARTING_STATS[charName];
         if (charStats) {
-            // FIX: Use displayName if available, otherwise fallback to ID
+            // Priority: Use manual displayName, fallback to internal ID
             const displayName = charStats.displayName || charName;
 
             const btn = document.createElement("button");
@@ -110,6 +110,23 @@ function showStoryDetails(story) {
     backBtn.innerText = "← Back to Story Selection";
     backBtn.onclick = showStorySelection;
     container.appendChild(backBtn);
+}
+
+// NEW FUNCTION: Navigates to the character selection screen for the CURRENT story
+function showCurrentCharacterSelection() {
+    document.getElementById('gameplay-panel').style.display = 'none';
+    document.getElementById('visuals-area').style.display = 'none';
+    document.getElementById('start-screen').style.display = 'flex';
+
+    if (gameState.currentStoryId) {
+        const story = window.STORIES.find(s => s.id === gameState.currentStoryId);
+        if (story) {
+            showStoryDetails(story);
+            return;
+        }
+    }
+    // Fallback if no story is active
+    showStorySelection();
 }
 
 function loadCharacter(characterName, storyId, difficulty) {
@@ -154,13 +171,6 @@ function loadCharacter(characterName, storyId, difficulty) {
     document.getElementById("undo-btn").disabled = true;
 
     renderScene(gameState.currentSceneId);
-}
-
-// Function to return to start screen (used by overlay buttons)
-function goToStartScreen() {
-    document.getElementById('gameplay-panel').style.display = 'none';
-    document.getElementById('visuals-area').style.display = 'none';
-    showStorySelection(); 
 }
 
 // === GAMEPLAY MECHANICS ===
