@@ -275,7 +275,13 @@ function renderScene(sceneId, isUndo = false, actionFeedback = null, choiceFeedb
     // Render Feedback
     const storyScrollContainer = document.getElementById('story-scroll-container');
     
-    // Create a temporary element to hold feedback before insertion
+    // Clear previous feedback block if it exists
+    const previousFeedback = storyScrollContainer.querySelector('.action-feedback-block');
+    if (previousFeedback) {
+        storyScrollContainer.removeChild(previousFeedback);
+    }
+
+    // Create a temporary element to hold new feedback
     const tempFeedbackDiv = document.createElement('div');
     tempFeedbackDiv.className = 'action-feedback-block';
 
