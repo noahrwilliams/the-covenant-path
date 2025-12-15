@@ -32,7 +32,7 @@ window.STORIES = [
     { id: "lamanite_mission", title: "The Lamanite Mission", ref: "Alma 17–27", narrative: "The Sons of Mosiah risk death to preach to their enemies, resulting in the conversion of the Anti-Nephi-Lehis.", characters: [] },
     { id: "word_power", title: "The Power of the Word", ref: "Alma 28–35", narrative: "Alma battles the philosophy of Korihor and leads a mission to the Zoramites to teach worship of the heart.", characters: [] },
     { id: "liberty", title: "The Title of Liberty", ref: "Alma 36–52", narrative: "Captain Moroni rallies the free men against the treachery of Amalickiah, fighting for their religion, freedom, and families.", characters: [] },
-    { id: "stripling", title: "The Band of Brothers", ref: "Alma 53–63", narrative: "While the government crumbles, 2,000 young warriors turn the tide of war through exact obedience and faith.", characters: [] },
+    { id: "stripling", title: "The Stripling Warriors", ref: "Alma 53–63", narrative: "While the government crumbles, 2,000 young warriors turn the tide of war through exact obedience and faith.", characters: [] },
     { id: "secret_combo", title: "The Secret Combination", ref: "Helaman 1–12", narrative: "The Gadianton robbers take over the government, and Nephi invokes a famine to humble the people.", characters: [] },
     { id: "prophecy", title: "The Prophecy", ref: "Helaman 13 – 3 Nephi 7", narrative: "Samuel the Lamanite prophesies from the wall, dividing the people into believers and murderers as the sign approaches.", characters: [] },
     { id: "darkness", title: "The Night of Darkness", ref: "3 Nephi 8–10", narrative: "The prophesied destruction hits, leaving the survivors broken and ready for the Light.", characters: [] },

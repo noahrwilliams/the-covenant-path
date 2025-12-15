@@ -131,9 +131,10 @@
             font-size: 1em; line-height: 1.5;
             padding: 10px; background: #faf9f6; border-radius: 5px;
             border-left: 4px solid #d4c5a9;
-            margin-top: 10px; /* Add margin to separate from feedback */
+            margin-top: 10px;
         }
         
+        /* FEEDBACK STYLING */
         .action-feedback-block {
             margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px dashed #ccc;
         }
@@ -142,9 +143,23 @@
         .feedback-narrative { display: block; font-style: italic; color: #555; font-size: 0.9em;}
         .event-impact-block { margin-top: 8px; font-size: 0.85em; border-top: 1px solid #eee; padding-top: 4px; }
         
-        /* COLOR CODING */
-        .positive-change { color: #27ae60; } /* Green */
-        .negative-change { color: #c0392b; } /* Red */
+        /* COLOR CODING for Stat Changes (Aesthetic Fix) */
+        .good-stat {
+            color: #27ae60; /* Dark Green: Positive for F/U/K, Negative for W */
+            font-weight: bold;
+        }
+        .bad-stat {
+            color: #c0392b; /* Deep Red: Negative for F/U/K, Positive for W */
+            font-weight: bold;
+        }
+        .neutral {
+            color: #7f8c8d; /* A gray for zero change (optional) */
+        }
+        .stat-change {
+            /* Ensure all stat changes display correctly */
+            display: inline-block;
+            margin: 0 5px;
+        }
 
         /* CONTROLS DECK */
         #controls-area {
@@ -165,7 +180,7 @@
             font-size: 0.7em; font-weight: bold; transition: background 0.2s; flex: 1; text-align: center;
         }
         .global-action-btn:hover:not(:disabled) { background-color: #8ba89a; }
-        .global-action-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .global-action-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
         .choice-btn {
             display: block; width: 100%; padding: 10px; margin: 5px 0;
@@ -245,13 +260,14 @@
         <button id="btn-modules" class="overlay-btn" onclick="showStorySelection()">Select Story</button>
     </div>
 
-    <div id="gameplay-panel">
+    <div id="gameplay-panel" style="display: none;">
         <div class="gameplay-header">
             <div class="stats-bar">
                 <div class="stat-item">Faith: <span id="score-faith">0</span></div>
                 <div class="stat-item">Unity: <span id="score-unity">0</span></div>
                 <div class="stat-item">Worldly: <span id="score-world">0</span></div>
                 <div class="stat-item">Know.: <span id="score-knowledge">0</span></div>
+                <div class="stat-item">Diff: <strong id="difficulty-display">Primary</strong></div>
             </div>
         </div>
 
@@ -277,21 +293,21 @@
         </div>
     </div>
 
-    <div id="start-screen">
+    <div id="start-screen" style="display: flex;">
         <h1 class="menu-title">The Covenant Path</h1>
         <div id="menu-container" class="menu-container"></div>
     </div>
 </div>
 
-<script src="data/data_shared.js?v=3.3.6"></script>
-<script src="data/engine.js?v=3.3.6"></script>
+<script src="data/data_shared.js?v=3.5"></script>
+<script src="data/engine.js?v=3.5"></script>
 
-<script src="data/scenes_nephi.js?v=3.3.6"></script>
-<script src="data/scenes_sariah.js?v=3.3.6"></script>
+<script src="data/scenes_nephi.js?v=3.5"></script>
+<script src="data/scenes_sariah.js?v=3.5"></script>
 
-<script src="data/scenes_s2_nephi.js?v=3.3.6"></script>
-<script src="data/scenes_s2_wife.js?v=3.3.6"></script>
-<script src="data/scenes_s2_zoram.js?v=3.3.6"></script>
+<script src="data/scenes_s2_nephi.js?v=3.5"></script>
+<script src="data/scenes_s2_wife.js?v=3.5"></script>
+<script src="data/scenes_s2_zoram.js?v=3.5"></script>
 
 </body>
 </html>

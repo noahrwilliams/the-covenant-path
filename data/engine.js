@@ -6,10 +6,13 @@ let gameState = {
     currentSceneId: null,
     currentStoryId: null, 
     covenantPathProgress: [],
-    lastAction: null
+    lastAction: null,
+    actionsTakenSinceChoice: 0, 
+    difficulty: 'Primary' // New: Default difficulty
 };
 
 let historyStack = []; 
+const DIFFICULTY_LEVELS = ['Primary', 'Youth', 'Endowed'];
 
 // === MENU SYSTEM LOGIC ===
 function showStorySelection() {
@@ -36,7 +39,6 @@ function showStorySelection() {
         const reference = story.ref || "Scriptures Reference";
         const isAvailable = (story.characters && story.characters.length > 0);
 
-        // Corrected Story Button Layout (matching your previous successful structure)
         btn.innerHTML = `
             <span class="story-title">${title}</span>
             <span class="story-desc">${narrative}</span>
@@ -59,12 +61,31 @@ function showStoryDetails(story) {
     const startScreen = document.getElementById('start-screen');
     const container = document.getElementById('menu-container');
     
-    container.innerHTML = `
-        <h2 style="color:#6d5e41; border-bottom:1px solid #d4c5a9; padding-bottom:10px;">${story.title}</h2>
-        <p style="margin-bottom: 25px;">${story.narrative}</p>
-        <p><strong>Scripture:</strong> ${story.ref}</p>
+    // Difficulty selector UI
+    const difficultySelectorHTML = `
+        <h4 style="margin-top: 10px; color:#4a4130;">Select Difficulty:</h4>
+        <select id="difficulty-select" style="padding: 10px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 4px; width: 100%; max-width: 300px; font-size: 1em;">
+            <option value="Primary">Primary (Easiest)</option>
+            <option value="Youth">Youth (Standard, Start: F-1, U-1, W+1, Strict DR)</option>
+            <option value="Endowed">Endowed (Hardest, Start: F-2, U-2, W+2, 1 Global Action)</option>
+        </select>
         <h4 style="margin-top: 20px; color:#4a4130;">Choose Your Perspective:</h4>
     `;
+
+    container.innerHTML = `
+        <h2 style="color:#6d5e41; border-bottom:1px solid #d4c5a9; padding-bottom:10px;">${story.title}</h2>
+        <p style="margin-bottom: 15px;">${story.narrative}</p>
+        <p><strong>Scripture:</strong> ${story.ref}</p>
+        ${difficultySelectorHTML}
+    `;
+    
+    // Set previous difficulty level if stored
+    const difficultySelect = document.getElementById('difficulty-select');
+    difficultySelect.value = gameState.difficulty;
+    difficultySelect.onchange = (e) => {
+        gameState.difficulty = e.target.value;
+    };
+
 
     // Ensure characters array exists and iterate
     const characterList = Array.isArray(story.characters) ? story.characters : [];
@@ -82,7 +103,8 @@ function showStoryDetails(story) {
                 startScreen.style.display = 'none';
                 document.getElementById('gameplay-panel').style.display = 'flex'; 
                 document.getElementById('visuals-area').style.display = 'block';
-                loadCharacter(charName, story.id);
+                // Pass the currently selected difficulty
+                loadCharacter(charName, story.id, gameState.difficulty);
             };
             container.appendChild(btn);
         }
@@ -95,13 +117,15 @@ function showStoryDetails(story) {
     container.appendChild(backBtn);
 }
 
-function loadCharacter(characterName, storyId) {
+function loadCharacter(characterName, storyId, difficulty) {
     const stats = window.STARTING_STATS[characterName];
     if (!stats) {
         console.error("Character stats not found:", characterName);
         return;
     }
 
+    // Set difficulty state
+    gameState.difficulty = difficulty;
     gameState.currentStoryId = storyId; 
 
     // Reset game state for the new character
@@ -114,6 +138,30 @@ function loadCharacter(characterName, storyId) {
     gameState.currentSceneId = stats.initialScene;
     gameState.covenantPathProgress = [];
     gameState.lastAction = null;
+    gameState.actionsTakenSinceChoice = 0; // Initialize action counter
+    
+    // === Apply Difficulty Stat Offsets (Functional Issue #5) ===
+    let faith_offset = 0;
+    let unity_offset = 0;
+    let worldly_offset = 0;
+    
+    if (difficulty === 'Youth') {
+        faith_offset = -1;
+        unity_offset = -1;
+        worldly_offset = 1;
+    } else if (difficulty === 'Endowed') {
+        // Endowed: -2 from base, +2 from base
+        faith_offset = -2;
+        unity_offset = -2;
+        worldly_offset = 2;
+    }
+    
+    gameState.faith += faith_offset;
+    gameState.unity += unity_offset;
+    gameState.worldly_influence += worldly_offset;
+    // ==========================================================
+
+
     historyStack = [];
     document.getElementById("undo-btn").disabled = true;
 
@@ -194,7 +242,10 @@ function renderScene(sceneId, isUndo = false, actionFeedback = null, choiceFeedb
     const scene = window.scenes[sceneId];
     if (!scene) {
         console.error("Scene not found:", sceneId);
-        showStorySelection(); 
+        // Do not return to selection if the scene is a warning scene that hasn't been written yet
+        if (!sceneId.startsWith('warning_')) {
+            showStorySelection(); 
+        }
         return;
     }
     
@@ -210,19 +261,25 @@ function renderScene(sceneId, isUndo = false, actionFeedback = null, choiceFeedb
             faith: gameState.faith, unity: gameState.unity, worldly_influence: gameState.worldly_influence, knowledge: gameState.knowledge,
             covenantPathProgress: [...gameState.covenantPathProgress],
             lastAction: gameState.lastAction,
+            actionsTakenSinceChoice: gameState.actionsTakenSinceChoice, // Save action counter
             choiceMade: (actionFeedback === null && choiceFeedback !== null) ? gameState.currentSceneId : null 
         });
     }
 
+    // Reset action counter ONLY if we are rendering a new scene due to a choice
+    if (choiceFeedback !== null) {
+        gameState.actionsTakenSinceChoice = 0;
+    }
+
     gameState.currentSceneId = sceneId;
 
-    // Apply onEnter effects (unless undoing)
-    if (!isUndo && scene.onEnter) {
+    // Apply onEnter effects (unless undoing or transitioning due to a warning)
+    if (!isUndo && !sceneId.startsWith('warning_') && scene.onEnter) {
         applyStats(scene.onEnter);
     }
     
     clampStats();
-    if (checkGameOver()) return;
+    if (checkGameOver()) return; // Check for immediate game over after onEnter
 
     // Update UI elements
     const protagonistPortrait = document.getElementById('protagonist-portrait');
@@ -236,6 +293,7 @@ function renderScene(sceneId, isUndo = false, actionFeedback = null, choiceFeedb
 
     // Update background image
     const backgroundImage = document.getElementById('background-image');
+    // Assuming ASSET_PATHS is ASSETS for consistency
     backgroundImage.src = window.ASSETS.backgrounds[scene.backgroundAsset];
     backgroundImage.alt = `Background: ${scene.backgroundAsset}`;
 
@@ -277,7 +335,7 @@ function renderScene(sceneId, isUndo = false, actionFeedback = null, choiceFeedb
     
     updateStatsDisplay();
     updateCovenantDisplay();
-    updateButtonStates(); // FIX: Update button states (Records/Study button)
+    updateButtonStates(); 
 
     // Render Choices
     const choicesDiv = document.getElementById('choices');
@@ -285,10 +343,11 @@ function renderScene(sceneId, isUndo = false, actionFeedback = null, choiceFeedb
     
     if (scene.choices && scene.choices.length > 0) {
         scene.choices.forEach((choice, index) => {
-            // FIX: Strip parenthetical text from button label
+            // FIX: Strip parenthetical text from button label (if it exists)
             let buttonText = choice.text;
             const parenIndex = buttonText.indexOf('(');
             if (parenIndex !== -1) {
+                // Use the text up to the parenthesis, but keep the full text for the feedback/log
                 buttonText = buttonText.substring(0, parenIndex).trim();
             }
 
@@ -304,6 +363,10 @@ function renderScene(sceneId, isUndo = false, actionFeedback = null, choiceFeedb
     
     // Scroll to the bottom of the scroll container to show new text/feedback
     storyScrollContainer.scrollTop = storyScrollContainer.scrollHeight;
+    
+    // Check for warnings *after* rendering the scene, to allow players to see the result 
+    // before the engine forces a warning transition.
+    checkWarning(); 
 }
 
 function handleChoice(choiceIndex, sceneId) {
@@ -324,7 +387,7 @@ function handleChoice(choiceIndex, sceneId) {
     
     // 3. Clamp (modifies gameState)
     clampStats();
-    if (checkGameOver()) return;
+    if (checkGameOver()) return; // Check for hard game over
 
     // 4. Check for Covenant Unlock
     if (choice.covenantUnlock && !gameState.covenantPathProgress.includes(choice.covenantUnlock)) {
@@ -351,38 +414,73 @@ function handleChoice(choiceIndex, sceneId) {
 }
 
 function globalAction(actionType) {
-    // 1. Save state BEFORE change
+    const isYouth = gameState.difficulty === 'Youth';
+    const isEndowed = gameState.difficulty === 'Endowed';
+    const actionTaken = gameState.actionsTakenSinceChoice > 0;
+    const consecutivePrimary = gameState.lastAction === actionType; // Standard DR check
+
+    // === Endowed Difficulty Restriction (Functional Issue #5) ===
+    // If Endowed, only one action per scene/choice is allowed.
+    if (isEndowed && actionTaken) {
+        return; 
+    }
+    
+    // 1. Save state BEFORE change (for undo/feedback)
     const oldFaith = gameState.faith;
     const oldUnity = gameState.unity;
     const oldWorld = gameState.worldly_influence;
     const oldKnowledge = gameState.knowledge;
     
-    // Check if the same action was taken last turn (for diminishing returns)
-    let isConsecutive = gameState.lastAction === actionType;
+    let applyDR = false;
+    
+    if (isYouth) {
+        // Youth DR: diminishing returns if ANY global action was pressed since the last choice.
+        if (actionTaken) { 
+            applyDR = true; 
+        }
+    } else if (gameState.difficulty === 'Primary') { 
+        // Primary DR: diminishing returns only if the SAME global action was pressed last.
+        if (consecutivePrimary) { 
+            applyDR = true; 
+        }
+    } 
+    // If Endowed, applyDR remains false, meaning full effect on the single allowed action.
+
+
     let dFaith = 0, dUnity = 0, dWorld = 0, dKnowledge = 0;
     let actionText = "", scriptureRef = "";
 
     switch(actionType) {
         case 'pray':
-            // CORRECTED LOGIC: Increase Faith, Decrease Unity, Decrease Worldly
             dUnity = -1.0; 
-            dWorld = -0.5; // Small reduction of worldly influence
-            
-            if (isConsecutive) { dFaith = 0.5; actionText = "You prayed again, but it felt routine."; scriptureRef = "(See 3 Nephi 18:16)"; } 
-            else { dFaith = 1.5; actionText = "You poured out your soul in prayer."; scriptureRef = "(See Alma 34:27)"; }
+            dWorld = -0.5;
+
+            if (applyDR) { 
+                dFaith = 0.5; 
+                actionText = "You prayed again, but the Spirit feels less attentive in this moment."; 
+            } else { 
+                dFaith = 1.5; 
+                actionText = "You poured out your soul in prayer."; 
+            }
+            scriptureRef = "(See Alma 34:27)"; 
             
             if (dFaith > 0 && !gameState.covenantPathProgress.includes("Prayer to Seek Guidance")) gameState.covenantPathProgress.push("Prayer to Seek Guidance");
             break;
+
         case 'study':
-            // CORRECTED LOGIC: Increase Knowledge, Decrease Unity
             dUnity = -0.5; 
-            dWorld = 0; // No change to Worldly (explicitly zeroed out)
+            dWorld = 0; 
 
             if (gameState.hasBrassPlates) {
-                if (isConsecutive) { dKnowledge = 0.5; actionText = "You studied again, but are having trouble focusing."; scriptureRef = "(See 2 Nephi 28:30)"; } 
-                else { dKnowledge = 1.5; actionText = "You poured over the plates."; scriptureRef = "(See 1 Nephi 19:23)"; }
+                if (applyDR) { 
+                    dKnowledge = 0.5; 
+                    actionText = "You studied again, but are having trouble focusing on new light in this moment."; 
+                } else { 
+                    dKnowledge = 1.5; 
+                    actionText = "You poured over the plates, finding great knowledge."; 
+                }
             } else {
-                 dUnity = 0; // No unity change if you can't study
+                 dUnity = 0;
                  dKnowledge = 0;
                  actionText = "You have no records to study. You feel unfulfilled.";
                  scriptureRef = "";
@@ -390,26 +488,33 @@ function globalAction(actionType) {
             
             if (dKnowledge > 0 && !gameState.covenantPathProgress.includes("Knowledge")) gameState.covenantPathProgress.push("Knowledge");
             break;
+
         case 'service':
-            // CORRECTED LOGIC: Increase Unity, Decrease Worldly. No change to Faith.
-            dFaith = 0; 
             dWorld = -1.0; 
-            dUnity = 2.0; 
-            actionText = "You served your family and neighbors.";
+            
+            if (applyDR) { 
+                dUnity = 0.5; 
+                dFaith = -0.5; 
+                actionText = "You gave service again, but your energy and focus were strained.";
+            } else { 
+                dUnity = 2.0; 
+                dFaith = -1.0; 
+                actionText = "You served your family and neighbors with diligence.";
+            }
             scriptureRef = "(See Mosiah 2:17)";
             break;
     }
     
-    // 2. Apply calculated changes (using the intended d-variables)
+    // 2. Apply calculated changes 
     gameState.faith += dFaith;
     gameState.unity += dUnity;
     gameState.worldly_influence += dWorld;
     gameState.knowledge += dKnowledge;
     
-    // 3. Clamp (modifies gameState if it exceeded min/max)
+    // 3. Clamp
     clampStats(); 
-    if (checkGameOver()) return;
-    
+    if (checkGameOver()) return; 
+
     // 4. Calculate ACTUAL change after clamping
     const actualDFaith = gameState.faith - oldFaith;
     const actualDUnity = gameState.unity - oldUnity;
@@ -425,6 +530,7 @@ function globalAction(actionType) {
     `;
 
     gameState.lastAction = actionType;
+    gameState.actionsTakenSinceChoice++; // Increment action counter
     
     // 6. Render the current scene again with action feedback
     renderScene(gameState.currentSceneId, false, previousActionHTML, null);
@@ -443,6 +549,10 @@ function undoLastAction() {
         gameState.knowledge = previousState.knowledge;
         gameState.covenantPathProgress = previousState.covenantPathProgress;
         gameState.lastAction = previousState.lastAction;
+        gameState.actionsTakenSinceChoice = previousState.actionsTakenSinceChoice; // Restore action counter
+
+        // FIX: Explicitly call updateStatsDisplay to ensure UI reflects the restored state
+        updateStatsDisplay(); 
 
         let sceneToRender = previousState.sceneId;
 
@@ -462,7 +572,7 @@ function undoLastAction() {
 // === HELPER FUNCTIONS ===
 function applyStats(effects) {
     if (effects) {
-        // Use 'worldly' for scene effects to match data structure
+        // Stats are only added, clamping ensures they stay in range.
         gameState.faith += effects.faith || 0;
         gameState.unity += effects.unity || 0;
         gameState.worldly_influence += effects.worldly || 0; 
@@ -483,6 +593,7 @@ function updateStatsDisplay() {
     document.getElementById('score-unity').innerText = gameState.unity.toFixed(1);
     document.getElementById('score-world').innerText = gameState.worldly_influence.toFixed(1);
     document.getElementById('score-knowledge').innerText = gameState.knowledge.toFixed(1);
+    document.getElementById('difficulty-display').innerText = gameState.difficulty;
 }
 
 function updateCovenantDisplay() {
@@ -490,11 +601,22 @@ function updateCovenantDisplay() {
     document.getElementById('covenant-step-display').innerText = nextStep;
 }
 
-// Toggles the Records button based on game state
+// Toggles the Records button based on game state and difficulty restriction
 function updateButtonStates() {
     const studyBtn = document.getElementById('btn-study');
+    const prayBtn = document.getElementById('btn-pray');
+    const serviceBtn = document.getElementById('btn-service');
+
+    // Endowed mode check
+    const isEndowedRestricted = (gameState.difficulty === 'Endowed' && gameState.actionsTakenSinceChoice >= 1); 
+    
+    // Standard button disable logic
+    prayBtn.disabled = isEndowedRestricted;
+    serviceBtn.disabled = isEndowedRestricted;
+
     if (studyBtn) {
-        studyBtn.disabled = !gameState.hasBrassPlates;
+        // Study button is disabled if no plates OR if Endowed restriction applies
+        studyBtn.disabled = !gameState.hasBrassPlates || isEndowedRestricted;
         studyBtn.title = studyBtn.disabled ? "The Records must first be obtained." : "";
     }
 }
@@ -502,40 +624,79 @@ function updateButtonStates() {
 
 // Adds color coding to stat changes (ensures display matches application)
 function getStatString(dF, dU, dW, dK) {
-    // Helper to format a single stat
-    const formatStat = (val, label) => {
-        // Only display if there's a non-zero change
-        if (val === 0) return null;
+    let parts = [];
+    
+    // Helper function to get the correct class (good/bad)
+    function getStatClass(statName, delta) {
+        if (delta === 0) return 'neutral';
         
-        const sign = val > 0 ? '+' : '';
-        let className = '';
-
-        // Worldly is inverted: a reduction (negative val) is good (positive-change)
-        if (label === 'Worldly') {
-            className = val < 0 ? 'positive-change' : 'negative-change';
-        } else {
-            // Faith, Unity, Knowledge: an increase (positive val) is good (positive-change)
-            className = val > 0 ? 'positive-change' : 'negative-change';
+        // Faith, Unity, Knowledge: Positive is good, Negative is bad
+        if (statName === 'Faith' || statName === 'Unity' || statName === 'Knowledge') {
+            return delta > 0 ? 'good-stat' : 'bad-stat';
+        } 
+        
+        // Worldly Influence: Negative is good, Positive is bad
+        if (statName === 'Worldly') {
+            return delta < 0 ? 'good-stat' : 'bad-stat';
         }
+        return 'neutral';
+    }
 
-        // Round to 1 decimal place for display consistency
-        const roundedVal = Math.round(val * 10) / 10;
-        // Use toFixed(1) to ensure .0 is present (e.g., +2.0)
-        const displayVal = Math.abs(roundedVal).toFixed(1);
+    // Function to format the stat part as colored HTML
+    const formatStat = (statName, delta) => {
+        // Only display if there's a non-zero change
+        if (delta === 0) return null; 
+        
+        const className = getStatClass(statName, delta);
+        const sign = delta > 0 ? '+' : '';
+        const roundedVal = Math.round(delta * 10) / 10;
+        const displayVal = sign + roundedVal.toFixed(1);
 
-        return `<span class="${className}">${label}: ${sign}${displayVal}</span>`;
+        return `<span class="stat-change ${className}">${statName}: ${displayVal}</span>`;
     };
 
-    let parts = [
-        formatStat(dF, 'Faith'),
-        formatStat(dU, 'Unity'),
-        formatStat(dW, 'Worldly'),
-        formatStat(dK, 'Knowledge')
-    ].filter(p => p !== null);
+    // Pass the delta values and the display name
+    const faithPart = formatStat('Faith', dF);
+    const unityPart = formatStat('Unity', dU);
+    const worldlyPart = formatStat('Worldly', dW);
+    const knowledgePart = formatStat('Knowledge', dK);
+    
+    if (faithPart) parts.push(faithPart);
+    if (unityPart) parts.push(unityPart);
+    if (worldlyPart) parts.push(worldlyPart);
+    if (knowledgePart) parts.push(knowledgePart);
 
     return parts.join(' | ');
 }
 
+
+/**
+ * Functional Issue #6: Checks for the critical warning threshold and forces a scene transition.
+ */
+function checkWarning() {
+    // If we are already in a warning scene, do not transition again.
+    if (gameState.currentSceneId.startsWith('warning_')) return false;
+
+    const LOW_THRESHOLD = 5.0; 
+    const HIGH_THRESHOLD = window.MAX_STAT - 5.0; // e.g., 20 - 5 = 15
+
+    let warningScene = null;
+
+    if (gameState.faith < LOW_THRESHOLD) warningScene = 'warning_low_faith';
+    else if (gameState.unity < LOW_THRESHOLD) warningScene = 'warning_low_unity';
+    else if (gameState.worldly_influence > HIGH_THRESHOLD) warningScene = 'warning_high_world';
+
+    if (warningScene) {
+        // Force an immediate scene transition (using isUndo=true to prevent history logging)
+        renderScene(warningScene, true, null, null);
+        return true; 
+    }
+    return false;
+}
+
+/**
+ * Checks for the terminal game over condition (0 or MAX_STAT)
+ */
 function checkGameOver() {
     if (gameState.faith <= 0 || gameState.unity <= 0 || gameState.worldly_influence >= window.MAX_STAT) {
         const startScreen = document.getElementById('start-screen');
