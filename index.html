@@ -439,43 +439,14 @@
         </div>
     </div>
 
-<script>
-    // This is a placeholder function based on common structure, assuming your engine.js defines startGame() 
-    // and showStorySelection() to fix the broken button logic.
-    function showStorySelection() {
-        // This should be fully defined in engine.js to correctly rebuild the menu.
-        // For now, we only ensure the display logic works.
-        document.getElementById('start-screen').style.display = 'flex';
-        document.getElementById('gameplay-panel').style.display = 'none';
-        document.getElementById('visuals-area').style.display = 'none';
-        
-        // This re-enables the story selection list which showMainMenu() or a similar function populates.
-        if (typeof showMainMenu === 'function') { 
-            showMainMenu();
-        } else {
-            console.log("Warning: showMainMenu() is not defined. Cannot redraw story selection properly.");
-        }
-    }
-
-    // Attach click listener to ensure the dynamically added back button works
-    document.addEventListener('click', function(e) {
-        if (e.target && e.target.classList.contains('back-btn')) {
-            // Prevent default form action or spurious navigation if applicable
-            e.preventDefault(); 
-            showStorySelection();
-        }
-    });
-</script>
 <script src="data/data_shared.js?v=3.7.3"></script>
-<script src="data/engine.js?v=3.7.3"></script>
 
 <script src="data/scenes_nephi.js?v=3.7.3"></script>
 <script src="data/scenes_sariah.js?v=3.7.3"></script>
 <script src="data/scenes_s2_nephi.js?v=3.7.3"></script>
-<script src="data/scenes_s2_sariah.js?v=3.7.3"></script>
+<script src="data/scenes_s2_wife.js?v=3.7.3"></script>
 <script src="data/scenes_s2_zoram.js?v=3.7.3"></script>
 
 <script src="engine.js?v=3.7.3"></script>
-<script src="data/data_shared.js?v=3.7.3"></script>
 </body>
 </html>
