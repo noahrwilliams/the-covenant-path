@@ -61,16 +61,17 @@ function showStoryDetails(story) {
     const startScreen = document.getElementById('start-screen');
     const container = document.getElementById('menu-container');
     
-    // Difficulty selector UI
+    // === FIX FOR DIFFICULTY LABELS (v3.5.1) ===
     const difficultySelectorHTML = `
         <h4 style="margin-top: 10px; color:#4a4130;">Select Difficulty:</h4>
         <select id="difficulty-select" style="padding: 10px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 4px; width: 100%; max-width: 300px; font-size: 1em;">
-            <option value="Primary">Primary (Easiest)</option>
-            <option value="Youth">Youth (Standard, Start: F-1, U-1, W+1, Strict DR)</option>
-            <option value="Endowed">Endowed (Hardest, Start: F-2, U-2, W+2, 1 Global Action)</option>
+            <option value="Primary">Primary (easy)</option>
+            <option value="Youth">Youth (medium)</option>
+            <option value="Endowed">Endowed (hard)</option>
         </select>
         <h4 style="margin-top: 20px; color:#4a4130;">Choose Your Perspective:</h4>
     `;
+    // ============================================
 
     container.innerHTML = `
         <h2 style="color:#6d5e41; border-bottom:1px solid #d4c5a9; padding-bottom:10px;">${story.title}</h2>
