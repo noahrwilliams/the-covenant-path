@@ -46,6 +46,7 @@
             flex-shrink: 0;
             background-color: #444;
             overflow: hidden;
+            border-bottom: 4px solid #d4c5a9; /* restored border separator */
         }
 
         #background-image {
@@ -53,37 +54,66 @@
             height: 100%;
             object-fit: cover;
             position: absolute;
-            top: 0;
-            left: 0;
+            top: 0; left: 0;
             z-index: 1;
             filter: brightness(0.9);
         }
 
+        /* PROTAGONIST: Rounded Top Edges style */
         #protagonist-portrait {
             position: absolute;
-            left: 5%;
-            bottom: 0;
-            height: 90%;
-            z-index: 5;
-            filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
-            image-rendering: crisp-edges;
+            bottom: 0; 
+            left: 20px;
+            height: 85%; 
+            width: auto;
+            object-fit: cover;
+            z-index: 10;
+            border: 3px solid #fff; 
+            border-bottom: none; 
+            border-radius: 10px 10px 0 0; /* Rounded top edges */
+            box-shadow: 2px -2px 10px rgba(0,0,0,0.5);
+            background: #888;
         }
 
+        /* SUPPORTING CAST: Overlapping Circles */
         #cast-portraits-container {
-            position: absolute;
-            right: 5%;
-            bottom: 0;
-            z-index: 5;
-            display: flex;
+            position: absolute; 
+            bottom: 10px; 
+            right: 20px;
+            height: auto; 
+            display: flex; 
+            justify-content: flex-end; 
             align-items: flex-end;
-            gap: 10px;
+            z-index: 5;
         }
 
         .cast-portrait {
-            height: 70%;
-            filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
-            image-rendering: crisp-edges;
+            height: 60px; 
+            width: 60px; /* Fixed circular size */
+            border-radius: 50%; /* Perfect circle */
+            border: 2px solid #fff; 
+            object-fit: cover;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.4); 
+            margin-left: -20px; /* Slight overlap */
+            background: #aaa; 
+            transition: transform 0.2s;
         }
+        .cast-portrait:hover { transform: scale(1.1); z-index: 20; }
+
+        /* OVERLAY BUTTONS (Character/Story Select) */
+        .overlay-btn {
+            position: absolute; z-index: 100;
+            background: rgba(0, 0, 0, 0.6); color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.5); padding: 5px 10px;
+            font-size: 0.7em; text-transform: uppercase; letter-spacing: 1px;
+            cursor: pointer; border-radius: 4px; backdrop-filter: blur(2px);
+            transition: background 0.2s;
+        }
+        .overlay-btn:hover { background: rgba(0, 0, 0, 0.8); }
+
+        #btn-change-char { bottom: 10px; left: 10px; transform: translateY(-100%); margin-bottom: 5px; } 
+        #btn-modules { top: 10px; right: 10px; }
+
 
         /* GAMEPLAY PANEL (70% Height) */
         #gameplay-panel {
@@ -292,28 +322,26 @@
             flex-grow: 1;
         }
 
-        /* --- BUTTON STYLING FIX --- */
+        /* BUTTON STYLING (Dark Color, White Text) */
         .story-btn, .character-btn {
             display: block;
             width: 100%;
-            background-color: #6d5e41 !important; /* Dark background color */
+            background-color: #6d5e41 !important; /* Dark background */
             border: none !important; 
             text-align: left;
             padding: 15px;
             margin-bottom: 10px;
             cursor: pointer;
             border-radius: 4px;
-            transition: background-color 0.2s, border-color 0.2s;
+            transition: background-color 0.2s;
         }
         
         .story-btn:hover:not(:disabled), .character-btn:hover:not(:disabled) {
-            background-color: #4a3e2b !important; /* Darker brown for hover */
-            border-color: transparent !important; 
+            background-color: #4a3e2b !important; /* Darker brown hover */
         }
 
         .story-btn:disabled, .character-btn:disabled {
             background-color: #ccc !important;
-            border: 1px solid #aaa !important;
             opacity: 0.7 !important;
             cursor: not-allowed;
         }
@@ -321,33 +349,25 @@
         .story-title, .character-btn strong {
             font-size: 1.2em;
             font-weight: bold;
-            color: white !important; /* White text for contrast */
+            color: white !important; 
             display: block;
             margin-bottom: 5px;
         }
 
         .story-desc {
             font-size: 1em;
-            color: white !important; /* White text for contrast */
+            color: white !important; 
             display: block;
             margin-bottom: 5px;
         }
         
-        .story-ref {
+        .story-ref, .character-btn small {
             font-size: 0.8em;
-            color: rgba(255, 255, 255, 0.8) !important; /* Muted white for secondary text */
+            color: rgba(255, 255, 255, 0.8) !important;
             font-style: italic;
             display: block;
         }
-        
-        .character-btn small {
-            display: block;
-            margin-top: 5px;
-            color: rgba(255, 255, 255, 0.8) !important; /* Muted white for secondary text */
-            font-size: 0.9em;
-            line-height: 1.3;
-        }
-        /* --- END BUTTON STYLING FIX --- */
+        /* END BUTTON STYLING */
 
         .back-btn {
             margin-top: 20px;
@@ -370,11 +390,7 @@
             cursor: pointer;
             font-size: 0.9em;
         }
-
-        .undo-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
+        .undo-btn:disabled { opacity: 0.5; cursor: not-allowed; }
     </style>
 </head>
 <body>
@@ -399,10 +415,13 @@
             <div id="visuals-area" style="display: none;">
                 <img id="background-image" src="" alt="Background">
                 <img id="protagonist-portrait" src="" alt="Protagonist">
-                <div id="cast-portraits-container">
-                    </div>
-                <div class="difficulty-tracker" style="position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.5); padding: 5px 10px; border-radius: 4px; font-size: 0.8em;">
-                    Difficulty: <strong id="difficulty-display">Primary</strong>
+                <div id="cast-portraits-container"></div>
+                
+                <button id="btn-change-char" class="overlay-btn" onclick="goToStartScreen()">Change Character</button>
+                <button id="btn-modules" class="overlay-btn" onclick="showStorySelection()">Select Story</button>
+                
+                <div class="difficulty-tracker" style="position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.5); padding: 5px 10px; border-radius: 4px; font-size: 0.8em; color: white;">
+                    Diff: <strong id="difficulty-display">Primary</strong>
                 </div>
             </div>
 
@@ -436,14 +455,14 @@
         </div>
     </div>
 
-<script src="data/data_shared.js?v=3.8"></script>
+<script src="data/data_shared.js?v=3.9"></script>
 
-<script src="data/scenes_nephi.js?v=3.8"></script>
-<script src="data/scenes_sariah.js?v=3.8"></script>
-<script src="data/scenes_s2_nephi.js?v=3.8"></script>
-<script src="data/scenes_s2_wife.js?v=3.8"></script>
-<script src="data/scenes_s2_zoram.js?v=3.8"></script>
+<script src="data/scenes_nephi.js?v=3.9"></script>
+<script src="data/scenes_sariah.js?v=3.9"></script>
+<script src="data/scenes_s2_nephi.js?v=3.9"></script>
+<script src="data/scenes_s2_wife.js?v=3.9"></script>
+<script src="data/scenes_s2_zoram.js?v=3.9"></script>
 
-<script src="data/engine.js?v=3.8"></script>
+<script src="data/engine.js?v=3.9"></script>
 </body>
 </html>
