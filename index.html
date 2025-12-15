@@ -295,8 +295,6 @@
         .story-btn, .character-btn {
             display: block;
             width: 100%;
-            background-color: #fff;
-            border: 1px solid #e0d8cc;
             text-align: left;
             padding: 15px;
             margin-bottom: 10px;
@@ -305,17 +303,53 @@
             transition: background-color 0.2s, border-color 0.2s;
         }
         
-        .story-btn:hover:not(:disabled), .character-btn:hover:not(:disabled) {
+        /* Story Button: Restored to dark, obvious link color */
+        .story-btn {
+            background-color: #6d5e41;
+            border: none;
+        }
+        
+        /* Character Button: Maintains the lighter, bordered look */
+        .character-btn {
+            background-color: #fff;
+            border: 1px solid #e0d8cc;
+        }
+        
+        /* Hover States */
+        .story-btn:hover:not(:disabled) {
+            background-color: #4a3e2b;
+        }
+
+        .character-btn:hover:not(:disabled) {
             background-color: #f7f1e6;
             border-color: #bfae8f;
         }
 
+        /* Disabled Story Button */
+        .story-btn:disabled {
+            background-color: #ccc;
+            border: 1px solid #aaa;
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        /* Text Styling */
         .story-title, .character-btn strong {
             font-size: 1.2em;
             font-weight: bold;
-            color: #4a4130;
             display: block;
             margin-bottom: 5px;
+        }
+
+        /* Text colors inside Story Button (Override to white for dark background) */
+        .story-btn .story-title, 
+        .story-btn .story-desc, 
+        .story-btn .story-ref {
+            color: white; 
+        }
+
+        .character-btn strong {
+            color: #4a4130;
         }
 
         .story-desc {
@@ -427,16 +461,16 @@
         </div>
     </div>
 
-<script src="data/data_shared.js?v=3.6"></script>
-<script src="data/engine.js?v=3.6"></script>
+<script src="data/data_shared.js?v=3.7"></script>
+<script src="data/engine.js?v=3.7"></script>
 
-<script src="data/scenes_nephi.js?v=3.6"></script>
-<script src="data/scenes_sariah.js?v=3.6"></script>
-<script src="data/scenes_s2_nephi.js?v=3.6"></script>
-<script src="data/scenes_s2_wife.js?v=3.6"></script>
-<script src="data/scenes_s2_zoram.js?v=3.6"></script>
+<script src="data/scenes_nephi.js?v=3.7"></script>
+<script src="data/scenes_sariah.js?v=3.7"></script>
+<script src="data/scenes_s2_nephi.js?v=3.7"></script>
+<script src="data/scenes_s2_wife.js?v=3.7"></script>
+<script src="data/scenes_s2_zoram.js?v=3.7"></script>
 
-<script src="engine.js?v=3.6"></script>
-<script src="data/data_shared.js?v=3.6"></script>
+<script src="engine.js?v=3.7"></script>
+<script src="data/data_shared.js?v=3.7"></script>
 </body>
 </html>
