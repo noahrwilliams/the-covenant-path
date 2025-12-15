@@ -4,7 +4,7 @@ let gameState = {
     faith: 0, unity: 0, worldly_influence: 0, knowledge: 0,
     hasBrassPlates: false,
     currentSceneId: null,
-    currentStoryId: null, // NEW: Tracks the current story
+    currentStoryId: null, 
     covenantPathProgress: [],
     lastAction: null
 };
@@ -37,9 +37,9 @@ function showStorySelection() {
         const isAvailable = (story.characters && story.characters.length > 0);
 
         btn.innerHTML = `
-            <strong>${title}</strong>
-            <small>${reference}</small>
-            <p>${narrative}</p>
+            <span class="story-title">${title}</span>
+            <span class="story-desc">${narrative}</span>
+            <span class="story-ref">${reference}</span>
         `;
         
         if (isAvailable) {
@@ -72,14 +72,16 @@ function showStoryDetails(story) {
         const charStats = window.STARTING_STATS[charName];
         if (charStats) {
             const btn = document.createElement("button");
-            btn.className = "character-btn";
+            // Uses the "character-btn" class now defined in index.html
+            btn.className = "character-btn"; 
             btn.innerHTML = `
                 <strong>${charName}</strong>
                 <small><i>${charStats.bio}</i></small>
             `;
             btn.onclick = () => {
                 startScreen.style.display = 'none';
-                document.getElementById('gameplay-panel').style.display = 'flex';
+                // Switches gameplay-panel to 'flex' for correct layout
+                document.getElementById('gameplay-panel').style.display = 'flex'; 
                 document.getElementById('visuals-area').style.display = 'block';
                 loadCharacter(charName, story.id);
             };
@@ -88,7 +90,7 @@ function showStoryDetails(story) {
     });
 
     const backBtn = document.createElement("button");
-    backBtn.className = "story-btn-small";
+    backBtn.className = "back-btn"; 
     backBtn.innerText = "← Back to Story Selection";
     backBtn.onclick = showStorySelection;
     container.appendChild(backBtn);
@@ -101,7 +103,6 @@ function loadCharacter(characterName, storyId) {
         return;
     }
 
-    // NEW: Store the story ID
     gameState.currentStoryId = storyId; 
 
     // Reset game state for the new character
@@ -121,11 +122,18 @@ function loadCharacter(characterName, storyId) {
     renderScene(gameState.currentSceneId);
 }
 
+// Function added to return to start screen from gameplay panel
+function goToStartScreen() {
+    document.getElementById('gameplay-panel').style.display = 'none';
+    document.getElementById('visuals-area').style.display = 'none';
+    showStorySelection(); 
+}
+
 // === GAMEPLAY MECHANICS ===
 
 /**
- * NEW FUNCTION: Handles the transition at the end of a story module.
- * @param {string} storyId - The ID of the story just completed (e.g., 'exodus').
+ * Handles the transition at the end of a story module.
+ * @param {string} storyId - The ID of the story just completed.
  */
 function handleModuleEnd(storyId) {
     const storyIndex = window.STORIES.findIndex(s => s.id === storyId);
@@ -150,9 +158,8 @@ function handleModuleEnd(storyId) {
     // 1. Continue Path Button
     const btnContinue = document.createElement("button");
     btnContinue.className = "story-btn";
-    if (nextStory) {
+    if (nextStory && nextStory.characters.length > 0) {
         btnContinue.innerText = `Continue Path: Start ${nextStory.title}`;
-        // showStoryDetails is used here as it loads the character selection for the next story
         btnContinue.onclick = () => showStoryDetails(nextStory); 
     } else {
         btnContinue.innerText = "End of Available Content (Congratulations!)";
@@ -161,14 +168,14 @@ function handleModuleEnd(storyId) {
     }
     container.appendChild(btnContinue);
     
-    // 2. Change Perspective Button (Replay Current Story with a different character)
+    // 2. Change Perspective Button
     const btnChange = document.createElement("button");
     btnChange.className = "story-btn";
     btnChange.innerText = `Change Perspective: Replay ${completedStory.title}`;
     btnChange.onclick = () => showStoryDetails(completedStory); 
     container.appendChild(btnChange);
 
-    // 3. Story Selection Button (Back to Library)
+    // 3. Story Selection Button
     const btnLibrary = document.createElement("button");
     btnLibrary.className = "story-btn";
     btnLibrary.innerText = "Story Selection";
@@ -177,18 +184,18 @@ function handleModuleEnd(storyId) {
 }
 
 function renderScene(sceneId, isUndo = false, actionFeedback = null, choiceFeedback = null) {
-    // --- NEW LOGIC TO DETECT MODULE END ---
+    // --- LOGIC TO DETECT MODULE END ---
     if (sceneId.startsWith('module_end_story_')) {
         const completedStoryId = sceneId.substring('module_end_story_'.length);
         handleModuleEnd(completedStoryId);
         return; 
     }
-    // --- END NEW LOGIC ---
+    // --- END LOGIC ---
 
     const scene = window.scenes[sceneId];
     if (!scene) {
         console.error("Scene not found:", sceneId);
-        showStorySelection(); // Fallback to start screen
+        showStorySelection(); 
         return;
     }
     
@@ -199,13 +206,11 @@ function renderScene(sceneId, isUndo = false, actionFeedback = null, choiceFeedb
 
     // Record state for undo (only if not an undo operation itself)
     if (!isUndo) {
-        // --- EXISTING HISTORY STACK LOGIC HERE ---
         historyStack.push({
             sceneId: gameState.currentSceneId,
             faith: gameState.faith, unity: gameState.unity, worldly_influence: gameState.worldly_influence, knowledge: gameState.knowledge,
             covenantPathProgress: [...gameState.covenantPathProgress],
             lastAction: gameState.lastAction,
-            // Only store the choice made if it was a choice, not a global action
             choiceMade: (actionFeedback === null && choiceFeedback !== null) ? gameState.currentSceneId : null 
         });
     }
@@ -221,8 +226,33 @@ function renderScene(sceneId, isUndo = false, actionFeedback = null, choiceFeedb
     if (checkGameOver()) return;
 
     // Update UI elements
-    document.getElementById('visuals-area').style.backgroundImage = `url(${window.ASSET_PATHS.backgrounds[scene.backgroundAsset]})`;
-    document.getElementById('scene-text').innerHTML = scene.text;
+    const protagonistPortrait = document.getElementById('protagonist-portrait');
+    const castPortraitsContainer = document.getElementById('cast-portraits-container');
+
+    // Update main portrait
+    protagonistPortrait.src = window.ASSETS.characters[gameState.character];
+    protagonistPortrait.alt = gameState.character;
+
+    // Update background image
+    const backgroundImage = document.getElementById('background-image');
+    backgroundImage.src = window.ASSETS.backgrounds[scene.backgroundAsset];
+    backgroundImage.alt = `Background: ${scene.backgroundAsset}`;
+
+    // Update cast portraits
+    castPortraitsContainer.innerHTML = '';
+    if (scene.castAssets) {
+        scene.castAssets.forEach(castName => {
+            const img = document.createElement('img');
+            img.className = 'cast-portrait';
+            img.src = window.ASSETS.characters[castName];
+            img.alt = castName;
+            castPortraitsContainer.appendChild(img);
+        });
+    }
+    
+    // CRITICAL FIX: The correct HTML ID is 'story-text'
+    document.getElementById('story-text').innerHTML = scene.text; 
+    
     updateStatsDisplay();
     updateCovenantDisplay();
 
@@ -239,19 +269,30 @@ function renderScene(sceneId, isUndo = false, actionFeedback = null, choiceFeedb
             choicesDiv.appendChild(btn);
         });
     } else {
-        // If no choices, it's usually a game over or a temporary scene.
         choicesDiv.innerHTML = `<button class="story-btn" onclick="showStorySelection()">Return to Library</button>`;
     }
     
     // Render Feedback
-    const feedbackDiv = document.getElementById('feedback-area');
-    feedbackDiv.innerHTML = '';
-    if (actionFeedback) {
-        feedbackDiv.innerHTML += `<div class="action-feedback">${actionFeedback}</div>`;
+    const storyScrollContainer = document.getElementById('story-scroll-container');
+    
+    // Create a temporary element to hold feedback before insertion
+    const tempFeedbackDiv = document.createElement('div');
+    tempFeedbackDiv.className = 'action-feedback-block';
+
+    if (actionFeedback || choiceFeedback) {
+        if (actionFeedback) {
+            tempFeedbackDiv.innerHTML += `<div class="action-feedback">${actionFeedback}</div>`;
+        }
+        if (choiceFeedback) {
+            tempFeedbackDiv.innerHTML += `<div class="choice-feedback">${choiceFeedback}</div>`;
+        }
+        
+        // Insert feedback block right after the main scene text
+        storyScrollContainer.insertBefore(tempFeedbackDiv, document.getElementById('story-text').nextSibling);
     }
-    if (choiceFeedback) {
-        feedbackDiv.innerHTML += `<div class="choice-feedback">${choiceFeedback}</div>`;
-    }
+
+    // Scroll to the bottom of the scroll container to show new text/feedback
+    storyScrollContainer.scrollTop = storyScrollContainer.scrollHeight;
 }
 
 function handleChoice(choiceIndex, sceneId) {
@@ -272,7 +313,7 @@ function handleChoice(choiceIndex, sceneId) {
     if (checkGameOver()) return;
 
     // Prepare choice feedback for next render
-    let choiceStats = getStatString(choice.effect.faith, choice.effect.unity, choice.effect.worldly_influence, choice.effect.knowledge);
+    let choiceStats = getStatString(choice.effect.faith, choice.effect.unity, choice.effect.worldly || 0, choice.effect.knowledge || 0);
     let feedbackHTML = `
         <span class="feedback-title">Choice: ${choice.text}</span>
         <span class="feedback-stats">${choiceStats}</span>
@@ -284,9 +325,6 @@ function handleChoice(choiceIndex, sceneId) {
 }
 
 function globalAction(actionType) {
-    // Clear previous feedback
-    document.getElementById('feedback-area').innerHTML = '';
-
     // Check if the same action was taken last turn (for diminishing returns)
     let isConsecutive = gameState.lastAction === actionType;
     let dFaith = 0, dUnity = 0, dWorld = 0, dKnowledge = 0;
@@ -308,7 +346,8 @@ function globalAction(actionType) {
             if (dKnowledge > 0 && !gameState.covenantPathProgress.includes("Knowledge")) gameState.covenantPathProgress.push("Knowledge");
             break;
         case 'service':
-            dFaith = -1; dWorld = -1; dUnity = 2;
+            // Service effect: Decreases Worldly Influence
+            dFaith = 0; dWorld = -1; dUnity = 2; // Adjusted Faith from -1 to 0 for better balance
             actionText = "You served your family and neighbors.";
             scriptureRef = "(See Mosiah 2:17)";
             break;
@@ -331,11 +370,10 @@ function globalAction(actionType) {
 
     gameState.lastAction = actionType;
     
+    // Render the current scene again with action feedback
     renderScene(gameState.currentSceneId, false, previousActionHTML, null);
     
     document.getElementById("undo-btn").disabled = false;
-    
-    document.getElementById("feedback-area").style.display = 'block';
 }
 
 function undoLastAction() {
@@ -352,7 +390,7 @@ function undoLastAction() {
 
         let sceneToRender = previousState.sceneId;
 
-        // If the action being undone was a *choice*, we need to return to the scene *before* the choice
+        // If the last thing in history was a choice, re-render the scene where the choice was made
         if (previousState.choiceMade) {
              sceneToRender = previousState.choiceMade;
         }
@@ -363,10 +401,12 @@ function undoLastAction() {
         // Render the scene without applying onEnter effects (isUndo=true)
         renderScene(sceneToRender, true, null, null);
         
-        // Clear feedback area after undo
-        document.getElementById('feedback-area').innerHTML = '';
-        document.getElementById("feedback-area").style.display = 'none';
-
+        // Manually remove the last feedback block if it exists
+        const storyScrollContainer = document.getElementById('story-scroll-container');
+        const feedbackBlock = storyScrollContainer.querySelector('.action-feedback-block');
+        if (feedbackBlock) {
+            storyScrollContainer.removeChild(feedbackBlock);
+        }
     }
 }
 
@@ -374,9 +414,10 @@ function undoLastAction() {
 // === HELPER FUNCTIONS ===
 function applyStats(effects) {
     if (effects) {
+        // Use 'worldly' for scene effects to match data structure
         gameState.faith += effects.faith || 0;
         gameState.unity += effects.unity || 0;
-        gameState.worldly_influence += effects.worldly || 0;
+        gameState.worldly_influence += effects.worldly || 0; 
         gameState.knowledge += effects.knowledge || 0;
     }
 }
@@ -389,10 +430,10 @@ function clampStats() {
 }
 
 function updateStatsDisplay() {
-    document.getElementById('stat-faith').innerText = Math.floor(gameState.faith);
-    document.getElementById('stat-unity').innerText = Math.floor(gameState.unity);
-    document.getElementById('stat-worldly').innerText = Math.floor(gameState.worldly_influence);
-    document.getElementById('stat-knowledge').innerText = Math.floor(gameState.knowledge);
+    document.getElementById('score-faith').innerText = Math.floor(gameState.faith);
+    document.getElementById('score-unity').innerText = Math.floor(gameState.unity);
+    document.getElementById('score-world').innerText = Math.floor(gameState.worldly_influence);
+    document.getElementById('score-knowledge').innerText = Math.floor(gameState.knowledge);
 }
 
 function updateCovenantDisplay() {
@@ -441,5 +482,4 @@ function checkGameOver() {
 // Initial call to set up the game
 window.onload = function() {
     showStorySelection();
-    // Add event listeners for global actions if necessary
 };

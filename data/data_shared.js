@@ -69,8 +69,20 @@ window.ASSETS = {
     }
 };
 
-// DEFAULT STARTING STATS FOR STORY 2 (Used by engine.js to initialize game state)
-// These must be present, even if you are using custom scenes files.
+// DEFAULT STARTING STATS FOR STORY 1 (The Lehite Exodus)
+window.STARTING_STATS["Nephi"] = { 
+    faith: 12, unity: 8, worldly_influence: 0, knowledge: 5, 
+    hasBrassPlates: true, initialScene: "nephi_intro",
+    bio: "The dutiful son, constantly seeking guidance from the Spirit and diligently working to preserve the records."
+};
+window.STARTING_STATS["Sariah"] = { 
+    faith: 10, unity: 10, worldly_influence: 5, knowledge: 5, 
+    hasBrassPlates: true, initialScene: "sariah_intro",
+    bio: "The mother, deeply worried about her sons, whose faith is tested by the realities of the wilderness."
+};
+
+
+// DEFAULT STARTING STATS FOR STORY 2 (The Great Division)
 window.STARTING_STATS["Nephi_S2"] = { 
     faith: 12, unity: 8, worldly_influence: 0, knowledge: 5, 
     hasBrassPlates: true, initialScene: "s2_nephi_intro",
