@@ -1,5 +1,7 @@
 // ZORAM DATA - STORY 2: THE GREAT DIVISION
 window.STARTING_STATS["Zoram"] = { 
+    displayName: "Zoram",
+    storyId: "division",
     faith: 6, unity: 10, worldly_influence: 5, knowledge: 2, 
     hasBrassPlates: true, initialScene: "s2_zoram_intro",
     bio: "A former servant of Laban. He values loyalty and freedom, but struggles with the conflict between his oath to Nephi and his friendships with Laman's family."

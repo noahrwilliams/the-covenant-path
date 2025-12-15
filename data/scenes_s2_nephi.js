@@ -1,5 +1,7 @@
 // NEPHI DATA - STORY 2: THE GREAT DIVISION
 window.STARTING_STATS["Nephi_S2"] = { 
+    displayName: "Nephi",
+    storyId: "division",
     faith: 12, unity: 8, worldly_influence: 0, knowledge: 5, 
     hasBrassPlates: true, initialScene: "s2_nephi_intro",
     bio: "The spiritual leader of the group. He carries the burden of the plates and the responsibility to lead those who will follow."

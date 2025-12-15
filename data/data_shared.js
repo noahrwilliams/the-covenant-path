@@ -13,14 +13,14 @@ window.STORIES = [
         title: "The Lehite Exodus",
         ref: "1 Nephi 1 – 18",
         narrative: "A family is commanded to flee their doomed city and retrieve sacred records, testing their obedience against fear and logic.",
-        characters: ["Nephi", "Sariah"] 
+        characters: [] 
     },
     {
         id: "division",
         title: "The Great Division",
         ref: "1 Nephi 19 – 2 Nephi 5",
         narrative: "Upon arriving in the new land, the family fractures into two nations, forcing believers to choose between tradition and revelation.",
-        characters: ["Nephi_S2", "WifeOfNephi", "Zoram"]
+        characters: []
     },
     { id: "vineyard", title: "The Vineyard", ref: "2 Nephi 6 – Jacob 7", narrative: "Jacob uses the scriptures to combat the rising wealth, pride, and the anti-christ Sherem.", characters: [] },
     { id: "decline", title: "The Declining Generations", ref: "Enos – Words of Mormon", narrative: "Solitary prophets struggle to preserve the records and eventually lead the righteous to Zarahemla.", characters: [] },
@@ -67,37 +67,4 @@ window.ASSETS = {
         "settlement": "https://placehold.co/750x300/6d5e41/FFF?text=Settlement",
         "vision_room": "https://placehold.co/750x300/FFF/000?text=Vision+of+Light"
     }
-};
-
-// DEFAULT STARTING STATS FOR STORY 1 (The Lehite Exodus)
-window.STARTING_STATS["Nephi"] = { 
-    faith: 12, unity: 8, worldly_influence: 0, knowledge: 5, 
-    hasBrassPlates: true, initialScene: "nephi_intro",
-    bio: "The dutiful son, constantly seeking guidance from the Spirit and diligently working to preserve the records."
-};
-window.STARTING_STATS["Sariah"] = { 
-    faith: 10, unity: 10, worldly_influence: 5, knowledge: 5, 
-    hasBrassPlates: true, initialScene: "sariah_intro",
-    bio: "The mother, deeply worried about her sons, whose faith is tested by the realities of the wilderness."
-};
-
-
-// DEFAULT STARTING STATS FOR STORY 2 (The Great Division)
-window.STARTING_STATS["Nephi_S2"] = { 
-    displayName: "Nephi", 
-    faith: 12, unity: 8, worldly_influence: 0, knowledge: 5, 
-    hasBrassPlates: true, initialScene: "s2_nephi_intro",
-    bio: "The spiritual leader of the group. He carries the burden of the plates and the responsibility to lead those who will follow."
-};
-window.STARTING_STATS["WifeOfNephi"] = { 
-    displayName: "Wife of Nephi",
-    faith: 10, unity: 12, worldly_influence: 2, knowledge: 3, 
-    hasBrassPlates: true, initialScene: "s2_wife_intro",
-    bio: "One of Ishmael's daughters. She bears the emotional weight of the family schism, trying to maintain the 'manner of happiness' amidst sorrow."
-};
-window.STARTING_STATS["Zoram"] = { 
-    displayName: "Zoram",
-    faith: 6, unity: 10, worldly_influence: 5, knowledge: 2, 
-    hasBrassPlates: true, initialScene: "s2_zoram_intro",
-    bio: "A former servant of Laban. He values loyalty and freedom, but struggles with the conflict between his oath to Nephi and his friendships with Laman's family."
 };

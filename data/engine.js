@@ -112,6 +112,36 @@ function showStoryDetails(story) {
     container.appendChild(backBtn);
 }
 
+/**
+ * FIX: Populates window.STORIES.characters lists dynamically 
+ * by reading the 'storyId' property from every character in STARTING_STATS.
+ */
+function populateStoryCharacters() {
+    // 1. Ensure all story character lists are clear before rebuilding
+    window.STORIES.forEach(story => {
+        story.characters = [];
+    });
+
+    // 2. Iterate through all characters loaded from all scene files
+    for (const characterId in window.STARTING_STATS) {
+        const stats = window.STARTING_STATS[characterId];
+        
+        // 3. Use the new storyId property to link the character
+        if (stats.storyId) {
+            const story = window.STORIES.find(s => s.id === stats.storyId);
+            if (story) {
+                // Check if already present to prevent duplicates (safe guard)
+                if (!story.characters.includes(characterId)) {
+                    story.characters.push(characterId);
+                }
+            } else {
+                // Warning added for debugging new character files
+                console.warn(`Character '${characterId}' specifies unknown storyId: '${stats.storyId}'. Check data_shared.js.`);
+            }
+        }
+    }
+}
+
 // NEW FUNCTION: Navigates to the character selection screen for the CURRENT story
 function showCurrentCharacterSelection() {
     document.getElementById('gameplay-panel').style.display = 'none';
@@ -642,5 +672,6 @@ function checkGameOver() {
 }
 
 window.onload = function() {
+    populateStoryCharacters(); // <-- Execute this first!
     showStorySelection();
 };

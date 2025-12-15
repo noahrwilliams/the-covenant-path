@@ -1,5 +1,7 @@
 // NEPHI DATA
 window.STARTING_STATS["Nephi"] = { 
+    storyId: "exodus",
+    displayName: "Nephi", // Optional displayName
     faith: 6, unity: 6, worldly_influence: 2, knowledge: 0, 
     hasBrassPlates: false, initialScene: "intro_nephi",
     bio: "The fourth son who seeks a spiritual witness of his father's visions. He must learn to lead when his brothers rebel."
@@ -15,7 +17,7 @@ Object.assign(window.scenes, {
         castAssets: ["Lehi", "Laman", "Lemuel"],
         onEnter: { faith: 0, unity: 0, worldly: 1 }, 
         choices: [
-            { text: "Stand by Lehi (Requires Courage).", nextScene: "stand_by_father_nephi", effect: { faith: -1, unity: -1, worldly: -2 }, feedback: "You stand with him. The mockery hurts, but you feel a quiet strength." },
+            { text: "Courageously stand by Lehi.", nextScene: "stand_by_father_nephi", effect: { faith: 1, unity: 1, worldly: 0 }, feedback: "You stand with him. The mockery hurts, but you feel a quiet strength." },
             { text: "Pull brothers aside to calm them.", nextScene: "calm_brothers_nephi", effect: { faith: -1, unity: 2, worldly: 1 }, feedback: "You keep the peace, but you feel the weight of compromise." },
             { text: "Retreat home to pray.", nextScene: "secret_prayer_nephi", effect: { faith: 3, unity: -1, worldly: -2 }, covenantUnlock: "Prayer to Seek Guidance", feedback: "You prioritize the Spirit over the immediate social crisis." }
         ]

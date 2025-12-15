@@ -1,5 +1,7 @@
 // SARIAH DATA
 window.STARTING_STATS["Sariah"] = { 
+    storyId: "exodus",
+    displayName: "Sariah", // Optional displayName
     faith: 6, unity: 7, worldly_influence: 4, knowledge: 0, 
     hasBrassPlates: false, initialScene: "intro_sariah",
     bio: "A mother torn between faith in her husband and fear for her sons' safety in the dangerous desert."
