@@ -159,6 +159,8 @@ function showCurrentCharacterSelection() {
     showStorySelection();
 }
 
+
+
 function loadCharacter(characterName, storyId, difficulty) {
     const stats = window.STARTING_STATS[characterName];
     if (!stats) {
@@ -637,6 +639,41 @@ function checkWarning() {
 
     if (warningScene) {
         renderScene(warningScene, true, null, null);
+        return true; 
+    }
+    return false;
+}
+
+/**
+ * Utility function to update the Undo button's visual state.
+ */
+function updateUndoButton() {
+    const undoBtn = document.getElementById('undo-btn');
+    if (undoBtn) {
+        // Button is disabled if the historyStack (where past states are saved) is empty.
+        undoBtn.disabled = historyStack.length === 0;
+        
+        // Optional: Apply a visual style when disabled
+        undoBtn.style.opacity = historyStack.length > 0 ? '' : '0.4'; 
+    }
+}
+
+/**
+ * Undoes the last action (choice or global action) and reverts state.
+ */
+function undoLastAction() {
+    if (historyStack.length > 0) {
+        // Pop the state and restore
+        const previousState = historyStack.pop();
+        Object.assign(gameState, previousState); 
+        
+        // Re-render the previous scene using your existing function.
+        // The 'true' flag ensures this action itself is NOT recorded in history.
+        renderScene(gameState.currentSceneId, true, "↺ Action Undone.", null); 
+        
+        // Update the button state immediately after undoing
+        updateUndoButton(); 
+
         return true; 
     }
     return false;
