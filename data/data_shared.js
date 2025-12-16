@@ -71,3 +71,45 @@ window.ASSETS = {
         "temple_interior": "https://placehold.co/750x300/2980b9/FFF?text=Temple+Interior"
     }
 };
+
+
+
+
+
+
+// QUIZ SYSTEM CONSTANTS
+
+window.QUIZ_CONSTANTS = {
+    TOTAL_QUESTIONS: 5,
+    BASE_FAITH: 0.25,
+    KNOWLEDGE_PER_CORRECT: 0.5,
+    COSTS: { worldly: 1.0, unity: -0.5 }
+};
+
+// QUIZ QUESTION BANK (Test Data)
+window.QUIZ_QUESTIONS = [
+
+    { id: "1", storyId: "vineyard", question: "Into what language did King Mosiah translate the plates of Ether?", correctAnswer: "The Nephite language.", incorrectAnswersPool: ["The Adamic language.", "The language of Nephi.", "The language of Ether.", "The language of the Lamanites.", "The pure language." ], }, 
+    { id: "2", storyId: "vineyard", question: "Gid and Teomner were military leaders in what army?", correctAnswer: "The Nephite army.", incorrectAnswersPool: ["The Lamanite army.", "The army of the king-men.", "The army of Morianton.", "The army of the Zoramites.", "The army of Ammoron." ], }, 
+    { id: "3", storyId: "vineyard", question: "Tubaloth served as king over what group of people?", correctAnswer: "The Lamanites.", incorrectAnswersPool: ["The Nephites.", "The people of Ammon.", "The city of Cumeni.", "The Zoramites.", "The Ammonihahites." ], }, 
+    { id: "4", storyId: "vineyard", question: "Who disguised himself, learned the secret signs of Kishkumen, and was able to slay Kishkumen?", correctAnswer: "A servant of Helaman.", incorrectAnswersPool: ["A servant of Moroni.", "The prophet Nephi.", "A soldier of Pahoran.", "The chief judge Pacumeni.", "The king-man Pachus." ], }, 
+    { id: "5", storyId: "vineyard", question: "For what reason does Moroni write a condemning letter to Pahoran?", correctAnswer: "For sending insufficient supplies and aid to the Nephite army.", incorrectAnswersPool: ["For their apostasy and pride.", "For refusing to take up arms against the Lamanites.", "For fleeing from the city of Cumeni.", "For not sending enough spies to the Lamanite camps.", "For seeking to depose the chief judge." ], }, 
+    { id: "6", storyId: "vineyard", question: "Why had Pahoran not been able to send aid to Moroni’s armies?", correctAnswer: "A group of king-men had overtaken his judgment seat.", incorrectAnswersPool: ["Because he was waiting for the word of the Lord.", "Because he was leading an army against the Zoramites.", "Because he had gathered all the city's supplies for himself.", "Because he was trapped in the city of Cumeni.", "Because the Nephites were already victorious." ], }, 
+    { id: "7", storyId: "exodus", question: "With whom did the king-men form an alliance?", correctAnswer: "The Lamanites.", incorrectAnswersPool: ["The Zoramites.", "The Amlicites.", "The Gideonites.", "The Ammoronites.", "The Nehorites." ], }, 
+    { id: "8", storyId: "exodus", question: "Who was Pachus?", correctAnswer: "The man appointed king by the king-men in Zarahemla.", incorrectAnswersPool: ["The chief captain of the Lamanites.", "The leader of the Gadianton robbers.", "The chief judge before Pahoran.", "A prophet among the Zoramites.", "A military leader of Moroni." ], }, 
+    { id: "9", storyId: "exodus", question: "Who revealed the secret oaths, signs, and words to Gadianton?", correctAnswer: "Satan.", incorrectAnswersPool: ["Kishkumen.", "Ammoron.", "Laman.", "Zoram.", "Alma." ], }, 
+    { id: "10", storyId: "exodus", question: "Gadianton became the leader of whose band?", correctAnswer: "Kishkumen’s band.", incorrectAnswersPool: ["The band of Laman.", "The band of Zoram.", "The band of Amalickiah.", "The band of Gid.", "The band of Morianton." ], }, 
+    { id: "11", storyId: "exodus", question: "Who organized a band of people who covenanted to tell no one of his guilt as a murderer?", correctAnswer: "Kishkumen.", incorrectAnswersPool: ["Paanchi.", "Gadianton.", "Morianton.", "Teancum.", "Ammoron." ], }, 
+    { id: "12", storyId: "exodus", question: "In the 46th year of the judges, the people who migrated morthward became expert in working with what material?", correctAnswer: "Cement.", incorrectAnswersPool: ["Copper.", "Gold.", "Iron ore.", "Bronze.", "Silver." ], }, 
+    { id: "13", storyId: "exodus", question: "Helaman’s sons, Nephi and Lehi, were cast into the same prison that other missionaries had been thrown into. Who were the other missionaries?", correctAnswer: "Ammon and his brethren.", incorrectAnswersPool: ["Alma and Amulek.", "Nephi and Lehi.", "Mosiah and Aaron.", "Helaman and Shiblon.", "Aaron and Muloki." ], }, 
+    { id: "14", storyId: "division", question: "In what land were Helaman’s sons, Nephi and Lehi, cast into prison?", correctAnswer: "The land of Lehi-Nephi.", incorrectAnswersPool: ["The land of Zarahemla.", "The land of Bountiful.", "The city of Gideon.", "The land of Manti.", "The land of Jershon." ], }, 
+    { id: "15", storyId: "division", question: "Who were the only people to whom Alma, Amulek, and Zeezrom went together as missionaries?", correctAnswer: "The Zoramites.", incorrectAnswersPool: ["The Amlicites.", "The Gideonites.", "The Lamanites.", "The Ammoronites.", "The Amulonites." ], }, 
+    { id: "16", storyId: "division", question: "Aminidab saw Helaman’s sons, Nephi and Lehi, conversing with what or whom?", correctAnswer: "Angels of God.", incorrectAnswersPool: ["The Spirit of God.", "Their father Helaman.", "The Queen Lamoni.", "Alma the Younger.", "The Brother of Jared." ], }, 
+    { id: "17", storyId: "division", question: "How did Helaman’s army capture the city of Cumeni?", correctAnswer: "By cutting off supplies to the people until they surrendered.", incorrectAnswersPool: ["By tricking the city guards to surrender.", "By a massive frontal assault by the army of Moroni.", "By using a secret tunnel under the city wall.", "By the people of Cumeni rebelling against the Lamanites.", "By a fierce night attack by Teancum’s army." ], }, 
+    { id: "18", storyId: "division", question: "While defending the city of Cumeni, how many of Helaman’s 2,060 stripling warriors were wounded?", correctAnswer: "All of them.", incorrectAnswersPool: ["None of them.", "187 of them.", "All but 50 of them.", "1,000 of them.", "Only 40 of them." ], }, 
+    { id: "19", storyId: "division", question: "Lamanites who covenanted not to take up their weapons against the Nephites were sent to live with what people?", correctAnswer: "The people of Ammon.", incorrectAnswersPool: ["The people of Limhi.", "The people of Anti-Nephi-Lehi.", "The people of Manti.", "The people of Zarahemla.", "The people of Shilom." ], }, 
+    { id: "20", storyId: "division", question: "Who killed Ammoron?", correctAnswer: "Teancum.", 
+        incorrectAnswersPool: ["Pahoran.", "Moroni.", "Zerahemnah.", "Amulek.", "Gadianton." ], }
+    
+];
+

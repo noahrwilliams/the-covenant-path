@@ -460,26 +460,20 @@ function globalAction(actionType) {
             break;
 
         case 'study':
-            dUnity = -0.5; 
-            dWorld = 0; 
-
-            if (gameState.hasBrassPlates) {
-                if (applyDR) { 
-                    dKnowledge = 0.5; 
-                    actionText = "You studied again, but are having trouble focusing on new light in this moment."; 
-                } else { 
-                    dKnowledge = 1.5; 
-                    actionText = "You poured over the plates, finding great knowledge."; 
-                }
-            } else {
+            // QUIZ LOGIC: The 'Records' button calls 'study', so this block now handles the quiz.
+            
+            // 1. Check for Brass Plates (remains the prerequisite)
+            if (!gameState.hasBrassPlates) {
                  dUnity = 0;
                  dKnowledge = 0;
                  actionText = "You have no records to study. You feel unfulfilled.";
                  scriptureRef = "";
+                 break; // Apply 0 change and give feedback
             }
-            
-            if (dKnowledge > 0 && !gameState.covenantPathProgress.includes("Knowledge")) gameState.covenantPathProgress.push("Knowledge");
-            break;
+
+            // 2. Launch the quiz. All stat changes, DR, and scene rendering are now handled in quiz_engine.js.
+            startQuizSession(); 
+            return; // Exit here.
 
         case 'service':
             dWorld = -1.0; 
@@ -496,19 +490,7 @@ function globalAction(actionType) {
             scriptureRef = "(See Mosiah 2:17)";
             break;
             
-        // REVIEW RECORDS ACTION (NOT YET IMPLEMENTED AS QUIZ)
-        case 'review_records':
-            // TEMPORARY: Placeholder logic for the 'Review Records' button before Quiz is implemented.
-            // This is just to make the button *do* something.
-            dFaith = 1.0;
-            dKnowledge = 1.0;
-            dWorld = -0.5;
-            dUnity = -0.5; // Represents time spent alone
-            actionText = "You spent time reviewing the records, strengthening your understanding and faith.";
-            scriptureRef = "(See Alma 37:6-8)";
-            
-            if (!gameState.covenantPathProgress.includes("Records Review")) gameState.covenantPathProgress.push("Records Review");
-            break;
+        // The original 'review_records' case has been REMOVED/REPLACED by the functional 'study' block.
     }
     
     gameState.faith += dFaith;
