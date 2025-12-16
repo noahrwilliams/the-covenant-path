@@ -53,7 +53,9 @@ window.ASSETS = {
         "Lehi": "https://placehold.co/100x100/6d5e41/FFF?text=Lehi",
         "Laman": "https://placehold.co/100x100/963838/FFF?text=Laman",
         "Lemuel": "https://placehold.co/100x100/9e6b38/FFF?text=Lemuel",
-        "Sam": "https://placehold.co/100x100/5d737e/FFF?text=Sam"
+        "Sam": "https://placehold.co/100x100/5d737e/FFF?text=Sam",
+        "Jacob": "https://placehold.co/140x180/5d737e/FFF?text=Jacob",
+        "Sherem": "https://placehold.co/100x100/963838/FFF?text=Sherem"
     },
     backgrounds: {
         "jerusalem_street": "https://placehold.co/750x300/d4c5a9/333?text=Jerusalem+Streets",
