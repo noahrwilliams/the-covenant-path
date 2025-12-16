@@ -9,7 +9,7 @@ window.STARTING_STATS["Jacob"] = {
 
 // JACOB SCENES - COMPLETE ARC
 
-// List of backgrounds: "temple_interior", "settlement", vision_room
+// List of backgrounds: "temple_interior", "settlement", "vision_room"
 
 Object.assign(window.scenes, {
     

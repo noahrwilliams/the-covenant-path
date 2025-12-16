@@ -67,6 +67,7 @@ window.ASSETS = {
         "ship_deck": "https://placehold.co/750x300/2980b9/FFF?text=The+Ship+Deck",
         "promised_land": "https://placehold.co/750x300/27ae60/FFF?text=The+Promised+Land",
         "settlement": "https://placehold.co/750x300/d4c5a9/333?text=Settlement",
-        "vision_room": "https://placehold.co/750x300/5e4b35/FFF?text=Vision+of+Light"
+        "vision_room": "https://placehold.co/750x300/5e4b35/FFF?text=Vision+of+Light",
+        "temple_interior": "https://placehold.co/750x300/2980b9/FFF?text=Temple+Interior"
     }
 };
