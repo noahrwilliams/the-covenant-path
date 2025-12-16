@@ -412,115 +412,102 @@ function handleChoice(choiceIndex, sceneId) {
     renderScene(choice.nextScene, false, null, feedbackHTML);
 }
 
+/**
+ * Main game action handler for the global buttons.
+ * @param {string} actionType - 'pray', 'study', or 'service'
+ */
 function globalAction(actionType) {
+    if (quizState.active) {
+        // Do nothing if a quiz is currently running.
+        return;
+    }
+    
+    // Check if the game is over before applying action stats
+    if (checkGameOver()) return;
+
+    let addedFaith = 0;
+    let addedUnity = 0;
+    let addedWorldly = 0;
+    let addedKnowledge = 0;
+    let feedback = "";
+
     const isYouth = gameState.difficulty === 'Youth';
     const isEndowed = gameState.difficulty === 'Endowed';
     const actionTaken = gameState.actionsTakenSinceChoice > 0;
-    const consecutivePrimary = gameState.lastAction === actionType;
+    const consecutive = gameState.lastAction === actionType;
 
-    if (isEndowed && actionTaken) {
-        return; 
-    }
+    // --- QUIZ LOGIC REPLACEMENT FOR 'study' ---
+    if (actionType === 'study') {
+        if (gameState.hasBrassPlates) {
+            // Start the quiz instead of giving simple stat gains. 
+            // The quiz logic handles stats and cleanup.
+            startQuizSession(); 
+            return; // Terminate early to prevent double stat application
+        }
+        
+        // Old 'study' logic for characters without plates (preserved)
+        addedKnowledge = 1;
+        addedWorldly = 0.5;
+        feedback = "You seek wisdom. Knowledge is gained, but time is spent in study.";
+    } 
+    // --- END QUIZ LOGIC REPLACEMENT ---
+
+    else if (actionType === 'pray') {
+        addedFaith = 1.5;
+        addedWorldly = -0.5; 
+        feedback = "You pray for strength and deliverance. Your faith increases.";
+    } 
     
+    else if (actionType === 'service') {
+        addedUnity = 1.5;
+        addedWorldly = -0.5; 
+        feedback = "You serve your community. Unity increases.";
+    }
+
+    // Diminishing Returns Logic
+    let reductionMsg = "";
+    if (isEndowed && actionTaken) {
+        addedFaith = addedUnity = addedWorldly = addedKnowledge = 0;
+        reductionMsg = " (No benefit: Action limit reached)";
+    } else if ((isYouth && actionTaken) || (gameState.difficulty === 'Primary' && consecutive)) {
+        addedFaith *= 0.5;
+        addedUnity *= 0.5;
+        addedWorldly *= 0.5;
+        addedKnowledge *= 0.5;
+        reductionMsg = " (Diminished by fatigue)";
+    }
+
     const oldFaith = gameState.faith;
     const oldUnity = gameState.unity;
-    const oldWorld = gameState.worldly_influence;
+    const oldWorldly = gameState.worldly_influence;
     const oldKnowledge = gameState.knowledge;
+
+    gameState.faith += addedFaith;
+    gameState.unity += addedUnity;
+    gameState.worldly_influence += addedWorldly;
+    gameState.knowledge += addedKnowledge;
+
+    clampStats();
+    if (checkGameOver()) return;
+
+    // Update history, last action, and apply covenant path logic
+    gameState.lastAction = actionType;
+    gameState.actionsTakenSinceChoice++;
     
-    let applyDR = false;
-    
-    if (isYouth) {
-        if (actionTaken) { 
-            applyDR = true; 
-        }
-    } else if (gameState.difficulty === 'Primary') { 
-        if (consecutivePrimary) { 
-            applyDR = true; 
-        }
-    } 
+    let actualDFaith = (gameState.faith - oldFaith).toFixed(1);
+    let actualDUnity = (gameState.unity - oldUnity).toFixed(1);
+    let actualDWorldly = (gameState.worldly_influence - oldWorldly).toFixed(1);
+    let actualDKnowledge = (gameState.knowledge - oldKnowledge).toFixed(1);
 
-    let dFaith = 0, dUnity = 0, dWorld = 0, dKnowledge = 0;
-    let actionText = "", scriptureRef = "";
+    let statString = `Faith: ${actualDFaith > 0 ? '+' : ''}${actualDFaith} | Unity: ${actualDUnity > 0 ? '+' : ''}${actualDUnity} | Worldly: ${actualDWorldly > 0 ? '+' : ''}${actualDWorldly} | Knowledge: ${actualDKnowledge > 0 ? '+' : ''}${actualDKnowledge}`;
 
-    switch(actionType) {
-        case 'pray':
-            dUnity = -1.0; 
-            dWorld = -0.5;
-
-            if (applyDR) { 
-                dFaith = 0.5; 
-                actionText = "You prayed again, but the Spirit feels less attentive in this moment."; 
-            } else { 
-                dFaith = 1.5; 
-                actionText = "You poured out your soul in prayer."; 
-            }
-            scriptureRef = "(See Alma 34:27)"; 
-            
-            if (dFaith > 0 && !gameState.covenantPathProgress.includes("Prayer to Seek Guidance")) gameState.covenantPathProgress.push("Prayer to Seek Guidance");
-            break;
-
-        case 'study':
-            // QUIZ LOGIC: The 'Records' button calls 'study', so this block now handles the quiz.
-            
-            // 1. Check for Brass Plates (remains the prerequisite)
-            if (!gameState.hasBrassPlates) {
-                 dUnity = 0;
-                 dKnowledge = 0;
-                 actionText = "You have no records to study. You feel unfulfilled.";
-                 scriptureRef = "";
-                 break; // Apply 0 change and give feedback
-            }
-
-            // 2. Launch the quiz. All stat changes, DR, and scene rendering are now handled in quiz_engine.js.
-            startQuizSession(); 
-            return; // Exit here.
-
-        case 'service':
-            dWorld = -1.0; 
-            
-            if (applyDR) { 
-                dUnity = 0.5; 
-                dFaith = -0.5; 
-                actionText = "You gave service again, but your energy and focus were strained.";
-            } else { 
-                dUnity = 2.0; 
-                dFaith = -1.0; 
-                actionText = "You served your family and neighbors with diligence.";
-            }
-            scriptureRef = "(See Mosiah 2:17)";
-            break;
-            
-        // The original 'review_records' case has been REMOVED/REPLACED by the functional 'study' block.
-    }
-    
-    gameState.faith += dFaith;
-    gameState.unity += dUnity;
-    gameState.worldly_influence += dWorld;
-    gameState.knowledge += dKnowledge;
-    
-    clampStats(); 
-    if (checkGameOver()) return; 
-
-    const actualDFaith = gameState.faith - oldFaith;
-    const actualDUnity = gameState.unity - oldUnity;
-    const actualDWorld = gameState.worldly_influence - oldWorld;
-    const actualDKnowledge = gameState.knowledge - oldKnowledge;
-
-    let actionStats = getStatString(actualDFaith, actualDUnity, actualDWorld, actualDKnowledge);
-    let previousActionHTML = `
-        <span class="feedback-title">Action: ${actionType.charAt(0).toUpperCase() + actionType.slice(1)}</span>
-        <span class="feedback-stats">${actionStats}</span>
-        <span class="feedback-narrative">${actionText} ${scriptureRef}</span>
+    let feedbackHTML = `
+        <span class="feedback-title">${actionType.charAt(0).toUpperCase() + actionType.slice(1)} Action</span>
+        <span class="feedback-narrative">${feedback}${reductionMsg}</span>
+        <span class="feedback-stats">${statString}</span>
     `;
 
-    gameState.lastAction = actionType;
-    gameState.actionsTakenSinceChoice++; 
-    
-    // State is saved in renderScene *before* it processes the new scene ID
-    renderScene(gameState.currentSceneId, false, previousActionHTML, null);
-    
-    // Enable undo button after a valid action is taken
-    document.getElementById("undo-btn").disabled = false;
+    renderScene(gameState.currentSceneId, false, feedbackHTML, null);
 }
 
 function undoLastAction() {

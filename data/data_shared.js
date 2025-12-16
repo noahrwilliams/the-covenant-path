@@ -6,6 +6,17 @@ window.STARTING_STATS = {};
 window.MAX_STAT = 20;
 window.COVENANT_STEPS = ["Knowledge", "Prayer to Seek Guidance", "Spiritual Confirmation", "Faith", "Repentance", "Baptism", "Gift of the Holy Ghost"];
 
+// QUIZ CONSTANTS
+window.QUIZ_CONSTANTS = {
+    TOTAL_QUESTIONS: 5,
+    BASE_FAITH: 0.5,
+    KNOWLEDGE_PER_CORRECT: 0.5,
+    COSTS: {
+        worldly: 0.1,
+        unity: 0.2
+    }
+};
+
 // STORY DEFINITIONS
 window.STORIES = [
     {
