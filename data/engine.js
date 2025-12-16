@@ -202,6 +202,7 @@ function loadCharacter(characterName, storyId, difficulty) {
     historyStack = [];
     document.getElementById("undo-btn").disabled = true;
 
+    // Save the initial state here (historyStack.length === 0)
     renderScene(gameState.currentSceneId);
 }
 
@@ -272,14 +273,18 @@ function renderScene(sceneId, isUndo = false, actionFeedback = null, choiceFeedb
         return;
     }
 
-    if (!isUndo) {
+    // FIX/NEW LOGIC: Only push state when NOT undoing, and only when a state-changing action has occurred 
+    // or when initializing the first state (historyStack.length === 0).
+    // This saves the state *before* the current scene is rendered with its changes.
+    if (!isUndo && (actionFeedback !== null || choiceFeedback !== null || historyStack.length === 0)) {
         historyStack.push({
             sceneId: gameState.currentSceneId,
             faith: gameState.faith, unity: gameState.unity, worldly_influence: gameState.worldly_influence, knowledge: gameState.knowledge,
             covenantPathProgress: [...gameState.covenantPathProgress],
             lastAction: gameState.lastAction,
             actionsTakenSinceChoice: gameState.actionsTakenSinceChoice,
-            choiceMade: (actionFeedback === null && choiceFeedback !== null) ? gameState.currentSceneId : null 
+            // Only store a 'previousSceneId' if we are moving to a NEW scene (i.e., a Choice was made)
+            previousSceneId: (actionFeedback === null && choiceFeedback !== null) ? gameState.currentSceneId : null
         });
     }
 
@@ -366,6 +371,9 @@ function renderScene(sceneId, isUndo = false, actionFeedback = null, choiceFeedb
     storyScrollContainer.scrollTop = storyScrollContainer.scrollHeight;
     
     checkWarning(); 
+    
+    // ENSURE UNDO BUTTON STATE IS UPDATED HERE (after the state push, which makes the stack > 1 if an action was taken)
+    document.getElementById("undo-btn").disabled = historyStack.length <= 1;
 }
 
 function handleChoice(choiceIndex, sceneId) {
@@ -400,6 +408,7 @@ function handleChoice(choiceIndex, sceneId) {
         <span class="feedback-narrative">${choice.feedback}</span>
     `;
 
+    // State is saved in renderScene *before* it processes the new scene ID
     renderScene(choice.nextScene, false, null, feedbackHTML);
 }
 
@@ -486,6 +495,20 @@ function globalAction(actionType) {
             }
             scriptureRef = "(See Mosiah 2:17)";
             break;
+            
+        // REVIEW RECORDS ACTION (NOT YET IMPLEMENTED AS QUIZ)
+        case 'review_records':
+            // TEMPORARY: Placeholder logic for the 'Review Records' button before Quiz is implemented.
+            // This is just to make the button *do* something.
+            dFaith = 1.0;
+            dKnowledge = 1.0;
+            dWorld = -0.5;
+            dUnity = -0.5; // Represents time spent alone
+            actionText = "You spent time reviewing the records, strengthening your understanding and faith.";
+            scriptureRef = "(See Alma 37:6-8)";
+            
+            if (!gameState.covenantPathProgress.includes("Records Review")) gameState.covenantPathProgress.push("Records Review");
+            break;
     }
     
     gameState.faith += dFaith;
@@ -511,35 +534,49 @@ function globalAction(actionType) {
     gameState.lastAction = actionType;
     gameState.actionsTakenSinceChoice++; 
     
+    // State is saved in renderScene *before* it processes the new scene ID
     renderScene(gameState.currentSceneId, false, previousActionHTML, null);
     
+    // Enable undo button after a valid action is taken
     document.getElementById("undo-btn").disabled = false;
 }
 
 function undoLastAction() {
-    if (historyStack.length > 0) {
-        const previousState = historyStack.pop();
+    if (historyStack.length > 1) { // Check for > 1 because the first push saves the initial state
+        // Pop the current state (the one we want to revert from)
+        historyStack.pop();
+        
+        // The new current state is the one we are reverting to
+        const stateToRestore = historyStack[historyStack.length - 1];
 
-        gameState.faith = previousState.faith;
-        gameState.unity = previousState.unity;
-        gameState.worldly_influence = previousState.worldly_influence;
-        gameState.knowledge = previousState.knowledge;
-        gameState.covenantPathProgress = previousState.covenantPathProgress;
-        gameState.lastAction = previousState.lastAction;
-        gameState.actionsTakenSinceChoice = previousState.actionsTakenSinceChoice;
+        // Restore the full state to the *pre-action/pre-choice* state.
+        gameState.faith = stateToRestore.faith;
+        gameState.unity = stateToRestore.unity;
+        gameState.worldly_influence = stateToRestore.worldly_influence;
+        gameState.knowledge = stateToRestore.knowledge;
+        gameState.covenantPathProgress = [...stateToRestore.covenantPathProgress];
+        gameState.lastAction = stateToRestore.lastAction;
+        gameState.actionsTakenSinceChoice = stateToRestore.actionsTakenSinceChoice;
+        
+        let sceneToRender = stateToRestore.sceneId;
 
-        updateStatsDisplay(); 
-
-        let sceneToRender = previousState.sceneId;
-
-        if (previousState.choiceMade) {
-             sceneToRender = previousState.choiceMade;
+        // If the state we are restoring represents a state *before* a scene change (i.e., a choice was made),
+        // we revert the scene ID to the one before the choice (which is stored in the just-popped state).
+        if (stateToRestore.previousSceneId) {
+             sceneToRender = stateToRestore.previousSceneId;
         }
 
-        document.getElementById("undo-btn").disabled = historyStack.length === 0;
+        // Re-render the scene based on the restored state. 'isUndo' is true to prevent saving the state again.
+        renderScene(sceneToRender, true, "↺ Action Undone.", null);
 
-        renderScene(sceneToRender, true, null, null);
+        // Update the button state. We disable when only the initial state remains.
+        document.getElementById("undo-btn").disabled = historyStack.length <= 1;
+        
+        return true; 
     }
+    // Handle the case where the history stack only contains the initial game load state.
+    document.getElementById("undo-btn").disabled = true;
+    return false;
 }
 
 function applyStats(effects) {
@@ -575,11 +612,14 @@ function updateButtonStates() {
     const studyBtn = document.getElementById('btn-study');
     const prayBtn = document.getElementById('btn-pray');
     const serviceBtn = document.getElementById('btn-service');
+    // Ensure the Review Records button (if it exists) is also handled here
+    const reviewBtn = document.getElementById('btn-review-records'); 
 
     const isEndowedRestricted = (gameState.difficulty === 'Endowed' && gameState.actionsTakenSinceChoice >= 1); 
     
     prayBtn.disabled = isEndowedRestricted;
     serviceBtn.disabled = isEndowedRestricted;
+    if (reviewBtn) reviewBtn.disabled = isEndowedRestricted; // Apply restriction to review button
 
     if (studyBtn) {
         studyBtn.disabled = !gameState.hasBrassPlates || isEndowedRestricted;
@@ -620,8 +660,8 @@ function getStatString(dF, dU, dW, dK) {
     if (faithPart) parts.push(faithPart);
     if (unityPart) parts.push(unityPart);
     if (worldlyPart) parts.push(worldlyPart);
-    if (knowledgePart) parts.push(knowledgePart);
-
+    if (knowledgePart) parts.push(knowledgePart); // CORRECTED: Ensures Knowledge is displayed
+    
     return parts.join(' | ');
 }
 
@@ -644,40 +684,6 @@ function checkWarning() {
     return false;
 }
 
-/**
- * Utility function to update the Undo button's visual state.
- */
-function updateUndoButton() {
-    const undoBtn = document.getElementById('undo-btn');
-    if (undoBtn) {
-        // Button is disabled if the historyStack (where past states are saved) is empty.
-        undoBtn.disabled = historyStack.length === 0;
-        
-        // Optional: Apply a visual style when disabled
-        undoBtn.style.opacity = historyStack.length > 0 ? '' : '0.4'; 
-    }
-}
-
-/**
- * Undoes the last action (choice or global action) and reverts state.
- */
-function undoLastAction() {
-    if (historyStack.length > 0) {
-        // Pop the state and restore
-        const previousState = historyStack.pop();
-        Object.assign(gameState, previousState); 
-        
-        // Re-render the previous scene using your existing function.
-        // The 'true' flag ensures this action itself is NOT recorded in history.
-        renderScene(gameState.currentSceneId, true, "↺ Action Undone.", null); 
-        
-        // Update the button state immediately after undoing
-        updateUndoButton(); 
-
-        return true; 
-    }
-    return false;
-}
 
 function checkGameOver() {
     if (gameState.faith <= 0 || gameState.unity <= 0 || gameState.worldly_influence >= window.MAX_STAT) {
