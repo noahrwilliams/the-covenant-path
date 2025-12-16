@@ -69,8 +69,9 @@ function renderNextQuestion() {
         <p style="font-size: 1.1em; font-weight: bold;">${qData.question}</p>
     `;
 
-    // Create a pool of all answers and shuffle them
-    const wrongPool = [...qData.incorrectAnswersPool];
+    // Create a pool of answers: Select 1 Correct + 3 Random Incorrect
+    const wrongPool = [...qData.incorrectAnswersPool].sort(() => 0.5 - Math.random()).slice(0, 3);
+    
     let allAnswers = [
         { text: qData.correctAnswer, isCorrect: true },
         ...wrongPool.map(w => ({ text: w, isCorrect: false }))
@@ -116,9 +117,10 @@ function handleQuizAnswer(clickedBtn, isCorrect) {
 
     // 3. Create "Next" Button
     const nextBtn = document.createElement('button');
-    nextBtn.className = 'story-btn';
+    nextBtn.className = 'choice-btn'; // Use light style
     nextBtn.style.marginTop = '15px';
-    nextBtn.style.backgroundColor = '#b8860b'; // Gold color override
+    nextBtn.style.fontWeight = 'bold';
+    nextBtn.style.textAlign = 'center';
     
     const isLast = quizState.currentQuestionIndex + 1 >= window.QUIZ_CONSTANTS.TOTAL_QUESTIONS;
     nextBtn.innerText = isLast ? "Finish Review" : "Next Question →";
