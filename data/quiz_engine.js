@@ -6,13 +6,27 @@ let quizState = {
 };
 
 /**
+ * Toggles the visibility of the main game control buttons.
+ */
+function toggleGameControls(visible) {
+    const controls = document.getElementById('global-actions');
+    const undoBtn = document.getElementById('undo-btn');
+    if (controls) controls.style.display = visible ? 'flex' : 'none';
+    if (undoBtn) undoBtn.style.display = visible ? 'block' : 'none';
+}
+
+/**
  * Initiates a new quiz session with unique visuals.
  */
 function startQuizSession() {
+    // Ensure game is not in a state where a quiz is pointless or impossible
+    if (!gameState.hasBrassPlates) return;
+
     const storyQs = window.QUIZ_QUESTIONS.filter(q => q.storyId === gameState.currentStoryId);
     
+    // Check if enough questions exist for the current story
     if (storyQs.length < window.QUIZ_CONSTANTS.TOTAL_QUESTIONS) {
-        finishQuizSession(true); 
+        finishQuizSession(true); // Fallback if questions are missing
         return;
     }
 
@@ -24,21 +38,22 @@ function startQuizSession() {
     quizState.correctCount = 0;
 
     // --- VISUAL OVERHAUL START ---
-    // 1. Change Background to Gold Plates (Placeholder)
     document.getElementById('background-image').src = "https://placehold.co/750x300/DAA520/FFF?text=The+Golden+Plates";
-    // 2. Hide Characters
     document.getElementById('protagonist-portrait').style.display = 'none';
     document.getElementById('cast-portraits-container').style.display = 'none';
-    // 3. Change Panel Color
     document.getElementById('gameplay-panel').classList.add('quiz-mode-active');
     // --- VISUAL OVERHAUL END ---
+
+    // Ensure the main gameplay elements are visible before rendering
+    document.getElementById('gameplay-panel').style.display = 'block';
+    document.getElementById('visuals-area').style.display = 'block';
 
     toggleGameControls(false); 
     renderNextQuestion();
 }
 
 /**
- * Renders the question and score.
+ * Renders the question and answer options into the existing #story-text and #choices elements.
  */
 function renderNextQuestion() {
     const qData = quizState.questions[quizState.currentQuestionIndex];
@@ -47,14 +62,15 @@ function renderNextQuestion() {
     
     // Update Text with "Correct Answer" Tally
     storyText.innerHTML = `
-        <h3 style="color:#b8860b; margin-bottom:5px;">Reviewing Records (${quizState.currentQuestionIndex + 1}/${window.QUIZ_CONSTANTS.TOTAL_QUESTIONS})</h3>
+        <h3 style="color:#b8860b; margin-bottom:5px;">Records Review (${quizState.currentQuestionIndex + 1}/${window.QUIZ_CONSTANTS.TOTAL_QUESTIONS})</h3>
         <p style="font-size: 0.9em; color:#666; margin-bottom:15px; border-bottom:1px solid #ddd; padding-bottom:5px;">
             Current Score: <strong>${quizState.correctCount}</strong> correct
         </p>
         <p style="font-size: 1.1em; font-weight: bold;">${qData.question}</p>
     `;
 
-    const wrongPool = [...qData.incorrectAnswersPool].sort(() => 0.5 - Math.random()).slice(0, 3);
+    // Create a pool of all answers and shuffle them
+    const wrongPool = [...qData.incorrectAnswersPool];
     let allAnswers = [
         { text: qData.correctAnswer, isCorrect: true },
         ...wrongPool.map(w => ({ text: w, isCorrect: false }))
@@ -100,19 +116,22 @@ function handleQuizAnswer(clickedBtn, isCorrect) {
 
     // 3. Create "Next" Button
     const nextBtn = document.createElement('button');
-    nextBtn.className = 'story-btn'; // Use main button style for prominence
+    nextBtn.className = 'story-btn';
     nextBtn.style.marginTop = '15px';
     nextBtn.style.backgroundColor = '#b8860b'; // Gold color override
     
     const isLast = quizState.currentQuestionIndex + 1 >= window.QUIZ_CONSTANTS.TOTAL_QUESTIONS;
     nextBtn.innerText = isLast ? "Finish Review" : "Next Question →";
     
-    nextBtn.onclick = advanceQuiz; // Call helper to move forward
+    // Remove all previous choice buttons and append the new "Next" button
+    choicesDiv.innerHTML = ''; // Clear the old buttons
     choicesDiv.appendChild(nextBtn);
+
+    nextBtn.onclick = advanceQuiz; 
 }
 
 /**
- * Helper to move index forward.
+ * Helper to move index forward and render next question or finish.
  */
 function advanceQuiz() {
     quizState.currentQuestionIndex++;
@@ -123,6 +142,9 @@ function advanceQuiz() {
     }
 }
 
+/**
+ * Calculates final stats, cleans up visuals, and returns control to the main game loop.
+ */
 function finishQuizSession(isFallback = false) {
     quizState.active = false;
     toggleGameControls(true);
@@ -131,7 +153,7 @@ function finishQuizSession(isFallback = false) {
     document.getElementById('gameplay-panel').classList.remove('quiz-mode-active');
     document.getElementById('protagonist-portrait').style.display = 'block';
     document.getElementById('cast-portraits-container').style.display = 'flex';
-    // Note: Background image is automatically reset by renderScene below
+    // The background is automatically reset by renderScene later
     // -----------------------
 
     let addedFaith = 0;
@@ -145,7 +167,7 @@ function finishQuizSession(isFallback = false) {
     } else {
         const totalQuestions = window.QUIZ_CONSTANTS.TOTAL_QUESTIONS;
         const correct = quizState.correctCount;
-        addedFaith = window.QUIZ_CONSTANTS.BASE_FAITH + (correct / (totalQuestions - 1));
+        addedFaith = window.QUIZ_CONSTANTS.BASE_FAITH + (correct / (totalQuestions));
         addedKnowledge = correct * window.QUIZ_CONSTANTS.KNOWLEDGE_PER_CORRECT;
         
         const scorePct = Math.round((correct / totalQuestions) * 100);
@@ -156,7 +178,11 @@ function finishQuizSession(isFallback = false) {
         }
     }
     
-    // Diminishing Returns Logic
+    // Apply Costs
+    const worldlyCost = window.QUIZ_CONSTANTS.COSTS.worldly;
+    const unityCost = window.QUIZ_CONSTANTS.COSTS.unity;
+
+    // Diminishing Returns Logic (Pulled from engine.js's logic)
     const isYouth = gameState.difficulty === 'Youth';
     const isEndowed = gameState.difficulty === 'Endowed';
     const actionTaken = gameState.actionsTakenSinceChoice > 0;
@@ -175,10 +201,11 @@ function finishQuizSession(isFallback = false) {
     const oldFaith = gameState.faith;
     const oldKnowledge = gameState.knowledge;
 
+    // Apply Stats
     gameState.faith += addedFaith;
     gameState.knowledge += addedKnowledge;
-    gameState.worldly_influence += window.QUIZ_CONSTANTS.COSTS.worldly;
-    gameState.unity += window.QUIZ_CONSTANTS.COSTS.unity;
+    gameState.worldly_influence += worldlyCost;
+    gameState.unity += unityCost;
 
     clampStats();
     if (checkGameOver()) return;
@@ -186,10 +213,11 @@ function finishQuizSession(isFallback = false) {
     gameState.lastAction = 'study';
     gameState.actionsTakenSinceChoice++;
     
+    // Prepare Feedback
     let actualDFaith = (gameState.faith - oldFaith).toFixed(1);
     let actualDKnowledge = (gameState.knowledge - oldKnowledge).toFixed(1);
     
-    let statString = `Faith: ${actualDFaith > 0 ? '+' : ''}${actualDFaith} | Knowledge: ${actualDKnowledge > 0 ? '+' : ''}${actualDKnowledge} | Worldly: +${window.QUIZ_CONSTANTS.COSTS.worldly} | Unity: ${window.QUIZ_CONSTANTS.COSTS.unity}`;
+    let statString = `Faith: ${actualDFaith > 0 ? '+' : ''}${actualDFaith} | Knowledge: ${actualDKnowledge > 0 ? '+' : ''}${actualDKnowledge} | Worldly: +${worldlyCost} | Unity: ${unityCost}`;
     
     let feedbackHTML = `
         <span class="feedback-title">Records Review Complete!</span>
