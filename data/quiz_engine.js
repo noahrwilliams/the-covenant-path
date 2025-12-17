@@ -22,6 +22,10 @@ function startQuizSession() {
     // Ensure game is not in a state where a quiz is pointless or impossible
     if (!gameState.hasBrassPlates) return;
 
+    // Disable the Records button during the quiz
+    const studyBtn = document.getElementById('btn-study');
+    if (studyBtn) studyBtn.disabled = true;
+
     const storyQs = window.QUIZ_QUESTIONS.filter(q => q.storyId === gameState.currentStoryId);
     
     // Check if enough questions exist for the current story
@@ -149,6 +153,11 @@ function advanceQuiz() {
  */
 function finishQuizSession(isFallback = false) {
     quizState.active = false;
+
+    // Re-enable the Records button
+    const studyBtn = document.getElementById('btn-study');
+    if (studyBtn) studyBtn.disabled = false;
+
     toggleGameControls(true);
 
     // --- CLEANUP VISUALS ---
