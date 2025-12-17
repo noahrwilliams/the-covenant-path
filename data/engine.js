@@ -668,7 +668,7 @@ function checkGameOver() {
         let message = "Your path ended here.";
         if (gameState.faith <= 0) message = "Your faith failed you, and your path ended here.";
         if (gameState.unity <= 0) message = "The division and discord was too great, and your path ended here.";
-        if (gameState.worldly_influence >= window.MAX_STAT) message = "The influence of the world overcame you, and your path ended here.";
+        if (gameState.worldly_influence >= window.MAX_STAT) message = "Pride overtook you. Your path ended here.";
 
         container.innerHTML = `<h2 style="color:red;">Game Over!</h2><p>${message}</p>`;
 
