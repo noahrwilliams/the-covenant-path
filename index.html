@@ -128,6 +128,14 @@
             justify-content: space-between;
         }
 
+        /* Allow inner scrolling during quiz (flex children must be allowed to shrink) */
+        #controls-area {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            min-height: 0;
+        }
+
         #story-scroll-container {
             flex-grow: 1;
             overflow-y: auto;
@@ -157,6 +165,13 @@
             flex-direction: column;
             gap: 8px;
             margin-bottom: 15px;
+        }
+
+        /* In quiz mode only, make the answer list scroll if it gets long */
+        .quiz-mode-active #choices {
+            flex: 1;
+            min-height: 0;
+            overflow-y: auto;
         }
 
         .choice-btn {
@@ -476,19 +491,25 @@
         </div>
     </div>
 
-<script src="data/data_shared.js?v=6.2"></script>
+<script src="data/data_shared.js?v=7.0"></script>
 
-<script src="data/scenes_nephi.js?v=6.2"></script>
-<script src="data/scenes_sariah.js?v=6.2"></script>
+<script src="data/scenes_nephi.js?v=7.0"></script>
+<script src="data/scenes_sariah.js?v=7.0"></script>
 
-<script src="data/scenes_s2_nephi.js?v=6.2"></script>
-<script src="data/scenes_s2_wife.js?v=6.2"></script>
-<script src="data/scenes_s2_zoram.js?v=6.2"></script>
+<script src="data/scenes_s2_nephi.js?v=7.0"></script>
+<script src="data/scenes_s2_wife.js?v=7.0"></script>
+<script src="data/scenes_s2_zoram.js?v=7.0"></script>
 
-<script src="data/scenes_s3_jacob.js?v=6.2"></script>
-<script src="data/scenes_s3_nephite_daughter.js?v=6.2"></script>
+<script src="data/scenes_s3_jacob.js?v=7.0"></script>
+<script src="data/scenes_s3_nephite_daughter.js?v=7.0"></script>
 
-<script src="data/quiz_engine.js?v=6.2"></script>
-<script src="data/engine.js?v=6.2"></script>
+<script src="data/scenes_s4_nephite_refugee.js?v=7.0"></script>
+<script src="data/scenes_s4_enos.js?v=7.0"></script>
+<script src="data/scenes_s4_amaleki.js?v=7.0"></script>
+
+<script src="data/scenes_s5_king_benjamin.js?v=7.0"></script>
+
+<script src="data/quiz_engine.js?v=7.0"></script>
+<script src="data/engine.js?v=7.0"></script>
 </body>
 </html>

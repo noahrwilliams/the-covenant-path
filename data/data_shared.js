@@ -67,7 +67,17 @@ window.ASSETS = {
         "Sam": "https://placehold.co/100x100/5d737e/FFF?text=Sam",
         "Jacob": "https://placehold.co/140x180/5d737e/FFF?text=Jacob",
         "Sherem": "https://placehold.co/100x100/963838/FFF?text=Sherem",
-        "Nephite_Daughter": "https://placehold.co/140x180/8c7e5d/FFF?text=Nephite+Daughter"
+        "Nephite_Daughter": "https://placehold.co/140x180/8c7e5d/FFF?text=Nephite+Daughter",
+        "Enos": "https://placehold.co/140x180/5d737e/FFF?text=Enos",
+        "Amaleki": "https://placehold.co/100x100/6d5e41/FFF?text=Amaleki",
+        "Nephite_Refugee": "https://placehold.co/140x180/8c7e5d/FFF?text=Nephite+Refugee",
+        "Mosiah_I": "https://placehold.co/140x180/5d737e/FFF?text=King+Mosiah+I",
+        "King_Benjamin": "https://placehold.co/100x100/6d5e41/FFF?text=King+Benjamin",
+        "Mormon": "https://placehold.co/140x180/5d737e/FFF?text=Mormon",
+        "Mosiah_II": "https://placehold.co/100x100/6d5e41/FFF?text=King+Mosiah",
+        "Helaman": "https://placehold.co/140x180/5d737e/FFF?text=Helaman",
+        "Helorum": "https://placehold.co/100x100/5d737e/FFF?text=Helorum",
+        "Angel": "https://placehold.co/100x100/5d737e/FFF?text=Angel"
     },
 
 
