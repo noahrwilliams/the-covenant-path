@@ -223,7 +223,7 @@ function handleModuleEnd(storyId) {
 
     const container = document.getElementById('menu-container');
     container.innerHTML = `
-        <h2 style="color:#6d5e41; border-bottom:1px solid #d4c5a9; padding-bottom:10px;">Module Complete: ${completedStory.title}</h2>
+        <h2 style="color:#6d5e41; border-bottom:1px solid #d4c5a9; padding-bottom:10px;">Story Complete: ${completedStory.title}</h2>
         <p style="margin-bottom: 25px;">What would you like to do next?</p>
     `;
 
