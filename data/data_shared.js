@@ -77,7 +77,11 @@ window.ASSETS = {
         "Mosiah_II": "https://placehold.co/100x100/6d5e41/FFF?text=King+Mosiah",
         "Helaman": "https://placehold.co/140x180/5d737e/FFF?text=Helaman",
         "Helorum": "https://placehold.co/100x100/5d737e/FFF?text=Helorum",
-        "Angel": "https://placehold.co/100x100/5d737e/FFF?text=Angel"
+        "Angel": "https://placehold.co/100x100/5d737e/FFF?text=Angel",
+        "Spouse": "https://placehold.co/140x180/8c7e5d/FFF?text=Spouse",
+        "Child": "https://placehold.co/140x180/5d737e/FFF?text=Child",
+        "Neighbor": "https://placehold.co/140x180/5d737e/FFF?text=Neighbor",
+        "Benjamin_Citizen": "https://placehold.co/140x180/5d737e/FFF?text=Benjamin+Citizen",
     },
 
 
