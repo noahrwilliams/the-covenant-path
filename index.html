@@ -21,13 +21,13 @@
 
         #game-container {
             width: 100%;
-            min-height: 100vh; /* Changed height to min-height */
+            min-height: 100vh;
             background: #fff;
             box-shadow: 0 0 20px rgba(0,0,0,0.2);
             display: flex;
             flex-direction: column;
             position: relative;
-            overflow-y: auto; /* Allow container to scroll */
+            overflow: hidden; /* prevent extra scrollbar */
         }
 
         @media (min-width: 900px) {
@@ -119,13 +119,15 @@
         /* GAMEPLAY PANEL (70% Height) */
         #gameplay-panel {
             width: 100%;
-            height: 70%; 
+            height: 70%;
             padding: 15px;
             box-sizing: border-box;
             background-color: #fcfbf8;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: flex-start; /* prevents big empty gap */
+            overflow: hidden;            /* keeps scrolling inside intended areas */
+            min-height: 0;               /* important for nested flex + scroll */
         }
 
         /* Allow inner scrolling during quiz (flex children must be allowed to shrink) */
@@ -159,12 +161,28 @@
             color: #777;
         }
 
+        #controls-area {
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            min-height: 0;
+        }
+
         /* CHOICES */
         #choices {
             display: flex;
             flex-direction: column;
             gap: 8px;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
+
+            overflow-y: auto;   /* key: inner scrolling when choices are long */
+            max-height: 30vh;   /* keeps Pray/Records/Serve + Undo visible */
+            min-height: 0;
+        }
+
+        /* NEW: during quizzes, allow answers to use more vertical space */
+        #gameplay-panel.quiz-mode-active #choices {
+            max-height: 40vh;
         }
 
         /* In quiz mode only, make the answer list scroll if it gets long */
