@@ -13,7 +13,7 @@ Object.assign(window.scenes, {
     
     // --- PART 1: THE DEPARTURE ---
     "intro_sariah": {
-        text: "JERUSALEM, 600 BC. The city is dangerous, but it is your home. Lehi has returned from a vision declaring you must leave everything—your gold, your house, your friends—and flee into the wilderness.<br><br><i>(Read 1 Nephi 2:2-4)</i>",
+        text: "JERUSALEM, 600 BC. The city is dangerous, but it is your home. Lehi has returned from a vision declaring you must leave everything—your gold, your house, your friends—and flee into the wilderness.<br><i>(Read 1 Nephi 2:2-4)</i>",
         backgroundAsset: "house_interior",
         castAssets: ["Lehi", "Laman", "Lemuel"],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
@@ -24,7 +24,7 @@ Object.assign(window.scenes, {
         ]
     },
     "packing_crisis": {
-        text: "You are packing. Laman is furious about leaving his inheritance. Lehi is focused on the Lord's command. The tension in the house is breaking your heart.<br><br><i>(Read 1 Nephi 2:11)</i>",
+        text: "You are packing. Laman is furious about leaving his inheritance. Lehi is focused on the Lord's command. The tension in the house is breaking your heart.<br><i>(Read 1 Nephi 2:11)</i>",
         backgroundAsset: "house_interior",
         castAssets: ["Laman", "Lemuel"],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
@@ -34,7 +34,7 @@ Object.assign(window.scenes, {
         ]
     },
     "leaving_jerusalem_sariah": {
-        text: "The city gates close behind you. You are in the wilderness. The sand is hot, and you have left your life behind. You pitch your tent in the valley of Lemuel.<br><br><i>(Read 1 Nephi 2:6-7)</i>",
+        text: "The city gates close behind you. You are in the wilderness. The sand is hot, and you have left your life behind. You pitch your tent in the valley of Lemuel.<br><i>(Read 1 Nephi 2:6-7)</i>",
         backgroundAsset: "wilderness",
         castAssets: ["Lehi", "Sam"],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
@@ -46,7 +46,7 @@ Object.assign(window.scenes, {
 
     // --- PART 2: THE LONG WAIT (1 Nephi 5) ---
     "sons_depart": {
-        text: "Lehi has sent all four of your sons back to Jerusalem to get the Brass Plates. They have been gone for weeks. You fear they have perished in the hands of Laban.<br><br><i>(Read 1 Nephi 5:1-2)</i>",
+        text: "Lehi has sent all four of your sons back to Jerusalem to get the Brass Plates. They have been gone for weeks. You fear they have perished in the hands of Laban.<br><i>(Read 1 Nephi 5:1-2)</i>",
         backgroundAsset: "wilderness",
         castAssets: ["Lehi"],
         // EROSION: The wait is agonizing.
@@ -57,7 +57,7 @@ Object.assign(window.scenes, {
         ]
     },
     "lehis_comfort": {
-        text: "Lehi responds to your grief with his testimony. 'I know that I am a visionary man... but I know that the Lord will deliver my sons.'<br><br><i>(Read 1 Nephi 5:4-5)</i>",
+        text: "Lehi responds to your grief with his testimony. 'I know that I am a visionary man... but I know that the Lord will deliver my sons.'<br><i>(Read 1 Nephi 5:4-5)</i>",
         backgroundAsset: "wilderness",
         castAssets: ["Lehi"],
         choices: [
@@ -66,7 +66,7 @@ Object.assign(window.scenes, {
         ]
     },
     "sons_return_sariah": {
-        text: "You see figures on the horizon. It is them! Your sons have returned safe with the records. Your joy is overwhelming.<br><br><i>(Read 1 Nephi 5:7-8)</i>",
+        text: "You see figures on the horizon. It is them! Your sons have returned safe with the records. Your joy is overwhelming.<br><i>(Read 1 Nephi 5:7-8)</i>",
         backgroundAsset: "wilderness",
         castAssets: ["Nephi", "Lehi", "Laman"],
         // RECOVERY: The miracle heals the family.
@@ -80,7 +80,7 @@ Object.assign(window.scenes, {
     // --- PART 3: STARVATION (Broken Bow) ---
 
     "broken_bow_sariah": {
-        text: "CRISIS: In the wilderness of Shazer, the bows have broken. The men return empty-handed. The children cry for food. Even Lehi begins to murmur against the Lord.<br><br><i>(Read 1 Nephi 16:19-20)</i>",
+        text: "CRISIS: In the wilderness of Shazer, the bows have broken. The men return empty-handed. The children cry for food. Even Lehi begins to murmur against the Lord.<br><i>(Read 1 Nephi 16:19-20)</i>",
         backgroundAsset: "wilderness",
         castAssets: ["Lehi", "Nephi"],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
@@ -89,7 +89,7 @@ Object.assign(window.scenes, {
         ]
     },
     "broken_bow_sariah_decision": {
-        text: "CRISIS: In the wilderness of Shazer, the bows have broken. The men return empty-handed. The children cry for food. Even Lehi begins to murmur against the Lord.<br><br><i>(Read 1 Nephi 16:19-20)</i>",
+        text: "CRISIS: In the wilderness of Shazer, the bows have broken. The men return empty-handed. The children cry for food. Even Lehi begins to murmur against the Lord.<br><i>(Read 1 Nephi 16:19-20)</i>",
         backgroundAsset: "wilderness",
         castAssets: ["Lehi", "Nephi"],
         onEnter: { faith: 0, unity: 0, worldly: 0 }, 
@@ -99,7 +99,7 @@ Object.assign(window.scenes, {
         ]
     },
     "nephi_bow_sariah": {
-        text: "Nephi has made a wooden bow. He asks Lehi where to hunt. Lehi is humbled and looks into the Liahona.<br><br><i>(Read 1 Nephi 16:23-25)</i>",
+        text: "Nephi has made a wooden bow. He asks Lehi where to hunt. Lehi is humbled and looks into the Liahona.<br><i>(Read 1 Nephi 16:23-25)</i>",
         backgroundAsset: "wilderness",
         castAssets: ["Nephi", "Lehi"],
         choices: [
@@ -110,7 +110,7 @@ Object.assign(window.scenes, {
 
     // --- PART 4: NAHOM & BOUNTIFUL ---
     "ishmael_tragedy": {
-        text: "Ishmael dies at Nahom. His daughters mourn and murmur against Lehi, wanting to return to Jerusalem. Laman plots to kill Lehi and Nephi.<br><br><i>(Read 1 Nephi 16:34-37)</i>",
+        text: "Ishmael dies at Nahom. His daughters mourn and murmur against Lehi, wanting to return to Jerusalem. Laman plots to kill Lehi and Nephi.<br><i>(Read 1 Nephi 16:34-37)</i>",
         backgroundAsset: "wilderness",
         castAssets: ["Laman", "Lemuel"],
         onEnter: { faith: -2, unity: -4, worldly: 1 },
@@ -120,7 +120,7 @@ Object.assign(window.scenes, {
         ]
     },
     "bountiful_sariah": {
-        text: "You arrive at Bountiful. It is beautiful, but Nephi is commanded to build a ship. He is often gone. Laman and Lemuel mock him.<br><br><i>(Read 1 Nephi 17:17-18)</i>",
+        text: "You arrive at Bountiful. It is beautiful, but Nephi is commanded to build a ship. He is often gone. Laman and Lemuel mock him.<br><i>(Read 1 Nephi 17:17-18)</i>",
         backgroundAsset: "promised_land",
         castAssets: ["Laman", "Lemuel"],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
@@ -130,7 +130,7 @@ Object.assign(window.scenes, {
         ]
     },
     "ship_built": {
-        text: "The ship is finished. It is time to board. You must leave the land of Bountiful for the great deep.<br><br><i>(Read 1 Nephi 18:5-6)</i>",
+        text: "The ship is finished. It is time to board. You must leave the land of Bountiful for the great deep.<br><i>(Read 1 Nephi 18:5-6)</i>",
         backgroundAsset: "ship_deck",
         castAssets: ["Lehi", "Nephi"],
         choices: [
@@ -140,7 +140,7 @@ Object.assign(window.scenes, {
 
     // --- PART 5: THE VOYAGE ---
     "voyage_grief": {
-        text: "ON THE OCEAN. Laman and Lemuel have rebelled. They have tied up Nephi. The storm is raging. You and Lehi are sick with grief and near death.<br><br><i>(Read 1 Nephi 18:17-19)</i>",
+        text: "ON THE OCEAN. Laman and Lemuel have rebelled. They have tied up Nephi. The storm is raging. You and Lehi are sick with grief and near death.<br><i>(Read 1 Nephi 18:17-19)</i>",
         backgroundAsset: "ship_deck",
         castAssets: ["Laman", "Lemuel"],
         // EROSION: Deadly Crisis.
@@ -152,7 +152,7 @@ Object.assign(window.scenes, {
         ]
     },
     "promised_land_sariah": {
-        text: "You arrive at the Promised Land. You pitch your tents. Your family is safe.<br><br><i>(Read 1 Nephi 18:23)</i>",
+        text: "You arrive at the Promised Land. You pitch your tents. Your family is safe.<br><i>(Read 1 Nephi 18:23)</i>",
         backgroundAsset: "promised_land",
         castAssets: ["Lehi", "Nephi"],
         choices: [

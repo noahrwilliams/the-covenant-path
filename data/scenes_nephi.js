@@ -12,7 +12,7 @@ Object.assign(window.scenes, {
     
     // --- PART 1: JERUSALEM ---
     "intro_nephi": {
-        text: "JERUSALEM, 600 BC. The streets are crowded. Lehi is shouting to the people, prophesying that Jerusalem will be destroyed. The crowd is hostile. Your brothers are ashamed.<br><br><i>(Read 1 Nephi 1:18-20)</i>",
+        text: "JERUSALEM, 600 BC. The streets are crowded. Lehi is shouting to the people, prophesying that Jerusalem will be destroyed. The crowd is hostile. Your brothers are ashamed.<br><i>(Read 1 Nephi 1:18-20)</i>",
         backgroundAsset: "jerusalem_street",
         castAssets: ["Lehi", "Laman", "Lemuel"],
         onEnter: { faith: 0, unity: 0, worldly: 0 }, 
@@ -23,7 +23,7 @@ Object.assign(window.scenes, {
         ]
     },
     "stand_by_father_nephi": {
-        text: "Lehi looks tired. The Lord has commanded him in a dream that he should take his family and depart into the wilderness. He asks you to pack immediately, abandoning your possessions.<br><br><i>(Read 1 Nephi 2:1-4)</i>",
+        text: "Lehi looks tired. The Lord has commanded him in a dream that he should take his family and depart into the wilderness. He asks you to pack immediately, abandoning your possessions.<br><i>(Read 1 Nephi 2:1-4)</i>",
         backgroundAsset: "jerusalem_street",
         castAssets: ["Lehi"],
         onEnter: { faith: 0, unity: 0, worldly: 0 }, 
@@ -33,7 +33,7 @@ Object.assign(window.scenes, {
         ]
     },
     "calm_brothers_nephi": {
-        text: "Laman scoffs: 'He will lose us our inheritance!' Lehi returns and commands the family to leave Jerusalem and depart into the wilderness.<br><br><i>(Read 1 Nephi 2:11-13)</i>",
+        text: "Laman scoffs: 'He will lose us our inheritance!' Lehi returns and commands the family to leave Jerusalem and depart into the wilderness.<br><i>(Read 1 Nephi 2:11-13)</i>",
         backgroundAsset: "jerusalem_night",
         castAssets: ["Laman", "Lemuel"],
         onEnter: { faith: 0, unity: 0, worldly: 0 }, 
@@ -43,7 +43,7 @@ Object.assign(window.scenes, {
         ]
     },
     "secret_prayer_nephi": {
-        text: "You are alone. You desire to know the mysteries of God, and to know if your father's words are true, that you might not rebel like your brothers.<br><br><i>(Read 1 Nephi 2:16)</i>",
+        text: "You are alone. You desire to know the mysteries of God, and to know if your father's words are true, that you might not rebel like your brothers.<br><i>(Read 1 Nephi 2:16)</i>",
         backgroundAsset: "house_interior",
         castAssets: [],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
@@ -53,7 +53,7 @@ Object.assign(window.scenes, {
         ]
     },
     "vision_confirmation_nephi": {
-        text: "The Lord visits you and softens your heart. You believe all the words of your father. Now you must face your brothers.<br><br><i>(Read 1 Nephi 2:16-17)</i>",
+        text: "The Lord visits you and softens your heart. You believe all the words of your father. Now you must face your brothers.<br><i>(Read 1 Nephi 2:16-17)</i>",
         backgroundAsset: "vision_room",
         castAssets: [],
         choices: [
@@ -64,7 +64,7 @@ Object.assign(window.scenes, {
 
     // --- PART 2: THE BRASS PLATES ---
     "wilderness_valley": {
-        text: "You have traveled three days in the wilderness. Lehi speaks: 'The Lord has commanded that you and your brothers return to Jerusalem to retrieve the Brass Plates from Laban.' Laman murmurs, saying it is a hard thing.<br><br><i>(Read 1 Nephi 3:2-5)</i>",
+        text: "You have traveled three days in the wilderness. Lehi speaks: 'The Lord has commanded that you and your brothers return to Jerusalem to retrieve the Brass Plates from Laban.' Laman murmurs, saying it is a hard thing.<br><i>(Read 1 Nephi 3:2-5)</i>",
         backgroundAsset: "wilderness",
         castAssets: ["Lehi", "Laman"],
         onEnter: { faith: 0, unity: 0, worldly: 0 }, 
@@ -74,7 +74,7 @@ Object.assign(window.scenes, {
         ]
     },
     "plate_fail": {
-        text: "JERUSALEM. Laman failed to get the plates. He is angry and beats you and Lemuel with a rod. An angel appears to stop him, but Laman still murmurs. Doubt and discord overcome them.<br><br><i>(Read 1 Nephi 3:28-31)</i>",
+        text: "JERUSALEM. Laman failed to get the plates. He is angry and beats you and Lemuel with a rod. An angel appears to stop him, but Laman still murmurs. Doubt and discord overcome them.<br><i>(Read 1 Nephi 3:28-31)</i>",
         backgroundAsset: "jerusalem_night",
         castAssets: ["Laman", "Lemuel"],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
@@ -84,7 +84,7 @@ Object.assign(window.scenes, {
         ]
     },
     "laban_house": {
-        text: "JERUSALEM. Laman failed to get the plates. He is angry and beats you and Lemuel with a rod. An angel appears to stop him, but Laman still murmurs.<br><br><i>(Read 1 Nephi 3:28-31)</i>",
+        text: "JERUSALEM. Laman failed to get the plates. He is angry and beats you and Lemuel with a rod. An angel appears to stop him, but Laman still murmurs.<br><i>(Read 1 Nephi 3:28-31)</i>",
         backgroundAsset: "jerusalem_night",
         castAssets: ["Laman", "Lemuel"],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
@@ -94,7 +94,7 @@ Object.assign(window.scenes, {
         ]
     },
     "slaying_laban": {
-        text: "You creep into the city by night. You find Laban drunk on the ground. The Spirit commands: 'Slay him, for the Lord hath delivered him into thy hands.'<br><br><i>(Read 1 Nephi 4:6-13)</i>",
+        text: "You creep into the city by night. You find Laban drunk on the ground. The Spirit commands: 'Slay him, for the Lord hath delivered him into thy hands.'<br><i>(Read 1 Nephi 4:6-13)</i>",
         backgroundAsset: "laban_house",
         castAssets: [],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
@@ -104,7 +104,7 @@ Object.assign(window.scenes, {
         ]
     },
     "return_plates_failure": {
-        text: "You return empty handed. Lehi is devastated. The future of the nation is jeopardized.<br><br><i>(Read 1 Nephi 4:14-17 for context on why this is failure)</i>",
+        text: "You return empty handed. Lehi is devastated. The future of the nation is jeopardized.<br><i>(Read 1 Nephi 4:14-17 for context on why this is failure)</i>",
         backgroundAsset: "wilderness",
         castAssets: ["Lehi"],
         choices: [
@@ -112,7 +112,7 @@ Object.assign(window.scenes, {
         ]
     },
     "return_plates": {
-        text: "You return to the tent. Sariah rejoices, having feared you were dead. Lehi takes the plates and searches them.<br><br><i>(Read 1 Nephi 5:1-10)</i>",
+        text: "You return to the tent. Sariah rejoices, having feared you were dead. Lehi takes the plates and searches them.<br><i>(Read 1 Nephi 5:1-10)</i>",
         backgroundAsset: "wilderness",
         castAssets: ["Sariah", "Lehi"],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
@@ -124,7 +124,7 @@ Object.assign(window.scenes, {
 
     // --- PART 3: THE BROKEN BOW ---
     "broken_bow": {
-        text: "CRISIS: Your fine steel bow breaks. The families are starving. Laman, Lemuel, and even Lehi begin to murmur against the Lord.<br><br><i>(Read 1 Nephi 16:18-22)</i>",
+        text: "CRISIS: Your fine steel bow breaks. The families are starving. Laman, Lemuel, and even Lehi begin to murmur against the Lord.<br><i>(Read 1 Nephi 16:18-22)</i>",
         backgroundAsset: "wilderness",
         castAssets: ["Lehi", "Laman"],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
@@ -134,7 +134,7 @@ Object.assign(window.scenes, {
     },
 
     "broken_bow_decision": {
-        text: "CRISIS: Your fine steel bow breaks. The families are starving. Laman, Lemuel, and even Lehi begin to murmur against the Lord.<br><br><i>(Read 1 Nephi 16:18-22)</i>",
+        text: "CRISIS: Your fine steel bow breaks. The families are starving. Laman, Lemuel, and even Lehi begin to murmur against the Lord.<br><i>(Read 1 Nephi 16:18-22)</i>",
         backgroundAsset: "wilderness",
         castAssets: ["Lehi", "Laman"],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
@@ -146,7 +146,7 @@ Object.assign(window.scenes, {
 
     // --- PART 4: THE SHIP ---
     "bountiful": {
-        text: "You arrive at Bountiful. The Lord commands: 'Thou shalt construct a ship.' Laman and Lemuel mock you, calling you a fool.<br><br><i>(Read 1 Nephi 17:7-18)</i>",
+        text: "You arrive at Bountiful. The Lord commands: 'Thou shalt construct a ship.' Laman and Lemuel mock you, calling you a fool.<br><i>(Read 1 Nephi 17:7-18)</i>",
         backgroundAsset: "promised_land", 
         castAssets: ["Laman", "Lemuel"],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
@@ -156,7 +156,7 @@ Object.assign(window.scenes, {
         ]
     },
     "shock_brothers": {
-        text: "They try to throw you in the sea. You are filled with the power of God, and you warn them that if they touch you, they will wither. Days later the Lord instructs you to shock them. <br><br><i>(Read 1 Nephi 17:48-53)</i>",
+        text: "They try to throw you in the sea. You are filled with the power of God, and you warn them that if they touch you, they will wither. Days later the Lord instructs you to shock them. <br><i>(Read 1 Nephi 17:48-53)</i>",
         backgroundAsset: "promised_land",
         castAssets: ["Laman", "Lemuel"],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
@@ -168,7 +168,7 @@ Object.assign(window.scenes, {
 
     // --- PART 5: THE VOYAGE ---
     "voyage_storm": {
-        text: "ON THE OCEAN. Laman and Lemuel rebel and tie you up. The Liahona stops. A terrible storm threatens to sink the ship. Lehi and Sariah are near death with grief.<br><br><i>(Read 1 Nephi 18:9-20)</i>",
+        text: "ON THE OCEAN. Laman and Lemuel rebel and tie you up. The Liahona stops. A terrible storm threatens to sink the ship. Lehi and Sariah are near death with grief.<br><i>(Read 1 Nephi 18:9-20)</i>",
         backgroundAsset: "ship_deck",
         castAssets: ["Laman", "Lemuel", "Sariah"],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
@@ -177,7 +177,7 @@ Object.assign(window.scenes, {
         ]
     },
     "voyage_storm_decision": {
-        text: "ON THE OCEAN. Laman and Lemuel rebel and tie you up. The Liahona stops. A terrible storm threatens to sink the ship. Lehi and Sariah are near death with grief.<br><br><i>(Read 1 Nephi 18:9-20)</i>",
+        text: "ON THE OCEAN. Laman and Lemuel rebel and tie you up. The Liahona stops. A terrible storm threatens to sink the ship. Lehi and Sariah are near death with grief.<br><i>(Read 1 Nephi 18:9-20)</i>",
         backgroundAsset: "ship_deck",
         castAssets: ["Laman", "Lemuel", "Sariah"],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
@@ -187,7 +187,7 @@ Object.assign(window.scenes, {
         ]
     },
     "promised_land": {
-        text: "You arrive at the Promised Land. You pitch your tents and prepare to live the law of the Lord.<br><br><i>(Read 1 Nephi 18:23-25)</i>",
+        text: "You arrive at the Promised Land. You pitch your tents and prepare to live the law of the Lord.<br><i>(Read 1 Nephi 18:23-25)</i>",
         backgroundAsset: "promised_land",
         castAssets: ["Lehi", "Sariah"],
         choices: [

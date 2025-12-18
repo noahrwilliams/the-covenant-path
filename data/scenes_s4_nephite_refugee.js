@@ -12,7 +12,7 @@ window.STARTING_STATS["Nephite_Refugee"] = {
 Object.assign(window.scenes, {
     // --- CHOICE 1: THE DEPARTURE ---
     "s4_refugee_intro": {
-        text: "King Mosiah has warned the righteous to flee the Land of Nephi. The Lamanites are at the gates. You must decide your family's role in the exodus.<br><br><i>(Read Omni 1:12)</i>",
+        text: "King Mosiah has warned the righteous to flee the Land of Nephi. The Lamanites are at the gates. You must decide your family's role in the exodus.<br><i>(Read Omni 1:12)</i>",
         backgroundAsset: "settlement",
         choices: [
             { text: "Join the Vanguard to help clear the path.", nextScene: "s4_vanguard_path_1", effect: { faith: 1, worldly: -1 }, feedback: "You lead the way." },
@@ -89,7 +89,7 @@ Object.assign(window.scenes, {
 
     // --- CHOICE 4: MAJOR EVENT - HUNGER (COALESCE) ---
     "s4_hunger_event": {
-        text: "All groups converge. The wilderness has been harsh. Famine has set in. Even the King is fasting for survival.<br><br><i>(Read Jarom 1:10)</i>",
+        text: "All groups converge. The wilderness has been harsh. Famine has set in. Even the King is fasting for survival.<br><i>(Read Jarom 1:10)</i>",
         backgroundAsset: "promised_land",
         onEnter: { faith: -1, unity: -1 },
         choices: [
@@ -199,7 +199,7 @@ Object.assign(window.scenes, {
 
     // --- CHOICE 9: MAJOR EVENT - AMBUSH (COALESCE) ---
     "s4_ambush_event": {
-        text: "Suddenly, Lamanite archers strike! They have tracked you to the very edge of the wilderness. Arrows fall like rain.<br><br><i>(Read Jarom 1:7)</i>",
+        text: "Suddenly, Lamanite archers strike! They have tracked you to the very edge of the wilderness. Arrows fall like rain.<br><i>(Read Jarom 1:7)</i>",
         backgroundAsset: "promised_land",
         onEnter: { worldly: -1, unity: -1 },
         choices: [
@@ -211,7 +211,7 @@ Object.assign(window.scenes, {
 
     // --- CHOICE 10: ARRIVAL IN ZARAHEMLA ---
     "s4_zarahemla_arrival": {
-        text: "The gates of a new city appear. The people of Zarahemla welcome you. Your journey of survival ends, and your journey of unification begins.<br><br><i>(Read Omni 1:19)</i>",
+        text: "The gates of a new city appear. The people of Zarahemla welcome you. Your journey of survival ends, and your journey of unification begins.<br><i>(Read Omni 1:19)</i>",
         backgroundAsset: "jerusalem_street",
         choices: [
             { text: "Covenant to help merge the two peoples.", nextScene: "module_end_story_decline", effect: { faith: 2, unity: 1, worldly: 2 }, feedback: "End of Story." },

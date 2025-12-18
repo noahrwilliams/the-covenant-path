@@ -9,7 +9,7 @@ window.STARTING_STATS["WifeOfNephi"] = {
 
 Object.assign(window.scenes, {
     "s2_wife_intro": {
-        text: "THE PROMISED LAND. You are one of Ishmael's daughters. The new land is beautiful, but the ground is resistant. The daily labor is exhausting, and it feels like a constant war against the wilderness.<br><br><i>(Read 1 Nephi 18:24)</i>",
+        text: "THE PROMISED LAND. You are one of Ishmael's daughters. The new land is beautiful, but the ground is resistant. The daily labor is exhausting, and it feels like a constant war against the wilderness.<br><i>(Read 1 Nephi 18:24)</i>",
         backgroundAsset: "promised_land",
         castAssets: ["Sariah"],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
@@ -20,7 +20,7 @@ Object.assign(window.scenes, {
         ]
     },
     "s2_wife_children": {
-        text: "Your young children are confused and fearful because of the constant tension and anger emanating from Laman's camp. They ask you why he is so angry.<br><br><i>(Context: Teaching)</i>",
+        text: "Your young children are confused and fearful because of the constant tension and anger emanating from Laman's camp. They ask you why he is so angry.<br><i>(Context: Teaching)</i>",
         backgroundAsset: "house_interior",
         castAssets: [],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
@@ -31,7 +31,7 @@ Object.assign(window.scenes, {
         ]
     },
     "s2_wife_sariah": {
-        text: "Your mother-in-law, Sariah, is dying. Her last great burden is the fate of her rebellious eldest sons, Laman and Lemuel.<br><br><i>(Context: Matriarch's Passing)</i>",
+        text: "Your mother-in-law, Sariah, is dying. Her last great burden is the fate of her rebellious eldest sons, Laman and Lemuel.<br><i>(Context: Matriarch's Passing)</i>",
         backgroundAsset: "house_interior",
         castAssets: ["Sariah"],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
@@ -42,7 +42,7 @@ Object.assign(window.scenes, {
         ]
     },
     "s2_wife_sisters": {
-        text: "Your sisters, Laman and Lemuel's wives, openly mock Nephi's spiritual leadership, accusing him of ambition and self-exaltation.<br><br><i>(Context: Peer Pressure)</i>",
+        text: "Your sisters, Laman and Lemuel's wives, openly mock Nephi's spiritual leadership, accusing him of ambition and self-exaltation.<br><i>(Context: Peer Pressure)</i>",
         backgroundAsset: "settlement",
         castAssets: [],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
@@ -53,7 +53,7 @@ Object.assign(window.scenes, {
         ]
     },
     "s2_wife_lehi": {
-        text: "Lehi's death is a profound spiritual and emotional tremor. The family's stabilizing force is gone, and the rift instantly widens.<br><br><i>(Read 2 Nephi 4:12)</i>",
+        text: "Lehi's death is a profound spiritual and emotional tremor. The family's stabilizing force is gone, and the rift instantly widens.<br><i>(Read 2 Nephi 4:12)</i>",
         backgroundAsset: "house_interior",
         castAssets: ["Nephi"],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
@@ -64,7 +64,7 @@ Object.assign(window.scenes, {
         ]
     },
     "s2_wife_conflict": {
-        text: "In a terrifying escalation, Laman openly threatens to murder Nephi and seize the brass plates.<br><br><i>(Read 2 Nephi 5:2)</i>",
+        text: "In a terrifying escalation, Laman openly threatens to murder Nephi and seize the brass plates.<br><i>(Read 2 Nephi 5:2)</i>",
         backgroundAsset: "settlement",
         castAssets: ["Laman", "Nephi"],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
@@ -75,7 +75,7 @@ Object.assign(window.scenes, {
         ]
     },
     "s2_wife_warning": {
-        text: "The Lord directs Nephi to flee into the wilderness with those who will hear him. This means a final, wrenching separation from your sisters.<br><br><i>(Read 2 Nephi 5:5)</i>",
+        text: "The Lord directs Nephi to flee into the wilderness with those who will hear him. This means a final, wrenching separation from your sisters.<br><i>(Read 2 Nephi 5:5)</i>",
         backgroundAsset: "house_interior",
         castAssets: ["Nephi"],
         choices: [
@@ -85,7 +85,7 @@ Object.assign(window.scenes, {
         ]
     },
     "s2_wife_packing": {
-        text: "You only have moments to choose what to carry into the unknown. Space is extremely limited.<br><br><i>(Context: Priorities)</i>",
+        text: "You only have moments to choose what to carry into the unknown. Space is extremely limited.<br><i>(Context: Priorities)</i>",
         backgroundAsset: "house_interior",
         castAssets: [],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
@@ -96,7 +96,7 @@ Object.assign(window.scenes, {
         ]
     },
     "s2_wife_depart": {
-        text: "You depart under the cover of night. Just as you leave the settlement, one of your sisters spots you, her silent gaze following your retreat.<br><br><i>(Read 2 Nephi 5:7)</i>",
+        text: "You depart under the cover of night. Just as you leave the settlement, one of your sisters spots you, her silent gaze following your retreat.<br><i>(Read 2 Nephi 5:7)</i>",
         backgroundAsset: "settlement",
         castAssets: [],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
@@ -107,7 +107,7 @@ Object.assign(window.scenes, {
         ]
     },
     "s2_wife_wilderness": {
-        text: "The journey is long, the weather harsh, and exhaustion sets in quickly. Your own strength fails.<br><br><i>(Context: Endurance)</i>",
+        text: "The journey is long, the weather harsh, and exhaustion sets in quickly. Your own strength fails.<br><i>(Context: Endurance)</i>",
         backgroundAsset: "wilderness",
         castAssets: [],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
@@ -118,7 +118,7 @@ Object.assign(window.scenes, {
         ]
     },
     "s2_wife_settlement": {
-        text: "You have settled in a safe place. Now, a new culture must be forged without the presence of your kin who remained behind.<br><br><i>(Read 2 Nephi 5:15)</i>",
+        text: "You have settled in a safe place. Now, a new culture must be forged without the presence of your kin who remained behind.<br><i>(Read 2 Nephi 5:15)</i>",
         backgroundAsset: "settlement",
         castAssets: ["Nephi"],
         choices: [

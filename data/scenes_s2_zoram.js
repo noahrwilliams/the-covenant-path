@@ -9,7 +9,7 @@ window.STARTING_STATS["Zoram"] = {
 
 Object.assign(window.scenes, {
     "s2_zoram_intro": {
-        text: "THE PROMISED LAND. You are bound by oath to Nephi, but your wife, the eldest daughter of Ishmael, is deeply unhappy. She weeps for the lost prosperity and safety of Jerusalem.<br><br><i>(Read 1 Nephi 16:7)</i>",
+        text: "THE PROMISED LAND. You are bound by oath to Nephi, but your wife, the eldest daughter of Ishmael, is deeply unhappy. She weeps for the lost prosperity and safety of Jerusalem.<br><i>(Read 1 Nephi 16:7)</i>",
         backgroundAsset: "promised_land",
         castAssets: ["WifeOfNephi"],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
@@ -20,7 +20,7 @@ Object.assign(window.scenes, {
         ]
     },
     "s2_zoram_outsider": {
-        text: "Laman publicly mocks you, calling you 'Laban’s runaway slave.' He tries to turn others against you by highlighting your former status.<br><br><i>(Context: Social Tension)</i>",
+        text: "Laman publicly mocks you, calling you 'Laban’s runaway slave.' He tries to turn others against you by highlighting your former status.<br><i>(Context: Social Tension)</i>",
         backgroundAsset: "settlement",
         castAssets: ["Laman"],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
@@ -31,7 +31,7 @@ Object.assign(window.scenes, {
         ]
     },
     "s2_zoram_oath": {
-        text: "With Lehi nearing death and the family's division imminent, Nephi approaches you, asking for a reaffirmation of the solemn oath you made in Jerusalem.<br><br><i>(Read 1 Nephi 4:33)</i>",
+        text: "With Lehi nearing death and the family's division imminent, Nephi approaches you, asking for a reaffirmation of the solemn oath you made in Jerusalem.<br><i>(Read 1 Nephi 4:33)</i>",
         backgroundAsset: "house_interior",
         castAssets: ["Nephi"],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
@@ -42,7 +42,7 @@ Object.assign(window.scenes, {
         ]
     },
     "s2_zoram_blessing": {
-        text: "In his final words, Lehi declares a sacred blessing over you: that your seed shall be numbered with Nephi's seed. This is a promise of inclusion.<br><br><i>(Read 2 Nephi 1:30-32)</i>",
+        text: "In his final words, Lehi declares a sacred blessing over you: that your seed shall be numbered with Nephi's seed. This is a promise of inclusion.<br><i>(Read 2 Nephi 1:30-32)</i>",
         backgroundAsset: "house_interior",
         castAssets: ["Lehi"],
         choices: [
@@ -52,7 +52,7 @@ Object.assign(window.scenes, {
         ]
     },
     "s2_zoram_offer": {
-        text: "Laman and Lemuel privately approach you, offering you a high place of leadership and riches if you will break your oath and join their cause.<br><br><i>(Context: Temptation)</i>",
+        text: "Laman and Lemuel privately approach you, offering you a high place of leadership and riches if you will break your oath and join their cause.<br><i>(Context: Temptation)</i>",
         backgroundAsset: "settlement",
         castAssets: ["Laman"],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
@@ -63,7 +63,7 @@ Object.assign(window.scenes, {
         ]
     },
     "s2_zoram_plot": {
-        text: "Whether by revelation or espionage, the awful truth is clear: Laman and Lemuel intend to murder Nephi.<br><br><i>(Read 2 Nephi 5:3)</i>",
+        text: "Whether by revelation or espionage, the awful truth is clear: Laman and Lemuel intend to murder Nephi.<br><i>(Read 2 Nephi 5:3)</i>",
         backgroundAsset: "settlement",
         castAssets: ["Laman", "Nephi"],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
@@ -74,7 +74,7 @@ Object.assign(window.scenes, {
         ]
     },
     "s2_zoram_ultimatum": {
-        text: "The Lord commands Nephi to flee. Your wife, one of the daughters of Ishmael, is hesitant to leave her beloved sisters (Laman's wives) behind.<br><br><i>(Context: Family Split)</i>",
+        text: "The Lord commands Nephi to flee. Your wife, one of the daughters of Ishmael, is hesitant to leave her beloved sisters (Laman's wives) behind.<br><i>(Context: Family Split)</i>",
         backgroundAsset: "house_interior",
         castAssets: ["WifeOfNephi"],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
@@ -85,7 +85,7 @@ Object.assign(window.scenes, {
         ]
     },
     "s2_zoram_house": {
-        text: "You must walk away from the sturdy home you helped build and furnish. This material loss is immense, and Laman's group will claim it all.<br><br><i>(Context: Sacrifice)</i>",
+        text: "You must walk away from the sturdy home you helped build and furnish. This material loss is immense, and Laman's group will claim it all.<br><i>(Context: Sacrifice)</i>",
         backgroundAsset: "settlement",
         castAssets: [],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
@@ -96,7 +96,7 @@ Object.assign(window.scenes, {
         ]
     },
     "s2_zoram_march": {
-        text: "You lead the small company into the wilderness. The darkness and the threat of pursuit make the pace slow and fearful.<br><br><i>(Read 2 Nephi 5:7)</i>",
+        text: "You lead the small company into the wilderness. The darkness and the threat of pursuit make the pace slow and fearful.<br><i>(Read 2 Nephi 5:7)</i>",
         backgroundAsset: "wilderness",
         castAssets: ["Nephi"],
         choices: [
@@ -106,7 +106,7 @@ Object.assign(window.scenes, {
         ]
     },
     "s2_zoram_identity": {
-        text: "You settle and Nephi begins to categorize the believers as 'Nephites' and the apostates as 'Lamanites.' He must decide where to place you.<br><br><i>(Read Jacob 1:13)</i>",
+        text: "You settle and Nephi begins to categorize the believers as 'Nephites' and the apostates as 'Lamanites.' He must decide where to place you.<br><i>(Read Jacob 1:13)</i>",
         backgroundAsset: "settlement",
         castAssets: ["Nephi"],
         choices: [

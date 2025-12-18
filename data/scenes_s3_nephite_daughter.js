@@ -11,7 +11,7 @@ Object.assign(window.scenes, {
 
     // --- SCENE 1: THE TEMPLE GATHERING ---
     "s3_nd_intro": {
-        text: "You stand in the outer courts of the temple. The air is heavy. Jacob, your priest, has come to speak, but he looks weighed down by anxiety. Around you, you see men wearing costly apparel, looking with disdain at those less wealthy.<br><br><i>(Read Jacob 2:7)</i>",
+        text: "You stand in the outer courts of the temple. The air is heavy. Jacob, your priest, has come to speak, but he looks weighed down by anxiety. Around you, you see men wearing costly apparel, looking with disdain at those less wealthy.<br><i>(Read Jacob 2:7)</i>",
         backgroundAsset: "temple_interior",
         castAssets: ["Jacob"],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
@@ -24,7 +24,7 @@ Object.assign(window.scenes, {
 
     // --- SCENE 2: THE PRIDE OF WEALTH ---
     "s3_nd_costly_apparel": {
-        text: "Your brother has returned with gold and silver. He insists that you wear a fine, embroidered silk veil to the next gathering, so that the family 'looks their station.' You know many in the city are hungry.<br><br><i>(Read Jacob 2:17-19)</i>",
+        text: "Your brother has returned with gold and silver. He insists that you wear a fine, embroidered silk veil to the next gathering, so that the family 'looks their station.' You know many in the city are hungry.<br><i>(Read Jacob 2:17-19)</i>",
         backgroundAsset: "settlement",
         castAssets: [],
         choices: [
@@ -43,7 +43,7 @@ Object.assign(window.scenes, {
     // ****************
 
     "s3_nd_the_warning": {
-        text: "Jacob stands at the temple and speaks words that pierce your soul. He condemns the men for their 'grosser crimes' of taking many wives and concubines, breaking the hearts of their chaste wives.<br><br><i>(Read Jacob 2:24-35)</i>",
+        text: "Jacob stands at the temple and speaks words that pierce your soul. He condemns the men for their 'grosser crimes' of taking many wives and concubines, breaking the hearts of their chaste wives.<br><i>(Read Jacob 2:24-35)</i>",
         backgroundAsset: "temple_interior",
         castAssets: ["Jacob"],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
@@ -56,7 +56,7 @@ Object.assign(window.scenes, {
 
     // --- SCENE 4: DOMESTIC STRIFE ---
     "s3_nd_family_conflict": {
-        text: "At home, the men are angry at Jacob's words. They argue that they are only following the examples of old. Your mother is silent, her eyes downcast.<br><br><i>(Read Jacob 3:1)</i>",
+        text: "At home, the men are angry at Jacob's words. They argue that they are only following the examples of old. Your mother is silent, her eyes downcast.<br><i>(Read Jacob 3:1)</i>",
         backgroundAsset: "house_interior",
         castAssets: [],
         choices: [
@@ -68,7 +68,7 @@ Object.assign(window.scenes, {
 
     // --- SCENE 5: THE ALLEGORY OF THE VINEYARD ---
     "s3_nd_the_olive_tree": {
-        text: "Jacob shares a profound allegory of an Olive Tree. He speaks of the Lord of the Vineyard's labor to save his trees. It is complex, but it speaks of the gathering of Israel.<br><br><i>(Read Jacob 5:71-72)</i>",
+        text: "Jacob shares a profound allegory of an Olive Tree. He speaks of the Lord of the Vineyard's labor to save his trees. It is complex, but it speaks of the gathering of Israel.<br><i>(Read Jacob 5:71-72)</i>",
         backgroundAsset: "vision_room",
         castAssets: ["Jacob"],
         choices: [
@@ -87,7 +87,7 @@ Object.assign(window.scenes, {
     // ****************
 
     "s3_nd_social_pressure": {
-        text: "A man named Sherem has arrived. He is learned and has a perfect knowledge of the language. He is telling the people that there is no such thing as a Christ, and many are listening.<br><br><i>(Read Jacob 7:1-4)</i>",
+        text: "A man named Sherem has arrived. He is learned and has a perfect knowledge of the language. He is telling the people that there is no such thing as a Christ, and many are listening.<br><i>(Read Jacob 7:1-4)</i>",
         backgroundAsset: "jerusalem_street",
         castAssets: [],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
@@ -100,7 +100,7 @@ Object.assign(window.scenes, {
 
     // --- SCENE 7: THE PUBLIC CHALLENGE ---
     "s3_nd_the_confrontation": {
-        text: "Sherem confronts Jacob in public. He accuses Jacob of perverting the Law of Moses into a worship of a 'future' being. The crowd is rapt.<br><br><i>(Read Jacob 7:6-7)</i>",
+        text: "Sherem confronts Jacob in public. He accuses Jacob of perverting the Law of Moses into a worship of a 'future' being. The crowd is rapt.<br><i>(Read Jacob 7:6-7)</i>",
         backgroundAsset: "temple_interior",
         castAssets: ["Jacob"],
         choices: [
@@ -112,7 +112,7 @@ Object.assign(window.scenes, {
 
     // --- SCENE 8: THE DEMAND FOR A SIGN ---
     "s3_nd_the_sign": {
-        text: "Sherem demands a sign to prove the truth of Jacob's words. Jacob refuses to tempt God, but says 'if God shall smite thee, let that be a sign.' Suddenly, Sherem falls to the earth.<br><br><i>(Read Jacob 7:13-15)</i>",
+        text: "Sherem demands a sign to prove the truth of Jacob's words. Jacob refuses to tempt God, but says 'if God shall smite thee, let that be a sign.' Suddenly, Sherem falls to the earth.<br><i>(Read Jacob 7:13-15)</i>",
         backgroundAsset: "temple_interior",
         castAssets: ["Jacob"],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
@@ -125,7 +125,7 @@ Object.assign(window.scenes, {
 
     // --- SCENE 9: THE LAST CONFESSION ---
     "s3_nd_sherems_confession": {
-        text: "Days later, Sherem calls the people together. He is near death. He confesses that he was deceived by the devil and that he lied to God. He speaks of the Christ.<br><br><i>(Read Jacob 7:17-19)</i>",
+        text: "Days later, Sherem calls the people together. He is near death. He confesses that he was deceived by the devil and that he lied to God. He speaks of the Christ.<br><i>(Read Jacob 7:17-19)</i>",
         backgroundAsset: "settlement",
         castAssets: [],
         choices: [
@@ -137,7 +137,7 @@ Object.assign(window.scenes, {
 
     // --- SCENE 10: THE MANNER OF HAPPINESS ---
     "s3_nd_peace_restored": {
-        text: "Peace is restored to the Nephites. The people search the scriptures and no longer listen to the wicked Sherem. Jacob prepares to hand the plates to his son Enos.<br><br><i>(Read Jacob 7:23-27)</i>",
+        text: "Peace is restored to the Nephites. The people search the scriptures and no longer listen to the wicked Sherem. Jacob prepares to hand the plates to his son Enos.<br><i>(Read Jacob 7:23-27)</i>",
         backgroundAsset: "temple_interior",
         castAssets: ["Jacob"],
         choices: [

@@ -9,7 +9,7 @@ window.STARTING_STATS["Nephi_S2"] = {
 
 Object.assign(window.scenes, {
     "s2_nephi_intro": {
-        text: "THE PROMISED LAND. You have arrived at last. The Lord reveals where to find ore, commanding you to forge a sacred record. Yet, the desperate need for farming tools to ensure survival screams louder than the forge.<br><br><i>(Read 1 Nephi 19:1-4)</i>",
+        text: "THE PROMISED LAND. You have arrived at last. The Lord reveals where to find ore, commanding you to forge a sacred record. Yet, the desperate need for farming tools to ensure survival screams louder than the forge.<br><i>(Read 1 Nephi 19:1-4)</i>",
         backgroundAsset: "promised_land",
         castAssets: ["Lehi", "Zoram"],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
@@ -20,7 +20,7 @@ Object.assign(window.scenes, {
         ]
     },
     "s2_nephi_isaiah": {
-        text: "The people are weary from labor; exhaustion and doubt cling to the camp. You gather them, hoping to lift their gaze heavenward by reading from the brass plates.<br><br><i>(Read 1 Nephi 19:23)</i>",
+        text: "The people are weary from labor; exhaustion and doubt cling to the camp. You gather them, hoping to lift their gaze heavenward by reading from the brass plates.<br><i>(Read 1 Nephi 19:23)</i>",
         backgroundAsset: "promised_land",
         castAssets: ["Lehi", "Sam"],
         choices: [
@@ -30,7 +30,7 @@ Object.assign(window.scenes, {
         ]
     },
     "s2_nephi_happiness": {
-        text: "Your father, Lehi, is fading, and with his health, the family unity fractures. Laman and Lemuel grow loud with their complaints against the hardships of the new settlement.<br><br><i>(Read 2 Nephi 1:2)</i>",
+        text: "Your father, Lehi, is fading, and with his health, the family unity fractures. Laman and Lemuel grow loud with their complaints against the hardships of the new settlement.<br><i>(Read 2 Nephi 1:2)</i>",
         backgroundAsset: "settlement",
         castAssets: ["Lehi", "Laman", "Lemuel"],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
@@ -41,7 +41,7 @@ Object.assign(window.scenes, {
         ]
     },
     "s2_nephi_blessing": {
-        text: "Lehi gives his final blessing, delivering a powerful, specific warning and rebuke to Laman. Laman, enraged, turns his accusation on you: you are a deceiver seeking power.<br><br><i>(Read 2 Nephi 1:25-27)</i>",
+        text: "Lehi gives his final blessing, delivering a powerful, specific warning and rebuke to Laman. Laman, enraged, turns his accusation on you: you are a deceiver seeking power.<br><i>(Read 2 Nephi 1:25-27)</i>",
         backgroundAsset: "house_interior",
         castAssets: ["Lehi", "Laman"],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
@@ -52,7 +52,7 @@ Object.assign(window.scenes, {
         ]
     },
     "s2_nephi_death": {
-        text: "The spiritual anchor is lifted—Lehi is dead. Laman immediately asserts his natural right as the eldest to rule the whole company.<br><br><i>(Read 2 Nephi 4:12-13)</i>",
+        text: "The spiritual anchor is lifted—Lehi is dead. Laman immediately asserts his natural right as the eldest to rule the whole company.<br><i>(Read 2 Nephi 4:12-13)</i>",
         backgroundAsset: "house_interior",
         castAssets: ["Laman", "Lemuel"],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
@@ -63,7 +63,7 @@ Object.assign(window.scenes, {
         ]
     },
     "s2_nephi_psalm": {
-        text: "You are overwhelmed by deep, wretched sorrow—not only for your father's death, but for the anger and bitterness you harbor toward your hostile brothers. Your soul grieves.<br><br><i>(Read 2 Nephi 4:17-19)</i>",
+        text: "You are overwhelmed by deep, wretched sorrow—not only for your father's death, but for the anger and bitterness you harbor toward your hostile brothers. Your soul grieves.<br><i>(Read 2 Nephi 4:17-19)</i>",
         backgroundAsset: "wilderness",
         castAssets: [],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
@@ -74,7 +74,7 @@ Object.assign(window.scenes, {
         ]
     },
     "s2_nephi_plot": {
-        text: "The Lord's voice pierces your anguish, revealing a deadly plot: Laman and Lemuel intend to take your life.<br><br><i>(Read 2 Nephi 5:2-4)</i>",
+        text: "The Lord's voice pierces your anguish, revealing a deadly plot: Laman and Lemuel intend to take your life.<br><i>(Read 2 Nephi 5:2-4)</i>",
         backgroundAsset: "settlement",
         castAssets: ["Laman"],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
@@ -85,7 +85,7 @@ Object.assign(window.scenes, {
         ]
     },
     "s2_nephi_flee": {
-        text: "The command is final and immediate: 'Depart from them into the wilderness.' Obedience means abandoning your established home, goods, and ties.<br><br><i>(Read 2 Nephi 5:5)</i>",
+        text: "The command is final and immediate: 'Depart from them into the wilderness.' Obedience means abandoning your established home, goods, and ties.<br><i>(Read 2 Nephi 5:5)</i>",
         backgroundAsset: "wilderness",
         castAssets: ["Sam", "Zoram"],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
@@ -96,7 +96,7 @@ Object.assign(window.scenes, {
         ]
     },
     "s2_nephi_items": {
-        text: "As you gather those who will follow you, you must take the sacred Plates and the Liahona. Taking these records confirms Laman's claim that you are a 'robber.'<br><br><i>(Read 2 Nephi 5:12)</i>",
+        text: "As you gather those who will follow you, you must take the sacred Plates and the Liahona. Taking these records confirms Laman's claim that you are a 'robber.'<br><i>(Read 2 Nephi 5:12)</i>",
         backgroundAsset: "house_interior",
         castAssets: [],
         choices: [
@@ -106,7 +106,7 @@ Object.assign(window.scenes, {
         ]
     },
     "s2_nephi_depart": {
-        text: "As the two camps divide, you must allocate the essential supplies—the herds and provisions—before you depart and sever all ties.<br><br><i>(Read 2 Nephi 5:7)</i>",
+        text: "As the two camps divide, you must allocate the essential supplies—the herds and provisions—before you depart and sever all ties.<br><i>(Read 2 Nephi 5:7)</i>",
         backgroundAsset: "settlement",
         castAssets: ["Zoram"],
         choices: [
@@ -116,7 +116,7 @@ Object.assign(window.scenes, {
         ]
     },
     "s2_nephi_sword": {
-        text: "You begin a new life in the Land of Nephi. To protect your people from the inevitable threat, you fashion swords, taking the sword of Laban as your model.<br><br><i>(Read 2 Nephi 5:14)</i>",
+        text: "You begin a new life in the Land of Nephi. To protect your people from the inevitable threat, you fashion swords, taking the sword of Laban as your model.<br><i>(Read 2 Nephi 5:14)</i>",
         backgroundAsset: "settlement",
         castAssets: [],
         choices: [
@@ -126,7 +126,7 @@ Object.assign(window.scenes, {
         ]
     },
     "s2_nephi_king": {
-        text: "Out of respect, loyalty, and their spiritual need, the people unanimously desire and request that you be their king and temporal ruler.<br><br><i>(Read 2 Nephi 5:16-18)</i>",
+        text: "Out of respect, loyalty, and their spiritual need, the people unanimously desire and request that you be their king and temporal ruler.<br><i>(Read 2 Nephi 5:16-18)</i>",
         backgroundAsset: "settlement",
         castAssets: ["Zoram", "Sam"],
         choices: [

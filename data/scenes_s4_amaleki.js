@@ -17,7 +17,7 @@ Object.assign(window.scenes, {
 
   "s4_amaleki_intro": {
     text:
-      "LATE DAYS OF THE SMALL PLATES. You inherit more than metal—you inherit anxiety. The record is thin, the people divided, and time feels short. You feel a wrestle approaching: not in a forest like Enos, but in the weight of stewardship.<br><br><i>(Read Omni 1:25–26)</i>",
+      "LATE DAYS OF THE SMALL PLATES. You inherit more than metal—you inherit anxiety. The record is thin, the people divided, and time feels short. You feel a wrestle approaching: not in a forest like Enos, but in the weight of stewardship.<br><i>(Read Omni 1:25–26)</i>",
     backgroundAsset: "house_interior",
     castAssets: [],
     choices: [
@@ -33,7 +33,7 @@ Object.assign(window.scenes, {
 
   "s4_amaleki_pathA_records_1": {
     text:
-      "You study what little is written: generations that said almost nothing, as if the covenant had gone quiet. You wonder: is silence humility—or decay? Your pen hesitates.<br><br><i>(Read Jarom 1:1–2; Omni 1:1–4)</i>",
+      "You study what little is written: generations that said almost nothing, as if the covenant had gone quiet. You wonder: is silence humility—or decay? Your pen hesitates.<br><i>(Read Jarom 1:1–2; Omni 1:1–4)</i>",
     backgroundAsset: "house_interior",
     castAssets: [],
     choices: [
@@ -45,7 +45,7 @@ Object.assign(window.scenes, {
 
   "s4_amaleki_pathA_records_2": {
     text:
-      "You discover an ache: you want the record to prove you were 'good enough.' But the plates were never meant to glorify a man—only to preserve testimony. The wrestle turns inward.<br><br><i>(Read Words of Mormon 1:3–5)</i>",
+      "You discover an ache: you want the record to prove you were 'good enough.' But the plates were never meant to glorify a man—only to preserve testimony. The wrestle turns inward.<br><i>(Read Words of Mormon 1:3–5)</i>",
     backgroundAsset: "house_interior",
     castAssets: [],
     choices: [
@@ -57,7 +57,7 @@ Object.assign(window.scenes, {
 
   "s4_amaleki_pathA_records_3": {
     text:
-      "A rumor spreads: some want to discard records and 'start fresh' in comfort. You feel the cliff-edge: the covenant can be lost without a single dramatic sin—only neglect.<br><br><i>(Read Omni 1:24–26)</i>",
+      "A rumor spreads: some want to discard records and 'start fresh' in comfort. You feel the cliff-edge: the covenant can be lost without a single dramatic sin—only neglect.<br><i>(Read Omni 1:24–26)</i>",
     backgroundAsset: "settlement",
     castAssets: [],
     choices: [
@@ -73,7 +73,7 @@ Object.assign(window.scenes, {
 
   "s4_amaleki_pathB_people_1": {
     text:
-      "You walk among families who still believe, and others who only want ease. Decline isn’t just wickedness—it’s weariness. You feel pulled to please everyone, and that pull terrifies you.<br><br><i>(Read Jarom 1:3–4)</i>",
+      "You walk among families who still believe, and others who only want ease. Decline isn’t just wickedness—it’s weariness. You feel pulled to please everyone, and that pull terrifies you.<br><i>(Read Jarom 1:3–4)</i>",
     backgroundAsset: "settlement",
     castAssets: [],
     choices: [
@@ -85,7 +85,7 @@ Object.assign(window.scenes, {
 
   "s4_amaleki_pathB_people_2": {
     text:
-      "A dispute erupts: resources, status, 'who belongs.' You feel the plates in the background like a heartbeat. Unity matters—but so does truth. Your choices will cost someone something.<br><br><i>(Read Jarom 1:7–8)</i>",
+      "A dispute erupts: resources, status, 'who belongs.' You feel the plates in the background like a heartbeat. Unity matters—but so does truth. Your choices will cost someone something.<br><i>(Read Jarom 1:7–8)</i>",
     backgroundAsset: "settlement",
     castAssets: [],
     choices: [
@@ -97,7 +97,7 @@ Object.assign(window.scenes, {
 
   "s4_amaleki_pathB_people_3": {
     text:
-      "You overhear whispers of departure—Mosiah gathering those who will follow him away from conflict. Your heart tightens: if you go, you leave homes behind; if you stay, you may lose covenant memory entirely.<br><br><i>(Read Omni 1:12–14)</i>",
+      "You overhear whispers of departure—Mosiah gathering those who will follow him away from conflict. Your heart tightens: if you go, you leave homes behind; if you stay, you may lose covenant memory entirely.<br><i>(Read Omni 1:12–14)</i>",
     backgroundAsset: "settlement",
     castAssets: [],
     choices: [
@@ -113,7 +113,7 @@ Object.assign(window.scenes, {
 
   "s4_amaleki_pathC_strategy_1": {
     text:
-      "You map threats: wars, contentions, and the slow erosion of belief. You can’t fix everything, so you begin choosing what to save first—life, faith, or reputation.<br><br><i>(Read Omni 1:24–25)</i>",
+      "You map threats: wars, contentions, and the slow erosion of belief. You can’t fix everything, so you begin choosing what to save first—life, faith, or reputation.<br><i>(Read Omni 1:24–25)</i>",
     backgroundAsset: "settlement",
     castAssets: [],
     choices: [
@@ -125,7 +125,7 @@ Object.assign(window.scenes, {
 
   "s4_amaleki_pathC_strategy_2": {
     text:
-      "A scout reports worsening conflict. Some propose violence-first solutions; others propose surrender. You feel the spiritual danger: the wrong defense can destroy the very people it protects.<br><br><i>(Read Jarom 1:10–12)</i>",
+      "A scout reports worsening conflict. Some propose violence-first solutions; others propose surrender. You feel the spiritual danger: the wrong defense can destroy the very people it protects.<br><i>(Read Jarom 1:10–12)</i>",
     backgroundAsset: "settlement",
     castAssets: [],
     choices: [
@@ -137,7 +137,7 @@ Object.assign(window.scenes, {
 
   "s4_amaleki_pathC_strategy_3": {
     text:
-      "You learn of Mosiah’s plan: lead the righteous away, seeking peace and a new people. Strategy becomes covenant: the move is not conquest—it’s preservation. The question becomes: will you trust it?<br><br><i>(Read Omni 1:12–16)</i>",
+      "You learn of Mosiah’s plan: lead the righteous away, seeking peace and a new people. Strategy becomes covenant: the move is not conquest—it’s preservation. The question becomes: will you trust it?<br><i>(Read Omni 1:12–16)</i>",
     backgroundAsset: "settlement",
     castAssets: ["Mosiah_I"],
     choices: [
@@ -154,7 +154,7 @@ Object.assign(window.scenes, {
 
   "s4_amaleki_major_event_mosiah_departure": {
     text:
-      "THE DEPARTURE TO ZARAHEMLA. Mosiah leads those who will follow. You leave behind old patterns, old lands, and old grudges. The journey is hard, but something in the remnant feels clean—like a second exodus.<br><br><i>(Read Omni 1:12–14)</i>",
+      "THE DEPARTURE TO ZARAHEMLA. Mosiah leads those who will follow. You leave behind old patterns, old lands, and old grudges. The journey is hard, but something in the remnant feels clean—like a second exodus.<br><i>(Read Omni 1:12–14)</i>",
     backgroundAsset: "wilderness",
     castAssets: ["Mosiah_I"],
     choices: [
@@ -171,7 +171,7 @@ Object.assign(window.scenes, {
   // --- SUBPATH Z: ZARAHEMLA MEETING (3) ---
   "s4_post_major_zarahemla_1": {
     text:
-      "You arrive and meet the people of Zarahemla. They rejoice, but you feel the complication: languages differ, histories diverge, and unity must be built, not assumed.<br><br><i>(Read Omni 1:14–18)</i>",
+      "You arrive and meet the people of Zarahemla. They rejoice, but you feel the complication: languages differ, histories diverge, and unity must be built, not assumed.<br><i>(Read Omni 1:14–18)</i>",
     backgroundAsset: "settlement",
     castAssets: [],
     choices: [
@@ -183,7 +183,7 @@ Object.assign(window.scenes, {
 
   "s4_post_major_zarahemla_2": {
     text:
-      "You hear of a record among them—larger plates, but gaps, and a people hungry to understand their own past. You sense why the Lord preserved your small plates: not to dominate, but to merge truths.<br><br><i>(Read Omni 1:18–19)</i>",
+      "You hear of a record among them—larger plates, but gaps, and a people hungry to understand their own past. You sense why the Lord preserved your small plates: not to dominate, but to merge truths.<br><i>(Read Omni 1:18–19)</i>",
     backgroundAsset: "house_interior",
     castAssets: [],
     choices: [
@@ -195,7 +195,7 @@ Object.assign(window.scenes, {
 
   "s4_post_major_zarahemla_3": {
     text:
-      "As Mosiah becomes king over both peoples, you feel the long-term question: will covenant identity become shared—or will it splinter into factions competing for 'real' belonging?<br><br><i>(Read Omni 1:19)</i>",
+      "As Mosiah becomes king over both peoples, you feel the long-term question: will covenant identity become shared—or will it splinter into factions competing for 'real' belonging?<br><i>(Read Omni 1:19)</i>",
     backgroundAsset: "settlement",
     castAssets: ["Mosiah_I"],
     choices: [
@@ -208,7 +208,7 @@ Object.assign(window.scenes, {
   // --- SUBPATH U: UNITY LABOR (3) ---
   "s4_post_major_unity_1": {
     text:
-      "On the move and after arrival, you become a quiet peacemaker—mediating fear, correcting rumors, and reminding the remnant why they left. Unity is exhausting work.<br><br><i>(Read Omni 1:13–14)</i>",
+      "On the move and after arrival, you become a quiet peacemaker—mediating fear, correcting rumors, and reminding the remnant why they left. Unity is exhausting work.<br><i>(Read Omni 1:13–14)</i>",
     backgroundAsset: "wilderness",
     castAssets: [],
     choices: [
@@ -220,7 +220,7 @@ Object.assign(window.scenes, {
 
   "s4_post_major_unity_2": {
     text:
-      "In Zarahemla, language and tradition collide. Small misunderstandings threaten to become permanent resentments. You realize: unity is built by repeated, humble steps.<br><br><i>(Read Omni 1:17)</i>",
+      "In Zarahemla, language and tradition collide. Small misunderstandings threaten to become permanent resentments. You realize: unity is built by repeated, humble steps.<br><i>(Read Omni 1:17)</i>",
     backgroundAsset: "settlement",
     castAssets: [],
     choices: [
@@ -232,7 +232,7 @@ Object.assign(window.scenes, {
 
   "s4_post_major_unity_3": {
     text:
-      "A new king and a merged people require a merged memory. You sense your responsibility: not to win arguments, but to keep covenants alive in a new land.<br><br><i>(Read Omni 1:19)</i>",
+      "A new king and a merged people require a merged memory. You sense your responsibility: not to win arguments, but to keep covenants alive in a new land.<br><i>(Read Omni 1:19)</i>",
     backgroundAsset: "settlement",
     castAssets: ["Mosiah_I"],
     choices: [
@@ -245,7 +245,7 @@ Object.assign(window.scenes, {
   // --- SUBPATH P: PRESSURE / CONTROL (3) ---
   "s4_post_major_pressure_1": {
     text:
-      "You push hard—too hard. The weak slow the journey; the uncertain ask too many questions. You feel the old temptation: control everything so nothing breaks.<br><br><i>(Read Omni 1:13–14)</i>",
+      "You push hard—too hard. The weak slow the journey; the uncertain ask too many questions. You feel the old temptation: control everything so nothing breaks.<br><i>(Read Omni 1:13–14)</i>",
     backgroundAsset: "wilderness",
     castAssets: [],
     choices: [
@@ -257,7 +257,7 @@ Object.assign(window.scenes, {
 
   "s4_post_major_pressure_2": {
     text:
-      "In Zarahemla, you still feel threatened—by difference, by uncertainty, by the loss of old status. You can either humble yourself into a new beginning, or cling to being 'right.'<br><br><i>(Read Omni 1:16–18)</i>",
+      "In Zarahemla, you still feel threatened—by difference, by uncertainty, by the loss of old status. You can either humble yourself into a new beginning, or cling to being 'right.'<br><i>(Read Omni 1:16–18)</i>",
     backgroundAsset: "settlement",
     castAssets: [],
     choices: [
@@ -269,7 +269,7 @@ Object.assign(window.scenes, {
 
   "s4_post_major_pressure_3": {
     text:
-      "You see the plates again and feel the deeper issue: not whether you are respected, but whether the covenant survives you. The wrestle becomes clear: surrender control, or lose the purpose of the record.<br><br><i>(Read Words of Mormon 1:3–6)</i>",
+      "You see the plates again and feel the deeper issue: not whether you are respected, but whether the covenant survives you. The wrestle becomes clear: surrender control, or lose the purpose of the record.<br><i>(Read Words of Mormon 1:3–6)</i>",
     backgroundAsset: "house_interior",
     castAssets: [],
     choices: [
@@ -285,7 +285,7 @@ Object.assign(window.scenes, {
 
   "s4_converge_amaleki_plates_decision": {
     text:
-      "THE HINGE OF A LIFE. You feel your own end approaching. You have the small plates, and you know a seer is among the people—King Benjamin. The question isn’t whether you can keep the record; it’s whether you can *hand it off* without controlling it.<br><br><i>(Read Omni 1:25–26)</i>",
+      "THE HINGE OF A LIFE. You feel your own end approaching. You have the small plates, and you know a seer is among the people—King Benjamin. The question isn’t whether you can keep the record; it’s whether you can *hand it off* without controlling it.<br><i>(Read Omni 1:25–26)</i>",
     backgroundAsset: "house_interior",
     castAssets: ["King_Benjamin"],
     choices: [
@@ -303,7 +303,7 @@ Object.assign(window.scenes, {
   // --- AFTER PATH A: TRUSTED HANDOFF (3) ---
   "s4_branch_after_handoff_A1": {
     text:
-      "You hand Benjamin the plates without bargaining. A peace settles: covenant work continues after you. You feel small—and strangely free.<br><br><i>(Read Omni 1:25–26)</i>",
+      "You hand Benjamin the plates without bargaining. A peace settles: covenant work continues after you. You feel small—and strangely free.<br><i>(Read Omni 1:25–26)</i>",
     backgroundAsset: "house_interior",
     castAssets: ["King_Benjamin"],
     choices: [
@@ -315,7 +315,7 @@ Object.assign(window.scenes, {
 
   "s4_branch_after_handoff_A2": {
     text:
-      "You look at the people of Zarahemla and the Nephites together—uneven, imperfect, but gathered. You sense the Lord’s pattern: He works with remnants, not crowds chasing comfort.<br><br><i>(Read Omni 1:14–17)</i>",
+      "You look at the people of Zarahemla and the Nephites together—uneven, imperfect, but gathered. You sense the Lord’s pattern: He works with remnants, not crowds chasing comfort.<br><i>(Read Omni 1:14–17)</i>",
     backgroundAsset: "settlement",
     castAssets: [],
     choices: [
@@ -327,7 +327,7 @@ Object.assign(window.scenes, {
 
   "s4_branch_after_handoff_A3": {
     text:
-      "You sense your end. The plates are safe, but the spiritual record—your own heart—still matters. You face the final, personal question: will you finish with faith, or with fear?<br><br><i>(Read Omni 1:25–26)</i>",
+      "You sense your end. The plates are safe, but the spiritual record—your own heart—still matters. You face the final, personal question: will you finish with faith, or with fear?<br><i>(Read Omni 1:25–26)</i>",
     backgroundAsset: "wilderness",
     castAssets: [],
     choices: [
@@ -340,7 +340,7 @@ Object.assign(window.scenes, {
   // --- AFTER PATH B: CONDITIONAL HANDOFF (3) ---
   "s4_branch_after_handoff_B1": {
     text:
-      "You give Benjamin the plates, but with strings. You feel safer—but something in your soul feels smaller. Stewardship becomes negotiation.<br><br><i>(Read Omni 1:25–26)</i>",
+      "You give Benjamin the plates, but with strings. You feel safer—but something in your soul feels smaller. Stewardship becomes negotiation.<br><i>(Read Omni 1:25–26)</i>",
     backgroundAsset: "house_interior",
     castAssets: ["King_Benjamin"],
     choices: [
@@ -352,7 +352,7 @@ Object.assign(window.scenes, {
 
   "s4_branch_after_handoff_B2": {
     text:
-      "You hear people talk about Benjamin—his righteousness and leadership. A part of you wants to be seen as equally essential. You remember: the record never existed to preserve your status.<br><br><i>(Read Words of Mormon 1:12–14)</i>",
+      "You hear people talk about Benjamin—his righteousness and leadership. A part of you wants to be seen as equally essential. You remember: the record never existed to preserve your status.<br><i>(Read Words of Mormon 1:12–14)</i>",
     backgroundAsset: "settlement",
     castAssets: ["King_Benjamin"],
     choices: [
@@ -364,7 +364,7 @@ Object.assign(window.scenes, {
 
   "s4_branch_after_handoff_B3": {
     text:
-      "A final chance comes: you can testify simply of Christ, or you can defend yourself. The plates are metal, but words can still either heal or divide.<br><br><i>(Read Omni 1:25–26)</i>",
+      "A final chance comes: you can testify simply of Christ, or you can defend yourself. The plates are metal, but words can still either heal or divide.<br><i>(Read Omni 1:25–26)</i>",
     backgroundAsset: "house_interior",
     castAssets: [],
     choices: [
@@ -377,7 +377,7 @@ Object.assign(window.scenes, {
   // --- AFTER PATH C: DELAYED HANDOFF (3) ---
   "s4_branch_after_handoff_C1": {
     text:
-      "You delay giving the plates. You tell yourself it’s caution, but the Spirit presses: withholding can become a quiet form of unbelief. Time does not wait for perfect certainty.<br><br><i>(Read Omni 1:25–26)</i>",
+      "You delay giving the plates. You tell yourself it’s caution, but the Spirit presses: withholding can become a quiet form of unbelief. Time does not wait for perfect certainty.<br><i>(Read Omni 1:25–26)</i>",
     backgroundAsset: "house_interior",
     castAssets: [],
     choices: [
@@ -389,7 +389,7 @@ Object.assign(window.scenes, {
 
   "s4_branch_after_handoff_C2": {
     text:
-      "You watch a small conflict flare—exactly the kind that once pushed your ancestors to migrate. You realize: if the record isn’t passed rightly, future reformers won’t even know what they’re meant to reform.<br><br><i>(Read Omni 1:12–14; Words of Mormon 1:3–5)</i>",
+      "You watch a small conflict flare—exactly the kind that once pushed your ancestors to migrate. You realize: if the record isn’t passed rightly, future reformers won’t even know what they’re meant to reform.<br><i>(Read Omni 1:12–14; Words of Mormon 1:3–5)</i>",
     backgroundAsset: "settlement",
     castAssets: [],
     choices: [
@@ -401,7 +401,7 @@ Object.assign(window.scenes, {
 
   "s4_branch_after_handoff_C3": {
     text:
-      "Your strength fails. You sense the window closing. If you die with the plates unshared, the chain breaks here. The wrestle is now simple: trust God’s order, or trust only yourself.<br><br><i>(Read Omni 1:25–26)</i>",
+      "Your strength fails. You sense the window closing. If you die with the plates unshared, the chain breaks here. The wrestle is now simple: trust God’s order, or trust only yourself.<br><i>(Read Omni 1:25–26)</i>",
     backgroundAsset: "house_interior",
     castAssets: [],
     choices: [
@@ -417,7 +417,7 @@ Object.assign(window.scenes, {
 
   "s4_wom_major_small_plates_insight": {
     text:
-      "WORDS OF MORMON (LOOKING BACK). The Lord works through what seems small. Mormon later finds these small plates and perceives they contain 'more' or 'special purpose' than he understood. Your handoff becomes part of a long, unseen design.<br><br><i>(Read Words of Mormon 1:3–7)</i>",
+      "WORDS OF MORMON (LOOKING BACK). The Lord works through what seems small. Mormon later finds these small plates and perceives they contain 'more' or 'special purpose' than he understood. Your handoff becomes part of a long, unseen design.<br><i>(Read Words of Mormon 1:3–7)</i>",
     backgroundAsset: "house_interior",
     castAssets: ["Mormon"],
     choices: [
@@ -433,7 +433,7 @@ Object.assign(window.scenes, {
 
   "s4_final_amaleki": {
     text:
-      "YOUR FINAL RECORD. You had little space, and even less time. Yet you chose to preserve the plates, follow Mosiah, and deliver the record to King Benjamin—so a future prophet could bind fragments into one covenant story. Declining generations did not erase God’s work; they proved His patience.<br><br><i>(Read Omni 1:25–26; Words of Mormon 1:12–18)</i>",
+      "YOUR FINAL RECORD. You had little space, and even less time. Yet you chose to preserve the plates, follow Mosiah, and deliver the record to King Benjamin—so a future prophet could bind fragments into one covenant story. Declining generations did not erase God’s work; they proved His patience.<br><i>(Read Omni 1:25–26; Words of Mormon 1:12–18)</i>",
     backgroundAsset: "wilderness",
     castAssets: [],
     choices: [

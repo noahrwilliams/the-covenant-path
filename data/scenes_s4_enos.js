@@ -16,7 +16,7 @@ Object.assign(window.scenes, {
     // =========================
 
     "s4_enos_intro": {
-        text: "AFTER JACOB. Your father’s words sink deep—about Christ, covenants, and the Holy One of Israel. Yet you feel unfinished inside, unsure if you have truly *become* what you were taught.<br><br><i>(Read Enos 1:1–3)</i>",
+        text: "AFTER JACOB. Your father’s words sink deep—about Christ, covenants, and the Holy One of Israel. Yet you feel unfinished inside, unsure if you have truly *become* what you were taught.<br><i>(Read Enos 1:1–3)</i>",
         backgroundAsset: "house_interior",
         castAssets: ["Jacob"],
         choices: [
@@ -31,7 +31,7 @@ Object.assign(window.scenes, {
     // =========
 
     "s4_pathA_forest_1": {
-        text: "THE FOREST. You hunt, but your mind hunts harder—memory after memory of Jacob preaching of Christ. The deeper you walk, the louder your conscience becomes.<br><br><i>(Read Enos 1:3)</i>",
+        text: "THE FOREST. You hunt, but your mind hunts harder—memory after memory of Jacob preaching of Christ. The deeper you walk, the louder your conscience becomes.<br><i>(Read Enos 1:3)</i>",
         backgroundAsset: "wilderness",
         castAssets: [],
         choices: [
@@ -42,7 +42,7 @@ Object.assign(window.scenes, {
     },
 
     "s4_pathA_forest_2": {
-        text: "You try to speak to God, but your words feel thin. The problem isn’t that God is far—it’s that *you* feel divided. You remember Jacob’s 'joy'… and you feel none of it.<br><br><i>(Read Enos 1:3–4)</i>",
+        text: "You try to speak to God, but your words feel thin. The problem isn’t that God is far—it’s that *you* feel divided. You remember Jacob’s 'joy'… and you feel none of it.<br><i>(Read Enos 1:3–4)</i>",
         backgroundAsset: "wilderness",
         castAssets: [],
         choices: [
@@ -53,7 +53,7 @@ Object.assign(window.scenes, {
     },
 
     "s4_pathA_forest_3": {
-        text: "You feel something tighten in you—like your whole life has been avoiding this moment. The prayer becomes less polite and more desperate. It turns into a wrestle.<br><br><i>(Read Enos 1:4)</i>",
+        text: "You feel something tighten in you—like your whole life has been avoiding this moment. The prayer becomes less polite and more desperate. It turns into a wrestle.<br><i>(Read Enos 1:4)</i>",
         backgroundAsset: "wilderness",
         castAssets: [],
         choices: [
@@ -68,7 +68,7 @@ Object.assign(window.scenes, {
     // =========
 
     "s4_pathB_people_1": {
-        text: "AMONG THE PEOPLE. Time has passed. The Nephites prosper, but something is slipping—less hunger for God, more hunger for comfort. You feel pulled to fit in, not stand out.<br><br><i>(Read Enos 1:22–23)</i>",
+        text: "AMONG THE PEOPLE. Time has passed. The Nephites prosper, but something is slipping—less hunger for God, more hunger for comfort. You feel pulled to fit in, not stand out.<br><i>(Read Enos 1:22–23)</i>",
         backgroundAsset: "settlement",
         castAssets: [],
         choices: [
@@ -79,7 +79,7 @@ Object.assign(window.scenes, {
     },
 
     "s4_pathB_people_2": {
-        text: "A friend confesses sin and fear. You can either lift them toward repentance—or keep it 'easy' so they keep liking you. You feel the cost of being real.<br><br><i>(Read Enos 1:22)</i>",
+        text: "A friend confesses sin and fear. You can either lift them toward repentance—or keep it 'easy' so they keep liking you. You feel the cost of being real.<br><i>(Read Enos 1:22)</i>",
         backgroundAsset: "house_interior",
         castAssets: [],
         choices: [
@@ -90,7 +90,7 @@ Object.assign(window.scenes, {
     },
 
     "s4_pathB_people_3": {
-        text: "That night you lie awake. If the people decline, what will your life mean? You feel the Spirit press you: the wrestle you avoided is now unavoidable.<br><br><i>(Read Enos 1:4)</i>",
+        text: "That night you lie awake. If the people decline, what will your life mean? You feel the Spirit press you: the wrestle you avoided is now unavoidable.<br><i>(Read Enos 1:4)</i>",
         backgroundAsset: "house_interior",
         castAssets: [],
         choices: [
@@ -105,7 +105,7 @@ Object.assign(window.scenes, {
     // =========
 
     "s4_pathC_records_1": {
-        text: "THE RECORDS. You trace the holy history and promises, but the words expose a gap: you can recite covenant language—yet still feel personally unclaimed by it.<br><br><i>(Read Enos 1:1–3)</i>",
+        text: "THE RECORDS. You trace the holy history and promises, but the words expose a gap: you can recite covenant language—yet still feel personally unclaimed by it.<br><i>(Read Enos 1:1–3)</i>",
         backgroundAsset: "house_interior",
         castAssets: [],
         choices: [
@@ -116,7 +116,7 @@ Object.assign(window.scenes, {
     },
 
     "s4_pathC_records_2": {
-        text: "You remember Jacob’s voice—his warnings, his witness of Christ. The Spirit stirs you: knowledge alone will not cleanse you. Your heart must yield.<br><br><i>(Read Enos 1:3–4)</i>",
+        text: "You remember Jacob’s voice—his warnings, his witness of Christ. The Spirit stirs you: knowledge alone will not cleanse you. Your heart must yield.<br><i>(Read Enos 1:3–4)</i>",
         backgroundAsset: "house_interior",
         castAssets: ["Jacob"],
         choices: [
@@ -127,7 +127,7 @@ Object.assign(window.scenes, {
     },
 
     "s4_pathC_records_3": {
-        text: "The question sharpens: Will you wrestle with God, or merely study *about* Him? You feel the moment to decide, and it won’t stay open forever.<br><br><i>(Read Enos 1:4)</i>",
+        text: "The question sharpens: Will you wrestle with God, or merely study *about* Him? You feel the moment to decide, and it won’t stay open forever.<br><i>(Read Enos 1:4)</i>",
         backgroundAsset: "wilderness",
         castAssets: [],
         choices: [
@@ -143,7 +143,7 @@ Object.assign(window.scenes, {
     // ==========================
 
     "s4_enos_major_wrestle": {
-        text: "THE WRESTLE. You pour out your whole soul. Hours pass. You will not rise until you are changed. Then the voice comes—clear, personal, covenantal: your sins are forgiven, and you are blessed.<br><br><i>(Read Enos 1:4–8)</i>",
+        text: "THE WRESTLE. You pour out your whole soul. Hours pass. You will not rise until you are changed. Then the voice comes—clear, personal, covenantal: your sins are forgiven, and you are blessed.<br><i>(Read Enos 1:4–8)</i>",
         backgroundAsset: "wilderness",
         castAssets: [],
         choices: [
@@ -160,7 +160,7 @@ Object.assign(window.scenes, {
     // --- SUBPATH M: MINISTRY (3) ---
 
     "s4_post_major_ministry_1": {
-        text: "Forgiven, your heart expands. You pray for your own people—the Nephites—that they might be preserved and taught, not merely defended.<br><br><i>(Read Enos 1:9–10)</i>",
+        text: "Forgiven, your heart expands. You pray for your own people—the Nephites—that they might be preserved and taught, not merely defended.<br><i>(Read Enos 1:9–10)</i>",
         backgroundAsset: "wilderness",
         castAssets: [],
         choices: [
@@ -171,7 +171,7 @@ Object.assign(window.scenes, {
     },
 
     "s4_post_major_ministry_2": {
-        text: "You labor with diligence to persuade people to come unto Christ. But every invitation costs something: reputation, comfort, time. Decline isn’t loud—it’s slow.<br><br><i>(Read Enos 1:23)</i>",
+        text: "You labor with diligence to persuade people to come unto Christ. But every invitation costs something: reputation, comfort, time. Decline isn’t loud—it’s slow.<br><i>(Read Enos 1:23)</i>",
         backgroundAsset: "settlement",
         castAssets: [],
         choices: [
@@ -182,7 +182,7 @@ Object.assign(window.scenes, {
     },
 
     "s4_post_major_ministry_3": {
-        text: "You feel charity for enemies rising where pride once lived. You turn your prayers outward—toward the Lamanites—asking that someday they might receive truth.<br><br><i>(Read Enos 1:11–13)</i>",
+        text: "You feel charity for enemies rising where pride once lived. You turn your prayers outward—toward the Lamanites—asking that someday they might receive truth.<br><i>(Read Enos 1:11–13)</i>",
         backgroundAsset: "wilderness",
         castAssets: [],
         choices: [
@@ -195,7 +195,7 @@ Object.assign(window.scenes, {
     // --- SUBPATH R: RECORDS / COVENANT (3) ---
 
     "s4_post_major_records_1": {
-        text: "The forgiveness is real, but your mind fixates on the future. What if the people fail? What if the record is lost? You feel the Lord pulling your gaze to preservation.<br><br><i>(Read Enos 1:13–16)</i>",
+        text: "The forgiveness is real, but your mind fixates on the future. What if the people fail? What if the record is lost? You feel the Lord pulling your gaze to preservation.<br><i>(Read Enos 1:13–16)</i>",
         backgroundAsset: "house_interior",
         castAssets: [],
         choices: [
@@ -206,7 +206,7 @@ Object.assign(window.scenes, {
     },
 
     "s4_post_major_records_2": {
-        text: "You receive a promise: the record will be preserved for the Lamanites in the Lord’s own due time. The covenant comforts you—but also assigns you a burden of stewardship.<br><br><i>(Read Enos 1:15–16)</i>",
+        text: "You receive a promise: the record will be preserved for the Lamanites in the Lord’s own due time. The covenant comforts you—but also assigns you a burden of stewardship.<br><i>(Read Enos 1:15–16)</i>",
         backgroundAsset: "house_interior",
         castAssets: [],
         choices: [
@@ -217,7 +217,7 @@ Object.assign(window.scenes, {
     },
 
     "s4_post_major_records_3": {
-        text: "Time passes. You watch a generation rise that doesn’t remember Jacob’s fire. You sense your role: not to 'win' the era, but to keep the covenant chain unbroken.<br><br><i>(Read Jarom 1:1–4)</i>",
+        text: "Time passes. You watch a generation rise that doesn’t remember Jacob’s fire. You sense your role: not to 'win' the era, but to keep the covenant chain unbroken.<br><i>(Read Jarom 1:1–4)</i>",
         backgroundAsset: "settlement",
         castAssets: [],
         choices: [
@@ -230,7 +230,7 @@ Object.assign(window.scenes, {
     // --- SUBPATH W: WAR / DEFENSE (3) ---
 
     "s4_post_major_war_1": {
-        text: "The people are often threatened. Wars and contentions flare. You feel the strain: how do you defend without becoming what you fear?<br><br><i>(Read Enos 1:20)</i>",
+        text: "The people are often threatened. Wars and contentions flare. You feel the strain: how do you defend without becoming what you fear?<br><i>(Read Enos 1:20)</i>",
         backgroundAsset: "settlement",
         castAssets: [],
         choices: [
@@ -241,7 +241,7 @@ Object.assign(window.scenes, {
     },
 
     "s4_post_major_war_2": {
-        text: "Victory and loss both tempt you: victory tempts pride; loss tempts despair. You remember the wrestle—God changed you once; He can change a people too.<br><br><i>(Read Enos 1:4–8)</i>",
+        text: "Victory and loss both tempt you: victory tempts pride; loss tempts despair. You remember the wrestle—God changed you once; He can change a people too.<br><i>(Read Enos 1:4–8)</i>",
         backgroundAsset: "wilderness",
         castAssets: [],
         choices: [
@@ -252,7 +252,7 @@ Object.assign(window.scenes, {
     },
 
     "s4_post_major_war_3": {
-        text: "You notice something subtle: the next generation learns quickly how to fight, but slowly how to believe. You choose what to reinforce—skills, or covenant memory.<br><br><i>(Read Jarom 1:10–12)</i>",
+        text: "You notice something subtle: the next generation learns quickly how to fight, but slowly how to believe. You choose what to reinforce—skills, or covenant memory.<br><i>(Read Jarom 1:10–12)</i>",
         backgroundAsset: "settlement",
         castAssets: [],
         choices: [
@@ -267,7 +267,7 @@ Object.assign(window.scenes, {
     // ==========================
 
     "s4_converge_aging_reflection": {
-        text: "YEARS LATER. Your life becomes a quiet, holy endurance. The record passes from hand to hand—Jarom, Omni—brief words, heavy meaning: 'we kept the plates.' The people drift, yet the covenant thread does not fully break.<br><br><i>(Read Enos 1:25–27; Jarom 1:1–2; Omni 1:1–4)</i>",
+        text: "YEARS LATER. Your life becomes a quiet, holy endurance. The record passes from hand to hand—Jarom, Omni—brief words, heavy meaning: 'we kept the plates.' The people drift, yet the covenant thread does not fully break.<br><i>(Read Enos 1:25–27; Jarom 1:1–2; Omni 1:1–4)</i>",
         backgroundAsset: "house_interior",
         castAssets: [],
         choices: [
@@ -282,7 +282,7 @@ Object.assign(window.scenes, {
     // ==========================
 
     "s4_final_handoff": {
-        text: "THE GREAT MOVE. Omni’s record tells of Mosiah leading the righteous away from conflict to Zarahemla—meeting a people whose language must be taught again, whose story must be joined to yours. Later, Words of Mormon looks back: small plates preserved, kingship established, the Lord still working through imperfect generations.<br><br><i>(Read Omni 1:12–19; Words of Mormon 1:3–7, 12–18)</i>",
+        text: "THE GREAT MOVE. Omni’s record tells of Mosiah leading the righteous away from conflict to Zarahemla—meeting a people whose language must be taught again, whose story must be joined to yours. Later, Words of Mormon looks back: small plates preserved, kingship established, the Lord still working through imperfect generations.<br><i>(Read Omni 1:12–19; Words of Mormon 1:3–7, 12–18)</i>",
         backgroundAsset: "settlement",
         castAssets: [],
         choices: [

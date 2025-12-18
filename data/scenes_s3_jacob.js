@@ -17,7 +17,7 @@ Object.assign(window.scenes, {
     "s3_jacob_intro": {
         // CORRECTION APPLIED: Nephi was the spiritual leader, not explicitly 'King Nephi'.
         // The text now reflects Nephi's death and the succession of the plates per Jacob 1:9-11.
-        text: "After the death of your brother Nephi, the spiritual leader, the people appointed a new temporal ruler. Nephi had commanded you, his younger brother, to take charge of the small plates—the sacred record—and teach the people, though you felt unworthy of such a burden.<br><br><i>(Read Jacob 1:9-11)</i>",
+        text: "After the death of your brother Nephi, the spiritual leader, the people appointed a new temporal ruler. Nephi had commanded you, his younger brother, to take charge of the small plates—the sacred record—and teach the people, though you felt unworthy of such a burden.<br><i>(Read Jacob 1:9-11)</i>",
         backgroundAsset: "temple_interior",
         castAssets: ["Nephi_S2"],
         // EROSION #1: The responsibility itself is a burden that introduces anxiety.
@@ -34,7 +34,7 @@ Object.assign(window.scenes, {
 
     // --- SCENE 2: CONFLICTING DUTIES ---
     "s3_jacob_vocation": {
-        text: "You must magnify your office, yet you also have a family to support. The needs of the church and your personal life often seem to conflict.<br><br><i>(Read Jacob 1:19)</i>",
+        text: "You must magnify your office, yet you also have a family to support. The needs of the church and your personal life often seem to conflict.<br><i>(Read Jacob 1:19)</i>",
         backgroundAsset: "settlement",
         castAssets: [],
         // EROSION #2: The pressure of dividing your time causes strain.
@@ -51,7 +51,7 @@ Object.assign(window.scenes, {
 
     // --- SCENE 3: RISING WEALTH AND PRIDE ---
     "s3_jacob_wealth": {
-        text: "Years pass. The Nephites have prospered greatly. Their hearts begin to cling to the riches of the world, forgetting the covenant path they walked in the wilderness.<br><br><i>(Read Jacob 2:13)</i>",
+        text: "Years pass. The Nephites have prospered greatly. Their hearts begin to cling to the riches of the world, forgetting the covenant path they walked in the wilderness.<br><i>(Read Jacob 2:13)</i>",
         backgroundAsset: "settlement",
         castAssets: [],
         // EROSION #3: Worldly success breeds spiritual decay.
@@ -68,7 +68,7 @@ Object.assign(window.scenes, {
 
     // --- SCENE 4: THE TEMPLE PULPIT ---
     "s3_jacob_sermon": {
-        text: "You gather the people to the temple to deliver a stern and difficult sermon. They have come not seeking God, but to parade their wealth and status. You feel the anguish of your calling.<br><br><i>(Read Jacob 2:2)</i>",
+        text: "You gather the people to the temple to deliver a stern and difficult sermon. They have come not seeking God, but to parade their wealth and status. You feel the anguish of your calling.<br><i>(Read Jacob 2:2)</i>",
         backgroundAsset: "temple_interior",
         castAssets: [],
         // EROSION #4: Feeling separate from the people you serve.
@@ -85,7 +85,7 @@ Object.assign(window.scenes, {
 
     // --- SCENE 5: JUDGMENTS BASED ON CLOTHING ---
     "s3_jacob_apparel": {
-        text: "You note that the people are judging one another 'because of the costliness of their apparel,' forgetting that God views all men equally in their poverty and wealth.<br><br><i>(Read Jacob 2:13, 16)</i>",
+        text: "You note that the people are judging one another 'because of the costliness of their apparel,' forgetting that God views all men equally in their poverty and wealth.<br><i>(Read Jacob 2:13, 16)</i>",
         backgroundAsset: "settlement",
         castAssets: [],
         // EROSION #5: Witnessing their vanity causes spiritual pain.
@@ -102,7 +102,7 @@ Object.assign(window.scenes, {
 
     // --- SCENE 6: BROKEN HEARTS ---
     "s3_jacob_lust": {
-        text: "Now you must address the 'grosser crime'—the scandalous behavior among the men that is breaking the hearts of their innocent wives and children.<br><br><i>(Read Jacob 2:7, 9)</i>",
+        text: "Now you must address the 'grosser crime'—the scandalous behavior among the men that is breaking the hearts of their innocent wives and children.<br><i>(Read Jacob 2:7, 9)</i>",
         backgroundAsset: "temple_interior",
         castAssets: [],
         // EROSION #6: Sympathy and anguish for the innocent.
@@ -119,7 +119,7 @@ Object.assign(window.scenes, {
     
     // --- SCENE 7: PLURAL MARRIAGE DOCTRINE ---
     "s3_jacob_monogamy": {
-        text: "The men justify their actions by citing the practices of David and Solomon. You must clarify the doctrinal stance on plural marriage.<br><br><i>(Read Jacob 2:27-28)</i>",
+        text: "The men justify their actions by citing the practices of David and Solomon. You must clarify the doctrinal stance on plural marriage.<br><i>(Read Jacob 2:27-28)</i>",
         backgroundAsset: "temple_interior",
         castAssets: [],
         // EROSION #7: Facing down a difficult, contentious doctrine.
@@ -136,7 +136,7 @@ Object.assign(window.scenes, {
 
     // --- SCENE 8: LAMENTING THE LAMANITES ---
     "s3_jacob_lamanites": {
-        text: "In a powerful, shaming comparison, you declare that the Lamanites—whom the Nephites despise—are more righteous in their marital practices than the Nephites.<br><br><i>(Read Jacob 3:5-7)</i>",
+        text: "In a powerful, shaming comparison, you declare that the Lamanites—whom the Nephites despise—are more righteous in their marital practices than the Nephites.<br><i>(Read Jacob 3:5-7)</i>",
         backgroundAsset: "settlement",
         castAssets: [],
         // EROSION #8: Using the cultural enemy as an example causes unity breakdown.
@@ -153,7 +153,7 @@ Object.assign(window.scenes, {
     
     // --- SCENE 9: WRITING THE PLATES ---
     "s3_jacob_plates_testimony": {
-        text: "You are commanded to write upon the small plates what is most sacred. Should you focus on the history and prophecy, or on your own strong testimony of Christ?<br><br><i>(Read Jacob 4:1-6)</i>",
+        text: "You are commanded to write upon the small plates what is most sacred. Should you focus on the history and prophecy, or on your own strong testimony of Christ?<br><i>(Read Jacob 4:1-6)</i>",
         backgroundAsset: "vision_room",
         castAssets: [],
         // NO EROSION: A moment of peace and reflection in the writing.
@@ -170,7 +170,7 @@ Object.assign(window.scenes, {
 
     // --- SCENE 10: SHEREM SPREADS RUMORS ---
     "s3_jacob_sherem_approach": {
-        text: "A man named Sherem, educated and skilled in flattery, begins secretly spreading rumors against you and denying the need for Christ. His words unsettle the community.<br><br><i>(Read Jacob 7:1-4)</i>",
+        text: "A man named Sherem, educated and skilled in flattery, begins secretly spreading rumors against you and denying the need for Christ. His words unsettle the community.<br><i>(Read Jacob 7:1-4)</i>",
         backgroundAsset: "settlement",
         castAssets: ["Sherem"], 
         // EROSION #9: Antagonism and deceit attack the foundation of faith.
@@ -187,7 +187,7 @@ Object.assign(window.scenes, {
 
     // --- SCENE 11: CONFRONTING SHEREM ---
     "s3_jacob_sherem_confrontation": {
-        text: "Sherem demands a sign, challenging your authority and your faith in Christ. You are faced with the choice to either deliver a powerful testimony or let him continue his destruction.<br><br><i>(Read Jacob 7:13)</i>",
+        text: "Sherem demands a sign, challenging your authority and your faith in Christ. You are faced with the choice to either deliver a powerful testimony or let him continue his destruction.<br><i>(Read Jacob 7:13)</i>",
         backgroundAsset: "temple_interior",
         castAssets: ["Sherem"], 
         // EROSION #10: The pressure of a public, spiritual debate.
@@ -204,7 +204,7 @@ Object.assign(window.scenes, {
 
     // --- SCENE 12: THE CONCLUSION ---
     "s3_jacob_end": {
-        text: "After Sherem's confession and death, the people are restored to their faith. You seal the small plates, handing them to your son Enos, concluding your life's labor as a prophet and priest. Your record is preserved.<br><br><i>(Read Jacob 7:27)</i>",
+        text: "After Sherem's confession and death, the people are restored to their faith. You seal the small plates, handing them to your son Enos, concluding your life's labor as a prophet and priest. Your record is preserved.<br><i>(Read Jacob 7:27)</i>",
         backgroundAsset: "temple_interior",
         castAssets: [],
         choices: [

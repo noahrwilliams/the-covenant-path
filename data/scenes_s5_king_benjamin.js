@@ -20,7 +20,7 @@ Object.assign(window.scenes, {
 
   "s5_kb_intro": {
     text:
-      "ZARAHEMLA. You feel your strength failing, and you know your reign is near its end. You must gather the people, account for your stewardship, and invite them to take upon them the name of Christ—before you lay down your crown.<br><br><i>(Read Mosiah 1:9–10; Mosiah 2:28–31)</i>",
+      "ZARAHEMLA. You feel your strength failing, and you know your reign is near its end. You must gather the people, account for your stewardship, and invite them to take upon them the name of Christ—before you lay down your crown.<br><i>(Read Mosiah 1:9–10; Mosiah 2:28–31)</i>",
     backgroundAsset: "house_interior",
     castAssets: ["King_Benjamin"],
     choices: [
@@ -36,7 +36,7 @@ Object.assign(window.scenes, {
 
   "s5_kb_pathA_logistics_1": {
     text:
-      "The people begin to gather in Zarahemla, each family pitching tents with their doors toward the temple. This is worship—but it also becomes pressure. If the gathering fails, the covenant moment fractures before it begins.<br><br><i>(Read Mosiah 2:1–6)</i>",
+      "The people begin to gather in Zarahemla, each family pitching tents with their doors toward the temple. This is worship—but it also becomes pressure. If the gathering fails, the covenant moment fractures before it begins.<br><i>(Read Mosiah 2:1–6)</i>",
     backgroundAsset: "settlement",
     castAssets: ["King_Benjamin"],
     choices: [
@@ -48,7 +48,7 @@ Object.assign(window.scenes, {
 
   "s5_kb_pathA_logistics_2": {
     text:
-      "You realize many cannot hear you from the temple grounds. A tower is raised so your voice can carry. The temptation appears: to use the platform for authority instead of service.<br><br><i>(Read Mosiah 2:7–9)</i>",
+      "You realize many cannot hear you from the temple grounds. A tower is raised so your voice can carry. The temptation appears: to use the platform for authority instead of service.<br><i>(Read Mosiah 2:7–9)</i>",
     backgroundAsset: "settlement",
     castAssets: ["King_Benjamin"],
     choices: [
@@ -60,7 +60,7 @@ Object.assign(window.scenes, {
 
   "s5_kb_pathA_logistics_3": {
     text:
-      "Messengers report the people are ready. But readiness is fragile: fatigue, children, heat, gossip. One careless decision can turn worship into spectacle. Your final preparation is not technical—it is spiritual restraint.<br><br><i>(Read Mosiah 2:9–11)</i>",
+      "Messengers report the people are ready. But readiness is fragile: fatigue, children, heat, gossip. One careless decision can turn worship into spectacle. Your final preparation is not technical—it is spiritual restraint.<br><i>(Read Mosiah 2:9–11)</i>",
     backgroundAsset: "settlement",
     castAssets: ["King_Benjamin"],
     choices: [
@@ -76,7 +76,7 @@ Object.assign(window.scenes, {
 
   "s5_kb_pathB_revelation_1": {
     text:
-      "You withdraw from the noise. You’ve labored with your own hands and ruled with restraint, but none of that can save them. Only Christ can. You seek what must be spoken before your voice is gone.<br><br><i>(Read Mosiah 2:12–14)</i>",
+      "You withdraw from the noise. You’ve labored with your own hands and ruled with restraint, but none of that can save them. Only Christ can. You seek what must be spoken before your voice is gone.<br><i>(Read Mosiah 2:12–14)</i>",
     backgroundAsset: "house_interior",
     castAssets: ["King_Benjamin"],
     choices: [
@@ -88,7 +88,7 @@ Object.assign(window.scenes, {
 
   "s5_kb_pathB_revelation_2": {
     text:
-      "An angel’s message presses into your soul: the Lord Omnipotent will come down, suffer, bleed, and rise—so that salvation can come to those who believe and repent. The message is too holy to use as a tool.<br><br><i>(Read Mosiah 3:2–11)</i>",
+      "An angel’s message presses into your soul: the Lord Omnipotent will come down, suffer, bleed, and rise—so that salvation can come to those who believe and repent. The message is too holy to use as a tool.<br><i>(Read Mosiah 3:2–11)</i>",
     backgroundAsset: "wilderness",
     castAssets: ["Angel"],
     choices: [
@@ -100,7 +100,7 @@ Object.assign(window.scenes, {
 
   "s5_kb_pathB_revelation_3": {
     text:
-      "You rehearse the core: the natural man is an enemy to God; only yielding to the Holy Spirit can change a people. You know this teaching will offend pride and threaten cultural religion.<br><br><i>(Read Mosiah 3:19)</i>",
+      "You rehearse the core: the natural man is an enemy to God; only yielding to the Holy Spirit can change a people. You know this teaching will offend pride and threaten cultural religion.<br><i>(Read Mosiah 3:19)</i>",
     backgroundAsset: "house_interior",
     castAssets: ["King_Benjamin"],
     choices: [
@@ -116,7 +116,7 @@ Object.assign(window.scenes, {
 
   "s5_kb_pathC_succession_1": {
     text:
-      "You gather your sons. Kingship is not merely a throne; it is accountability before God. You will teach them the records and the covenant purpose of a people who forget easily.<br><br><i>(Read Mosiah 1:1–4)</i>",
+      "You gather your sons. Kingship is not merely a throne; it is accountability before God. You will teach them the records and the covenant purpose of a people who forget easily.<br><i>(Read Mosiah 1:1–4)</i>",
     backgroundAsset: "house_interior",
     castAssets: ["King_Benjamin", "Mosiah_II", "Helaman", "Helorum", "Amaleki"],
     choices: [
@@ -128,7 +128,7 @@ Object.assign(window.scenes, {
 
   "s5_kb_pathC_succession_2": {
     text:
-      "You command Mosiah to search the plates and learn the language and prophecies—so he can govern with covenant memory. This is slow work, and urgent pressures keep interrupting.<br><br><i>(Read Mosiah 1:2–7)</i>",
+      "You command Mosiah to search the plates and learn the language and prophecies—so he can govern with covenant memory. This is slow work, and urgent pressures keep interrupting.<br><i>(Read Mosiah 1:2–7)</i>",
     backgroundAsset: "house_interior",
     castAssets: ["Mosiah_II", "King_Benjamin"],
     choices: [
@@ -140,7 +140,7 @@ Object.assign(window.scenes, {
 
   "s5_kb_pathC_succession_3": {
     text:
-      "You prepare to proclaim Mosiah king. Yet the people must be more than loyal subjects—they must become covenant disciples. Your last act cannot be merely political; it must be spiritual.<br><br><i>(Read Mosiah 1:9–12)</i>",
+      "You prepare to proclaim Mosiah king. Yet the people must be more than loyal subjects—they must become covenant disciples. Your last act cannot be merely political; it must be spiritual.<br><i>(Read Mosiah 1:9–12)</i>",
     backgroundAsset: "settlement",
     castAssets: ["Mosiah_II", "King_Benjamin"],
     choices: [
@@ -157,7 +157,7 @@ Object.assign(window.scenes, {
 
   "s5_kb_major_event_speech_begins": {
     text:
-      "THE TOWER SPEECH. You begin: you have labored with your own hands, served without seeking riches, and taught that when we serve others we serve God. Then the angel’s message: Christ will come, suffer, and atone; the natural man must be put off; mercy claims the repentant.<br><br><i>(Read Mosiah 2:10–19; Mosiah 3:2–21; Mosiah 4:1–12)</i>",
+      "THE TOWER SPEECH. You begin: you have labored with your own hands, served without seeking riches, and taught that when we serve others we serve God. Then the angel’s message: Christ will come, suffer, and atone; the natural man must be put off; mercy claims the repentant.<br><i>(Read Mosiah 2:10–19; Mosiah 3:2–21; Mosiah 4:1–12)</i>",
     backgroundAsset: "settlement",
     castAssets: ["King_Benjamin"],
     choices: [
@@ -174,7 +174,7 @@ Object.assign(window.scenes, {
   // --- SUBPATH S: SERVICE EMPHASIS (3) ---
   "s5_kb_post_major_branch_service_1": {
     text:
-      "You press the doctrine into daily life: if you turn away the beggar, you have cause to repent. Prosperity is a spiritual test. The people feel exposed—and invited.<br><br><i>(Read Mosiah 4:13–23)</i>",
+      "You press the doctrine into daily life: if you turn away the beggar, you have cause to repent. Prosperity is a spiritual test. The people feel exposed—and invited.<br><i>(Read Mosiah 4:13–23)</i>",
     backgroundAsset: "settlement",
     castAssets: ["King_Benjamin"],
     choices: [
@@ -186,7 +186,7 @@ Object.assign(window.scenes, {
 
   "s5_kb_post_major_branch_service_2": {
     text:
-      "You teach a pattern for family discipleship: teach children to love, to pray, to walk in truth and soberness. This is slow work, and the crowd wants fast certainty.<br><br><i>(Read Mosiah 4:14–15)</i>",
+      "You teach a pattern for family discipleship: teach children to love, to pray, to walk in truth and soberness. This is slow work, and the crowd wants fast certainty.<br><i>(Read Mosiah 4:14–15)</i>",
     backgroundAsset: "settlement",
     castAssets: ["King_Benjamin"],
     choices: [
@@ -198,7 +198,7 @@ Object.assign(window.scenes, {
 
   "s5_kb_post_major_branch_service_3": {
     text:
-      "The people cry for mercy. You see their faces: some want baptismal-level change; some want a temporary emotional release. You must invite the deeper covenant, not just relief.<br><br><i>(Read Mosiah 4:1–3; Mosiah 5:1–5)</i>",
+      "The people cry for mercy. You see their faces: some want baptismal-level change; some want a temporary emotional release. You must invite the deeper covenant, not just relief.<br><i>(Read Mosiah 4:1–3; Mosiah 5:1–5)</i>",
     backgroundAsset: "settlement",
     castAssets: ["King_Benjamin"],
     choices: [
@@ -211,7 +211,7 @@ Object.assign(window.scenes, {
   // --- SUBPATH F: FEAR/CONTROL EMPHASIS (3) ---
   "s5_kb_post_major_branch_fear_1": {
     text:
-      "You lean into warning: sin brings misery; judgment is real. The message is true, but fear can either open humility—or harden pride. You feel the knife-edge of motive.<br><br><i>(Read Mosiah 2:38–41)</i>",
+      "You lean into warning: sin brings misery; judgment is real. The message is true, but fear can either open humility—or harden pride. You feel the knife-edge of motive.<br><i>(Read Mosiah 2:38–41)</i>",
     backgroundAsset: "settlement",
     castAssets: ["King_Benjamin"],
     choices: [
@@ -223,7 +223,7 @@ Object.assign(window.scenes, {
 
   "s5_kb_post_major_branch_fear_2": {
     text:
-      "You teach about the atonement and the need to retain a remission of sins through humility, prayer, and service. The temptation returns: turn this into a checklist—or keep it as a living relationship with God.<br><br><i>(Read Mosiah 4:11–12, 26)</i>",
+      "You teach about the atonement and the need to retain a remission of sins through humility, prayer, and service. The temptation returns: turn this into a checklist—or keep it as a living relationship with God.<br><i>(Read Mosiah 4:11–12, 26)</i>",
     backgroundAsset: "settlement",
     castAssets: ["King_Benjamin"],
     choices: [
@@ -235,7 +235,7 @@ Object.assign(window.scenes, {
 
   "s5_kb_post_major_branch_fear_3": {
     text:
-      "The people respond with unity—saying they believe your words because of the Spirit, and they desire to enter a covenant to do God’s will. Now you must name the covenant plainly.<br><br><i>(Read Mosiah 5:1–5)</i>",
+      "The people respond with unity—saying they believe your words because of the Spirit, and they desire to enter a covenant to do God’s will. Now you must name the covenant plainly.<br><i>(Read Mosiah 5:1–5)</i>",
     backgroundAsset: "settlement",
     castAssets: ["King_Benjamin"],
     choices: [
@@ -248,7 +248,7 @@ Object.assign(window.scenes, {
   // --- SUBPATH M: MERCY/REPENTANCE EMPHASIS (3) ---
   "s5_kb_post_major_branch_mercy_1": {
     text:
-      "You emphasize that God can immediately bless those who believe, humble themselves, and call on His name. The people feel hope—but hope must become covenant, not complacency.<br><br><i>(Read Mosiah 4:9–12)</i>",
+      "You emphasize that God can immediately bless those who believe, humble themselves, and call on His name. The people feel hope—but hope must become covenant, not complacency.<br><i>(Read Mosiah 4:9–12)</i>",
     backgroundAsset: "settlement",
     castAssets: ["King_Benjamin"],
     choices: [
@@ -260,7 +260,7 @@ Object.assign(window.scenes, {
 
   "s5_kb_post_major_branch_mercy_2": {
     text:
-      "You teach that the natural man must be put off, becoming a saint through the atonement of Christ, yielding to the Holy Spirit—submissive, meek, humble, patient, full of love.<br><br><i>(Read Mosiah 3:19)</i>",
+      "You teach that the natural man must be put off, becoming a saint through the atonement of Christ, yielding to the Holy Spirit—submissive, meek, humble, patient, full of love.<br><i>(Read Mosiah 3:19)</i>",
     backgroundAsset: "settlement",
     castAssets: ["King_Benjamin"],
     choices: [
@@ -272,7 +272,7 @@ Object.assign(window.scenes, {
 
   "s5_kb_post_major_branch_mercy_3": {
     text:
-      "The people speak with one voice: they have had no more disposition to do evil, but to do good continually. You recognize the Spirit’s work—and the moment to seal it into covenant identity.<br><br><i>(Read Mosiah 5:2–5)</i>",
+      "The people speak with one voice: they have had no more disposition to do evil, but to do good continually. You recognize the Spirit’s work—and the moment to seal it into covenant identity.<br><i>(Read Mosiah 5:2–5)</i>",
     backgroundAsset: "settlement",
     castAssets: ["King_Benjamin"],
     choices: [
@@ -288,7 +288,7 @@ Object.assign(window.scenes, {
 
   "s5_kb_converge_covenant_response": {
     text:
-      "They enter into a covenant to do God’s will and be obedient to His commandments. You declare that because of the covenant, they shall be called the children of Christ—and must remember His name written on their hearts.<br><br><i>(Read Mosiah 5:5–12)</i>",
+      "They enter into a covenant to do God’s will and be obedient to His commandments. You declare that because of the covenant, they shall be called the children of Christ—and must remember His name written on their hearts.<br><i>(Read Mosiah 5:5–12)</i>",
     backgroundAsset: "settlement",
     castAssets: ["King_Benjamin"],
     choices: [
@@ -305,7 +305,7 @@ Object.assign(window.scenes, {
   // --- PATH A: RECORD / TEACHING STRUCTURE (3) ---
   "s5_kb_post_converge_branchA_record_1": {
     text:
-      "You organize the covenant memory: names recorded, teaching reinforced, and the people reminded that the name of Christ must be retained by obedience and love—not merely spoken once.<br><br><i>(Read Mosiah 5:11–15)</i>",
+      "You organize the covenant memory: names recorded, teaching reinforced, and the people reminded that the name of Christ must be retained by obedience and love—not merely spoken once.<br><i>(Read Mosiah 5:11–15)</i>",
     backgroundAsset: "house_interior",
     castAssets: ["King_Benjamin"],
     choices: [
@@ -317,7 +317,7 @@ Object.assign(window.scenes, {
 
   "s5_kb_post_converge_branchA_record_2": {
     text:
-      "You feel your body weaken again. The Spirit whispers that the covenant must outlive your voice. You must decrease, so Christ can increase among them through Mosiah and future leaders.<br><br><i>(Read Mosiah 6:1–3)</i>",
+      "You feel your body weaken again. The Spirit whispers that the covenant must outlive your voice. You must decrease, so Christ can increase among them through Mosiah and future leaders.<br><i>(Read Mosiah 6:1–3)</i>",
     backgroundAsset: "house_interior",
     castAssets: ["Mosiah_II", "King_Benjamin"],
     choices: [
@@ -329,7 +329,7 @@ Object.assign(window.scenes, {
 
   "s5_kb_post_converge_branchA_record_3": {
     text:
-      "You charge Mosiah to keep the records and govern in righteousness. Your last leadership act is to make obedience easier by making covenant clarity sharper.<br><br><i>(Read Mosiah 6:3–4)</i>",
+      "You charge Mosiah to keep the records and govern in righteousness. Your last leadership act is to make obedience easier by making covenant clarity sharper.<br><i>(Read Mosiah 6:3–4)</i>",
     backgroundAsset: "settlement",
     castAssets: ["Mosiah_II", "King_Benjamin"],
     choices: [
@@ -342,7 +342,7 @@ Object.assign(window.scenes, {
   // --- PATH B: PRESSURE / IMAGE MANAGEMENT (3) ---
   "s5_kb_post_converge_branchB_pressure_1": {
     text:
-      "You feel the temptation to manage appearances: the covenant must look unified, the kingdom must look strong. But image can suffocate sincerity. The people can sense the difference.<br><br><i>(Read Mosiah 5:12–13)</i>",
+      "You feel the temptation to manage appearances: the covenant must look unified, the kingdom must look strong. But image can suffocate sincerity. The people can sense the difference.<br><i>(Read Mosiah 5:12–13)</i>",
     backgroundAsset: "settlement",
     castAssets: ["King_Benjamin"],
     choices: [
@@ -354,7 +354,7 @@ Object.assign(window.scenes, {
 
   "s5_kb_post_converge_branchB_pressure_2": {
     text:
-      "You remember your own doctrine: when you are in the service of your fellow beings you are only in the service of your God. That truth rebukes leadership driven by ego. It also comforts: you can still choose humility now.<br><br><i>(Read Mosiah 2:17)</i>",
+      "You remember your own doctrine: when you are in the service of your fellow beings you are only in the service of your God. That truth rebukes leadership driven by ego. It also comforts: you can still choose humility now.<br><i>(Read Mosiah 2:17)</i>",
     backgroundAsset: "house_interior",
     castAssets: ["King_Benjamin"],
     choices: [
@@ -366,7 +366,7 @@ Object.assign(window.scenes, {
 
   "s5_kb_post_converge_branchB_pressure_3": {
     text:
-      "The crown must pass. Your final test is not what you built, but how you let it go. The people watch whether kingship was about you—or about God.<br><br><i>(Read Mosiah 6:1–3)</i>",
+      "The crown must pass. Your final test is not what you built, but how you let it go. The people watch whether kingship was about you—or about God.<br><i>(Read Mosiah 6:1–3)</i>",
     backgroundAsset: "settlement",
     castAssets: ["Mosiah_II", "King_Benjamin"],
     choices: [
@@ -379,7 +379,7 @@ Object.assign(window.scenes, {
   // --- PATH C: LOOSE ENDING / UNDER-STRUCTURED (3) ---
   "s5_kb_post_converge_branchC_loose_1": {
     text:
-      "You end the covenant moment quickly, hoping the Spirit will 'carry it.' But spiritual highs fade. Without structure, even sincere hearts drift. You feel the risk: a covenant unreinforced becomes a story people tell, not a life people live.<br><br><i>(Read Mosiah 5:14–15)</i>",
+      "You end the covenant moment quickly, hoping the Spirit will 'carry it.' But spiritual highs fade. Without structure, even sincere hearts drift. You feel the risk: a covenant unreinforced becomes a story people tell, not a life people live.<br><i>(Read Mosiah 5:14–15)</i>",
     backgroundAsset: "settlement",
     castAssets: ["King_Benjamin"],
     choices: [
@@ -391,7 +391,7 @@ Object.assign(window.scenes, {
 
   "s5_kb_post_converge_branchC_loose_2": {
     text:
-      "Your strength fails again. You realize: you cannot parent a covenant people forever. You can only point them to Christ, and then entrust the work to Mosiah and God’s patience.<br><br><i>(Read Mosiah 6:1–3)</i>",
+      "Your strength fails again. You realize: you cannot parent a covenant people forever. You can only point them to Christ, and then entrust the work to Mosiah and God’s patience.<br><i>(Read Mosiah 6:1–3)</i>",
     backgroundAsset: "house_interior",
     castAssets: ["Mosiah_II", "King_Benjamin"],
     choices: [
@@ -403,7 +403,7 @@ Object.assign(window.scenes, {
 
   "s5_kb_post_converge_branchC_loose_3": {
     text:
-      "You decide how to end: with covenant clarity, with control, or with withdrawal. The people will remember your last note—and build their future on it.<br><br><i>(Read Mosiah 6:3–4)</i>",
+      "You decide how to end: with covenant clarity, with control, or with withdrawal. The people will remember your last note—and build their future on it.<br><i>(Read Mosiah 6:3–4)</i>",
     backgroundAsset: "settlement",
     castAssets: ["King_Benjamin"],
     choices: [
@@ -419,7 +419,7 @@ Object.assign(window.scenes, {
 
   "s5_kb_final_scene": {
     text:
-      "THE CROWN LAID DOWN. Mosiah is made king. You finish your course and die, having labored to bind a people to Christ rather than to yourself. The covenant remains: retain the name written in the heart, and serve one another as service to God.<br><br><i>(Read Mosiah 6:1–7; Mosiah 5:12–15)</i>",
+      "THE CROWN LAID DOWN. Mosiah is made king. You finish your course and die, having labored to bind a people to Christ rather than to yourself. The covenant remains: retain the name written in the heart, and serve one another as service to God.<br><i>(Read Mosiah 6:1–7; Mosiah 5:12–15)</i>",
     backgroundAsset: "wilderness",
     castAssets: ["Mosiah_II", "King_Benjamin"],
     choices: [
