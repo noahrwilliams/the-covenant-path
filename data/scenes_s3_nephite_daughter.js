@@ -8,7 +8,7 @@ window.STARTING_STATS["Nephite_Daughter"] = {
 };
 
 Object.assign(window.scenes, {
-    
+
     // --- SCENE 1: THE TEMPLE GATHERING ---
     "s3_nd_intro": {
         text: "You stand in the outer courts of the temple. The air is heavy. Jacob, your priest, has come to speak, but he looks weighed down by anxiety. Around you, you see men wearing costly apparel, looking with disdain at those less wealthy.<br><br><i>(Read Jacob 2:7)</i>",
