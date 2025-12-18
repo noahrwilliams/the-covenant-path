@@ -33,7 +33,7 @@ Object.assign(window.scenes, {
         text: "Your father, Lehi, is fading, and with his health, the family unity fractures. Laman and Lemuel grow loud with their complaints against the hardships of the new settlement.<br><br><i>(Read 2 Nephi 1:2)</i>",
         backgroundAsset: "settlement",
         castAssets: ["Lehi", "Laman", "Lemuel"],
-        onEnter: { faith: 0, unity: -2, worldly: 0 },
+        onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
             { text: "Call them sharply to repentance and warn them of their danger.", nextScene: "s2_nephi_blessing", effect: { faith: 2, unity: -2 }, feedback: "You speak with boldness, causing immediate friction." },
             { text: "Attempt to distract them from spiritual matters by organizing a feast.", nextScene: "s2_nephi_blessing", effect: { unity: 2, worldly: 1, faith: -1 }, feedback: "You offer a social solution to a spiritual problem." },
@@ -44,7 +44,7 @@ Object.assign(window.scenes, {
         text: "Lehi gives his final blessing, delivering a powerful, specific warning and rebuke to Laman. Laman, enraged, turns his accusation on you: you are a deceiver seeking power.<br><br><i>(Read 2 Nephi 1:25-27)</i>",
         backgroundAsset: "house_interior",
         castAssets: ["Lehi", "Laman"],
-        onEnter: { faith: 0, unity: -1, worldly: 0 },
+        onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
             { text: "Boldly affirm your father's prophecy and rebuke of Laman.", nextScene: "s2_nephi_death", effect: { faith: 1, unity: -3 }, feedback: "You stand with the prophet, further alienating your brothers." },
             { text: "Remain silent, unwilling to deepen the rift while your father is dying.", nextScene: "s2_nephi_death", effect: { unity: 1, faith: -1 }, feedback: "You avoid conflict, but show weakness." },
@@ -55,7 +55,7 @@ Object.assign(window.scenes, {
         text: "The spiritual anchor is lifted—Lehi is dead. Laman immediately asserts his natural right as the eldest to rule the whole company.<br><br><i>(Read 2 Nephi 4:12-13)</i>",
         backgroundAsset: "house_interior",
         castAssets: ["Laman", "Lemuel"],
-        onEnter: { faith: -2, unity: -3, worldly: 2 },
+        onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
             { text: "Submit entirely to Laman's authority to preserve peace.", nextScene: "s2_nephi_psalm", effect: { unity: 3, faith: -3 }, feedback: "You choose peace at the cost of the Covenant." },
             { text: "Assert your spiritual keys of authority and the Lord's chosen order.", nextScene: "s2_nephi_psalm", effect: { faith: 2, unity: -2 }, feedback: "You speak truth, but it is interpreted as ambition." },
@@ -66,7 +66,7 @@ Object.assign(window.scenes, {
         text: "You are overwhelmed by deep, wretched sorrow—not only for your father's death, but for the anger and bitterness you harbor toward your hostile brothers. Your soul grieves.<br><br><i>(Read 2 Nephi 4:17-19)</i>",
         backgroundAsset: "wilderness",
         castAssets: [],
-        onEnter: { faith: 0, unity: -1, worldly: 1 },
+        onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
             { text: "Cry unto God, trusting in the Rock of your salvation.", nextScene: "s2_nephi_plot", effect: { faith: 3, worldly: -2 }, covenantUnlock: "Repentance", feedback: "You trust in the Rock of your salvation. (See 2 Nephi 4:30-35)" },
             { text: "Stifle the grief, losing yourself in backbreaking labor.", nextScene: "s2_nephi_plot", effect: { worldly: 2, faith: -1 }, feedback: "You use work to cope with sorrow." },
@@ -77,7 +77,7 @@ Object.assign(window.scenes, {
         text: "The Lord's voice pierces your anguish, revealing a deadly plot: Laman and Lemuel intend to take your life.<br><br><i>(Read 2 Nephi 5:2-4)</i>",
         backgroundAsset: "settlement",
         castAssets: ["Laman"],
-        onEnter: { faith: 0, unity: -1, worldly: 0 },
+        onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
             { text: "Immediately pray for the softening of your brothers' hardened hearts.", nextScene: "s2_nephi_flee", effect: { faith: 2 }, feedback: "You maintain spiritual optimism." },
             { text: "Focus on physical survival, secretly preparing for a violent defense.", nextScene: "s2_nephi_flee", effect: { knowledge: 1, worldly: 1 }, feedback: "You prepare for physical violence." },
@@ -88,7 +88,7 @@ Object.assign(window.scenes, {
         text: "The command is final and immediate: 'Depart from them into the wilderness.' Obedience means abandoning your established home, goods, and ties.<br><br><i>(Read 2 Nephi 5:5)</i>",
         backgroundAsset: "wilderness",
         castAssets: ["Sam", "Zoram"],
-        onEnter: { faith: 0, unity: 0, worldly: 3 },
+        onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
             { text: "Obey the command without hesitation, leaving immediately.", nextScene: "s2_nephi_items", effect: { faith: 2, unity: -1, worldly: -3 }, covenantUnlock: "Faith", feedback: "Exact obedience." },
             { text: "Plead with the Lord for one last chance to save them.", nextScene: "s2_nephi_items", effect: { unity: 1 }, feedback: "You are reluctant to sever ties." },

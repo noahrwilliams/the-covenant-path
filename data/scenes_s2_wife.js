@@ -12,7 +12,7 @@ Object.assign(window.scenes, {
         text: "THE PROMISED LAND. You are one of Ishmael's daughters. The new land is beautiful, but the ground is resistant. The daily labor is exhausting, and it feels like a constant war against the wilderness.<br><br><i>(Read 1 Nephi 18:24)</i>",
         backgroundAsset: "promised_land",
         castAssets: ["Sariah"],
-        onEnter: { faith: -1, unity: 0, worldly: 0 },
+        onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
             { text: "Sing the songs of Zion and testimony to lift the spirits of the workers.", nextScene: "s2_wife_children", effect: { faith: 2, unity: 1 }, feedback: "Spiritual morale." },
             { text: "Work yourself to exhaustion, trying to physically compensate for others’ discouragement.", nextScene: "s2_wife_children", effect: { worldly: 1, unity: 1 }, feedback: "Leading by effort." },
@@ -23,7 +23,7 @@ Object.assign(window.scenes, {
         text: "Your young children are confused and fearful because of the constant tension and anger emanating from Laman's camp. They ask you why he is so angry.<br><br><i>(Context: Teaching)</i>",
         backgroundAsset: "house_interior",
         castAssets: [],
-        onEnter: { faith: 0, unity: -1, worldly: 0 },
+        onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
             { text: "Teach them the clear truth: 'He does not listen to God's word.'", nextScene: "s2_wife_sariah", effect: { faith: 1, unity: -1 }, feedback: "Hard truth." },
             { text: "Teach them compassion: 'He is hurting inside and needs our prayers.'", nextScene: "s2_wife_sariah", effect: { unity: 2, knowledge: 1 }, feedback: "Compassion." },
@@ -34,7 +34,7 @@ Object.assign(window.scenes, {
         text: "Your mother-in-law, Sariah, is dying. Her last great burden is the fate of her rebellious eldest sons, Laman and Lemuel.<br><br><i>(Context: Matriarch's Passing)</i>",
         backgroundAsset: "house_interior",
         castAssets: ["Sariah"],
-        onEnter: { faith: -1, unity: -1, worldly: 0 },
+        onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
             { text: "Read the comforting promises of the Brass Plates to her.", nextScene: "s2_wife_sisters", effect: { faith: 2, knowledge: 1 }, feedback: "Spiritual comfort." },
             { text: "Risk the peace by bringing Laman to her bedside for one final plea.", nextScene: "s2_wife_sisters", effect: { unity: 3, faith: -1 }, feedback: "Risking peace for closure." },
@@ -45,7 +45,7 @@ Object.assign(window.scenes, {
         text: "Your sisters, Laman and Lemuel's wives, openly mock Nephi's spiritual leadership, accusing him of ambition and self-exaltation.<br><br><i>(Context: Peer Pressure)</i>",
         backgroundAsset: "settlement",
         castAssets: [],
-        onEnter: { faith: -1, unity: -1, worldly: 0 },
+        onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
             { text: "Defend Nephi firmly, testifying of his prophetic role.", nextScene: "s2_wife_lehi", effect: { faith: 1, unity: -2 }, feedback: "Loyalty." },
             { text: "Quickly change the subject to children or physical needs.", nextScene: "s2_wife_lehi", effect: { unity: 1, worldly: 1 }, feedback: "Peacekeeping." },
@@ -56,7 +56,7 @@ Object.assign(window.scenes, {
         text: "Lehi's death is a profound spiritual and emotional tremor. The family's stabilizing force is gone, and the rift instantly widens.<br><br><i>(Read 2 Nephi 4:12)</i>",
         backgroundAsset: "house_interior",
         castAssets: ["Nephi"],
-        onEnter: { faith: -2, unity: -3, worldly: 1 },
+        onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
             { text: "Seek solace and direction by mourning alone in prayer.", nextScene: "s2_wife_conflict", effect: { faith: 2 }, feedback: "Spiritual grief." },
             { text: "Organize a unifying feast for the whole family immediately after the burial.", nextScene: "s2_wife_conflict", effect: { unity: 2 }, feedback: "Gathering." },
@@ -67,7 +67,7 @@ Object.assign(window.scenes, {
         text: "In a terrifying escalation, Laman openly threatens to murder Nephi and seize the brass plates.<br><br><i>(Read 2 Nephi 5:2)</i>",
         backgroundAsset: "settlement",
         castAssets: ["Laman", "Nephi"],
-        onEnter: { faith: 0, unity: -2, worldly: 0 },
+        onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
             { text: "Physically stand between your husband and Laman.", nextScene: "s2_wife_warning", effect: { faith: 1, unity: -1 }, feedback: "Solidarity." },
             { text: "Immediately gather the children and remove them from the scene.", nextScene: "s2_wife_warning", effect: { worldly: 1, knowledge: 1 }, feedback: "Protection." },
@@ -88,7 +88,7 @@ Object.assign(window.scenes, {
         text: "You only have moments to choose what to carry into the unknown. Space is extremely limited.<br><br><i>(Context: Priorities)</i>",
         backgroundAsset: "house_interior",
         castAssets: [],
-        onEnter: { faith: 0, unity: 0, worldly: 1 },
+        onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
             { text: "Prioritize seeds for planting and dried food for survival.", nextScene: "s2_wife_depart", effect: { worldly: 2, knowledge: 1, worldly: -1 }, feedback: "Survival." },
             { text: "Prioritize the scrolls of Lehi's visions and your family heirlooms.", nextScene: "s2_wife_depart", effect: { faith: 1, unity: 1, worldly: -1 }, feedback: "Legacy." },
@@ -99,7 +99,7 @@ Object.assign(window.scenes, {
         text: "You depart under the cover of night. Just as you leave the settlement, one of your sisters spots you, her silent gaze following your retreat.<br><br><i>(Read 2 Nephi 5:7)</i>",
         backgroundAsset: "settlement",
         castAssets: [],
-        onEnter: { faith: 0, unity: -1, worldly: 0 },
+        onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
             { text: "Turn your head back, weeping at the sight of your sister.", nextScene: "s2_wife_wilderness", effect: { unity: 1, faith: -1 }, feedback: "Sorrow." },
             { text: "Set your face like a flint and look forward to the Promised Land.", nextScene: "s2_wife_wilderness", effect: { faith: 2, unity: -1 }, feedback: "Resolve." },
@@ -110,7 +110,7 @@ Object.assign(window.scenes, {
         text: "The journey is long, the weather harsh, and exhaustion sets in quickly. Your own strength fails.<br><br><i>(Context: Endurance)</i>",
         backgroundAsset: "wilderness",
         castAssets: [],
-        onEnter: { faith: 0, unity: 0, worldly: 1 },
+        onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
             { text: "Murmur bitterly about the burdens and your longing for the old life.", nextScene: "s2_wife_settlement", effect: { worldly: 2, faith: -2 }, feedback: "Weakness." },
             { text: "Bear the trial in silence, trusting God will give strength.", nextScene: "s2_wife_settlement", effect: { faith: 1, knowledge: 1 }, feedback: "Endurance." },

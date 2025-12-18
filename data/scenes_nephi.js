@@ -69,7 +69,7 @@ Object.assign(window.scenes, {
         castAssets: ["Lehi", "Laman"],
         onEnter: { faith: 0, unity: 0, worldly: 0 }, 
         choices: [
-            { text: "Declare: 'I will go and do.' (Build Faith)", nextScene: "plate_fail", effect: { faith: 3, unity: 1, worldly: -2 }, feedback: "Your declaration gladdens your father. Even Laman falls silent." },
+            { text: "Declare: 'I will go and do.'", nextScene: "plate_fail", effect: { faith: 3, unity: 1, worldly: -2 }, feedback: "Your declaration gladdens your father. Even Laman falls silent." },
             { text: "Agree quietly.", nextScene: "plate_fail", effect: { faith: 0, unity: 0, worldly: 0 }, feedback: "You agree to go without complaint." }
         ]
     },
@@ -89,7 +89,7 @@ Object.assign(window.scenes, {
         castAssets: ["Laman", "Lemuel"],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
-            { text: "Rebuke with the Spirit (Cost: -2 Faith).", nextScene: "slaying_laban", effect: { faith: -2, unity: -1, worldly: 0 }, feedback: "You pour out your spiritual reserves." },
+            { text: "Rebuke with the Spirit.", nextScene: "slaying_laban", effect: { faith: -2, unity: -1, worldly: 0 }, feedback: "You pour out your spiritual reserves." },
             { text: "Submit and endure.", nextScene: "slaying_laban", effect: { faith: 0, unity: 2, worldly: 1 }, feedback: "You stop the violence, but sacrifice initiative." }
         ]
     },
@@ -117,7 +117,7 @@ Object.assign(window.scenes, {
         castAssets: ["Sariah", "Lehi"],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
-            { text: "Study the Plates (Build Knowledge).", nextScene: "broken_bow", effect: { faith: 1, unity: -1, knowledge: 3 }, feedback: "You feast on the words." },
+            { text: "Study the Plates.", nextScene: "broken_bow", effect: { faith: 1, unity: -1, knowledge: 3 }, feedback: "You feast on the words." },
             { text: "Rest and recover.", nextScene: "broken_bow", effect: { faith: 0, unity: 2, knowledge: 0 }, feedback: "You rebuild your physical strength." }
         ]
     },

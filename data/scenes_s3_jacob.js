@@ -21,7 +21,7 @@ Object.assign(window.scenes, {
         backgroundAsset: "temple_interior",
         castAssets: ["Nephi_S2"],
         // EROSION #1: The responsibility itself is a burden that introduces anxiety.
-        onEnter: { faith: -1, worldly: 1 }, 
+        onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
             // F+U+K-W: 1+1+1 - 1 = +2 (Marginal)
             { text: "Humbly accept the charge, resolving to preach what God commands.", nextScene: "s3_jacob_vocation", effect: { faith: 1, unity: 1, knowledge: 1, worldly: -1 }, feedback: "You submit to God's will." },
@@ -38,7 +38,7 @@ Object.assign(window.scenes, {
         backgroundAsset: "settlement",
         castAssets: [],
         // EROSION #2: The pressure of dividing your time causes strain.
-        onEnter: { unity: -1, worldly: 1 },
+        onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
             // F+U+K-W: 1+0+0 - 0 = +1 (Good)
             { text: "Trust the Lord to provide for your family while you focus on the spiritual work.", nextScene: "s3_jacob_wealth", effect: { faith: 1, worldly: 0 }, feedback: "You prioritize the word of God." },
@@ -55,7 +55,7 @@ Object.assign(window.scenes, {
         backgroundAsset: "settlement",
         castAssets: [],
         // EROSION #3: Worldly success breeds spiritual decay.
-        onEnter: { worldly: 2, unity: -1 },
+        onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
             // F+U+K-W: 1-1+0 - (-1) = +1 (Good)
             { text: "Condemn the pride immediately, before it takes deep root in the community.", nextScene: "s3_jacob_sermon", effect: { faith: 1, unity: -1, worldly: -1 }, feedback: "Your zeal causes tension." },
@@ -72,7 +72,7 @@ Object.assign(window.scenes, {
         backgroundAsset: "temple_interior",
         castAssets: [],
         // EROSION #4: Feeling separate from the people you serve.
-        onEnter: { faith: -1, unity: -2 },
+        onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
             // F+U+K-W: 1-1+1 - (-1) = +2 (Marginal) -- KNOWLEDGE #2
             { text: "Speak the truth plainly and powerfully, asking God to forgive your boldness.", nextScene: "s3_jacob_apparel", effect: { faith: 1, unity: -1, knowledge: 1, worldly: -1 }, feedback: "You preach with great power." },
@@ -89,7 +89,7 @@ Object.assign(window.scenes, {
         backgroundAsset: "settlement",
         castAssets: [],
         // EROSION #5: Witnessing their vanity causes spiritual pain.
-        onEnter: { worldly: 1, faith: -1 },
+        onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
             // F+U+K-W: 0+0+0 - 0 = +0 (Good)
             { text: "Teach them that seeking riches is permissible *only* if they first seek the kingdom of God.", nextScene: "s3_jacob_lust", effect: { worldly: 0 }, feedback: "You teach correct priorities." },
@@ -106,7 +106,7 @@ Object.assign(window.scenes, {
         backgroundAsset: "temple_interior",
         castAssets: [],
         // EROSION #6: Sympathy and anguish for the innocent.
-        onEnter: { unity: -2, worldly: 1 },
+        onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
             // F+U+K-W: 1-1+0 - (-1) = +1 (Good)
             { text: "Preach repentance for the grosser crime with all the energy of your soul.", nextScene: "s3_jacob_monogamy", effect: { faith: 1, unity: -1, worldly: -1 }, feedback: "You speak the necessary, sharp word." },
@@ -123,7 +123,7 @@ Object.assign(window.scenes, {
         backgroundAsset: "temple_interior",
         castAssets: [],
         // EROSION #7: Facing down a difficult, contentious doctrine.
-        onEnter: { faith: -1, unity: -1 },
+        onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
             // F+U+K-W: 1-1+1 - (-1) = +2 (Marginal) -- KNOWLEDGE #3
             { text: "State clearly: 'One wife and no concubines' unless commanded by God.", nextScene: "s3_jacob_lamanites", effect: { faith: 1, unity: -1, knowledge: 1, worldly: -1 }, feedback: "You define the boundary clearly." },
@@ -140,7 +140,7 @@ Object.assign(window.scenes, {
         backgroundAsset: "settlement",
         castAssets: [],
         // EROSION #8: Using the cultural enemy as an example causes unity breakdown.
-        onEnter: { unity: -2, worldly: 1 },
+        onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
             // F+U+K-W: 1+0+0 - (-1) = +2 (Corrected from +3)
             { text: "Focus the people's attention on the promise of the Lord's mercy if they repent.", nextScene: "s3_jacob_plates_testimony", effect: { faith: 1, unity: 0, worldly: -1 }, feedback: "You show them the path back." },
@@ -157,7 +157,7 @@ Object.assign(window.scenes, {
         backgroundAsset: "vision_room",
         castAssets: [],
         // NO EROSION: A moment of peace and reflection in the writing.
-        onEnter: { faith: 1 },
+        onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
             // F+U+K-W: 1+0+0 - (-1) = +2 (Marginal)
             { text: "Write Christ’s name and testimony plainly on the plates for future generations.", nextScene: "s3_jacob_sherem_approach", effect: { faith: 1, worldly: -1 }, feedback: "You fulfill the spirit of the command." },
@@ -174,7 +174,7 @@ Object.assign(window.scenes, {
         backgroundAsset: "settlement",
         castAssets: ["Sherem"], 
         // EROSION #9: Antagonism and deceit attack the foundation of faith.
-        onEnter: { faith: -2, unity: -1 },
+        onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
             // F+U+K-W: 0+1+0 - 1 = +0 (Good)
             { text: "Ignore the rumors, focusing only on reinforcing the truth to the faithful.", nextScene: "s3_jacob_sherem_confrontation", effect: { unity: 1, worldly: 1 }, feedback: "You avoid conflict, but the poison spreads." },
@@ -191,7 +191,7 @@ Object.assign(window.scenes, {
         backgroundAsset: "temple_interior",
         castAssets: ["Sherem"], 
         // EROSION #10: The pressure of a public, spiritual debate.
-        onEnter: { worldly: 1, unity: -1 },
+        onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
             // F+U+K-W: 1+0+0 - (-1) = +2 (Marginal)
             { text: "Deliver a powerful, definitive testimony of Christ, backed by scripture.", nextScene: "s3_jacob_end", effect: { faith: 1, worldly: -1 }, covenantUnlock: "Faith", feedback: "The Spirit attends your words with great power." },

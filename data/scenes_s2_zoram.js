@@ -23,7 +23,7 @@ Object.assign(window.scenes, {
         text: "Laman publicly mocks you, calling you 'Laban’s runaway slave.' He tries to turn others against you by highlighting your former status.<br><br><i>(Context: Social Tension)</i>",
         backgroundAsset: "settlement",
         castAssets: ["Laman"],
-        onEnter: { faith: 0, unity: -1, worldly: 0 },
+        onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
             { text: "Bear humble testimony of your freedom through God.", nextScene: "s2_zoram_oath", effect: { faith: 2, worldly: -1 }, feedback: "You turn the other cheek." },
             { text: "Boast of your worth and superior skills as a smith.", nextScene: "s2_zoram_oath", effect: { worldly: 1, unity: -1 }, feedback: "You rely on pride." },
@@ -34,7 +34,7 @@ Object.assign(window.scenes, {
         text: "With Lehi nearing death and the family's division imminent, Nephi approaches you, asking for a reaffirmation of the solemn oath you made in Jerusalem.<br><br><i>(Read 1 Nephi 4:33)</i>",
         backgroundAsset: "house_interior",
         castAssets: ["Nephi"],
-        onEnter: { faith: -1, unity: 0, worldly: 0 },
+        onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
             { text: "Reaffirm your oath publicly and declare your fidelity to Nephi.", nextScene: "s2_zoram_blessing", effect: { faith: 2, unity: -2 }, feedback: "You draw clear lines." },
             { text: "Reaffirm your oath to Nephi privately, avoiding the notice of Laman.", nextScene: "s2_zoram_blessing", effect: { unity: 1, worldly: 1 }, feedback: "You choose prudence." },
@@ -55,7 +55,7 @@ Object.assign(window.scenes, {
         text: "Laman and Lemuel privately approach you, offering you a high place of leadership and riches if you will break your oath and join their cause.<br><br><i>(Context: Temptation)</i>",
         backgroundAsset: "settlement",
         castAssets: ["Laman"],
-        onEnter: { faith: -1, unity: -1, worldly: 2 },
+        onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
             { text: "Rebuke their wicked scheme with bold words.", nextScene: "s2_zoram_plot", effect: { faith: 1, unity: -2 }, feedback: "Loyalty." },
             { text: "Feign interest in their offer to learn the details of their plot.", nextScene: "s2_zoram_plot", effect: { knowledge: 2, faith: -2 }, feedback: "Deception." },
@@ -66,7 +66,7 @@ Object.assign(window.scenes, {
         text: "Whether by revelation or espionage, the awful truth is clear: Laman and Lemuel intend to murder Nephi.<br><br><i>(Read 2 Nephi 5:3)</i>",
         backgroundAsset: "settlement",
         castAssets: ["Laman", "Nephi"],
-        onEnter: { faith: 0, unity: -1, worldly: 0 },
+        onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
             { text: "Go to Nephi immediately and inform him of the deadly plot.", nextScene: "s2_zoram_ultimatum", effect: { faith: 1, unity: 1 }, feedback: "Duty." },
             { text: "Confront Laman alone, hoping to shame him into stopping.", nextScene: "s2_zoram_ultimatum", effect: { unity: -2, worldly: 1 }, feedback: "Vigilante justice." },
@@ -77,7 +77,7 @@ Object.assign(window.scenes, {
         text: "The Lord commands Nephi to flee. Your wife, one of the daughters of Ishmael, is hesitant to leave her beloved sisters (Laman's wives) behind.<br><br><i>(Context: Family Split)</i>",
         backgroundAsset: "house_interior",
         castAssets: ["WifeOfNephi"],
-        onEnter: { faith: 0, unity: -1, worldly: 2 },
+        onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
             { text: "Command your wife: 'We follow the Prophet and his word, regardless of the cost.'", nextScene: "s2_zoram_house", effect: { faith: 2, unity: -1 }, feedback: "Patriarchal authority." },
             { text: "Appeal to logic: 'Our safety requires us to leave now.'", nextScene: "s2_zoram_house", effect: { worldly: 1, unity: 1 }, feedback: "Reason." },
@@ -88,7 +88,7 @@ Object.assign(window.scenes, {
         text: "You must walk away from the sturdy home you helped build and furnish. This material loss is immense, and Laman's group will claim it all.<br><br><i>(Context: Sacrifice)</i>",
         backgroundAsset: "settlement",
         castAssets: [],
-        onEnter: { faith: 0, unity: 0, worldly: 2 },
+        onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
             { text: "Turn your back and walk away without a second look.", nextScene: "s2_zoram_march", effect: { faith: 2, worldly: -1 }, feedback: "Lot's wife lesson." },
             { text: "Quickly trade the home's contents for immediate provisions.", nextScene: "s2_zoram_march", effect: { worldly: 2, knowledge: 1 }, feedback: "Resource gathering." },
