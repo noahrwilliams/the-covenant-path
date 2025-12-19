@@ -56,24 +56,26 @@ window.STORIES = [
 // ASSETS
 window.ASSETS = {
     characters: {
-        "Nephi": "https://placehold.co/140x180/5d737e/FFF?text=Nephi",
+        "Nephi": "assets/portraits/Nephi.png",
         "Nephi_S2": "assets/portraits/Nephi_S2.png",
         "Sariah": "assets/portraits/Sariah.png",
-        "WifeOfNephi": "https://placehold.co/140x180/8c7e5d/FFF?text=Wife+of+Nephi",
+        "WifeOfNephi": "assets/portraits/WifeOfNephi.png",
         "Zoram": "assets/portraits/Zoram.png",
         "Laban": "assets/portraits/Laban.png",
         "Lehi": "assets/portraits/Lehi.png",
-        "Laman": "https://placehold.co/100x100/963838/FFF?text=Laman",
-        "Lemuel": "https://placehold.co/100x100/9e6b38/FFF?text=Lemuel",
-        "Sam": "https://placehold.co/100x100/5d737e/FFF?text=Sam",
-        "Jacob": "https://placehold.co/140x180/5d737e/FFF?text=Jacob",
-        "Sherem": "https://placehold.co/100x100/963838/FFF?text=Sherem",
-        "Nephite_Daughter": "https://placehold.co/140x180/8c7e5d/FFF?text=Nephite+Daughter",
-        "Enos": "https://placehold.co/140x180/5d737e/FFF?text=Enos",
+        "Laman": "assets/portraits/Laman.png",
+        "Lemuel": "assets/portraits/Lemuel.png",
+        "Sam": "assets/portraits/Sam.png",
+        "Jacob": "assets/portraits/Jacob.png",
+        "Sherem": "assets/portraits/Sherem.png",
+        "Nephite_Daughter": "assets/portraits/Nephite_Daughter.png",
+        "Enos": "assets/portraits/Enos.png",
         "Amaleki": "https://placehold.co/100x100/6d5e41/FFF?text=Amaleki",
         "Nephite_Refugee": "https://placehold.co/140x180/8c7e5d/FFF?text=Nephite+Refugee",
         "Mosiah_I": "https://placehold.co/140x180/5d737e/FFF?text=King+Mosiah+I",
-        "King_Benjamin": "https://placehold.co/100x100/6d5e41/FFF?text=King+Benjamin",
+        "King_Benjamin": "assets/portraits/King_Benjamin.png",
+        "King_Laman": "assets/portraits/King_Laman.png",
+        "King_Noah": "assets/portraits/King_Noah.png",
         "Mormon": "https://placehold.co/140x180/5d737e/FFF?text=Mormon",
         "Mosiah_II": "https://placehold.co/100x100/6d5e41/FFF?text=King+Mosiah",
         "Helaman": "https://placehold.co/140x180/5d737e/FFF?text=Helaman",
@@ -85,6 +87,11 @@ window.ASSETS = {
         "Benjamin_Citizen": "https://placehold.co/140x180/5d737e/FFF?text=Benjamin+Citizen",
     },
 
+/* Need to find:
+-- Mosiah_I
+--
+--
+*/
 
 
     backgrounds: {
