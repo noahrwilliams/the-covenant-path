@@ -65,13 +65,23 @@ function renderNextQuestion() {
     const choicesDiv = document.getElementById('choices');
     
     // Update Text with "Correct Answer" Tally
-    storyText.innerHTML = `
-        <h3 style="color:#b8860b; margin-bottom:5px;">Records Review (${quizState.currentQuestionIndex + 1}/${window.QUIZ_CONSTANTS.TOTAL_QUESTIONS})</h3>
-        <p style="font-size: 0.9em; color:#666; margin-bottom:15px; border-bottom:1px solid #ddd; padding-bottom:5px;">
-            Current Score: <strong>${quizState.correctCount}</strong> correct
-        </p>
-        <p style="font-size: 1.1em; font-weight: bold;">${qData.question}</p>
-    `;
+
+    // storyText.innerHTML = `
+    //     <h3 style="color:#b8860b; margin-bottom:5px;">Records Review (${quizState.currentQuestionIndex + 1}/${window.QUIZ_CONSTANTS.TOTAL_QUESTIONS})</h3>
+    //     <p style="font-size: 0.9em; color:#666; margin-bottom:15px; border-bottom:1px solid #ddd; padding-bottom:5px;">
+    //         Current Score: <strong>${quizState.correctCount}</strong> correct
+    //     </p>
+    //     <p style="font-size: 1.1em; font-weight: bold;">${qData.question}</p>
+    // `;
+
+        storyText.innerHTML = `
+            <h3 style="color:#b8860b; margin-bottom:5px;">Records Review (${quizState.currentQuestionIndex + 1}/${window.QUIZ_CONSTANTS.TOTAL_QUESTIONS})</h3>
+            <p style="font-size: 0.9em; color:#666; margin-bottom:15px; border-bottom:1px solid #ddd; padding-bottom:5px;">
+                Current Score: <strong id="quiz-score">${quizState.correctCount}</strong> correct
+            </p>
+            <p style="font-size: 1.1em; font-weight: bold;">${qData.question}</p>
+            <p id="quiz-feedback" style="margin-top:10px; font-size:0.95em;"></p>
+        `;
 
     // Create a pool of answers: Select 1 Correct + 3 Random Incorrect
     const wrongPool = [...qData.incorrectAnswersPool].sort(() => 0.5 - Math.random()).slice(0, 3);
@@ -105,35 +115,46 @@ function handleQuizAnswer(clickedBtn, isCorrect) {
     // 1. Disable all buttons to prevent double clicking
     allButtons.forEach(btn => btn.disabled = true);
 
-    // 2. Visual Feedback
+    // 2. Visual Feedback + score update
+
+    const feedbackEl = document.getElementById('quiz-feedback');
+    const scoreEl = document.getElementById('quiz-score');
+
     if (isCorrect) {
         clickedBtn.classList.add('quiz-correct');
         quizState.correctCount++;
+        if (scoreEl) scoreEl.innerText = quizState.correctCount;   // update immediately
+        if (feedbackEl) feedbackEl.innerHTML = `<strong style="color:#28a745;">Correct.</strong>`;
     } else {
         clickedBtn.classList.add('quiz-incorrect');
+
         // Find and highlight the correct answer so the user learns
         allButtons.forEach(btn => {
             if (btn.innerText === currentQ.correctAnswer) {
                 btn.classList.add('quiz-correct');
             }
         });
+
+        if (feedbackEl) feedbackEl.innerHTML =
+            `<strong style="color:#dc3545;">Incorrect.</strong> Correct answer: <strong>${currentQ.correctAnswer}</strong>`;
     }
 
-    // 3. Create "Next" Button
+    // 3. Create (or replace) "Next" Button without deleting the answer buttons
+    const existingNext = document.getElementById('quiz-next-btn');
+    if (existingNext) existingNext.remove();
+
     const nextBtn = document.createElement('button');
-    nextBtn.className = 'choice-btn'; // Use light style
+    nextBtn.id = 'quiz-next-btn';
+    nextBtn.className = 'choice-btn';
     nextBtn.style.marginTop = '15px';
     nextBtn.style.fontWeight = 'bold';
     nextBtn.style.textAlign = 'center';
-    
+
     const isLast = quizState.currentQuestionIndex + 1 >= window.QUIZ_CONSTANTS.TOTAL_QUESTIONS;
     nextBtn.innerText = isLast ? "Finish Review" : "Next Question →";
-    
-    // Remove all previous choice buttons and append the new "Next" button
-    choicesDiv.innerHTML = ''; // Clear the old buttons
-    choicesDiv.appendChild(nextBtn);
 
-    nextBtn.onclick = advanceQuiz; 
+    choicesDiv.appendChild(nextBtn);
+    nextBtn.onclick = advanceQuiz;
 }
 
 /**

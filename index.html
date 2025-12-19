@@ -256,9 +256,29 @@
         }
 
         .choice-btn:disabled {
+    opacity: 0.85;            /* keep readable */
+    cursor: not-allowed;
+}
+
+        /* QUIZ ANSWER FEEDBACK */
+        .choice-btn.quiz-correct {
+            background-color: #e7f6ea;
+            border-color: #28a745;
+            color: #1f6b2d;
+            font-weight: bold;
+        }
+
+        .choice-btn.quiz-incorrect {
+            background-color: #fde8ea;
+            border-color: #dc3545;
+            color: #8a1c26;
+        }
+
+/*         
+        .choice-btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
-        }
+        } */
 
         /* FEEDBACK */
         .action-feedback-block {
@@ -554,26 +574,26 @@
         </div>
     </div>
 
-<script src="data/data_shared.js?v=8.2"></script>
+<script src="data/data_shared.js?v=8.3"></script>
 
-<script src="data/scenes_nephi.js?v=8.2"></script>
-<script src="data/scenes_sariah.js?v=8.2"></script>
+<script src="data/scenes_nephi.js?v=8.3"></script>
+<script src="data/scenes_sariah.js?v=8.3"></script>
 
-<script src="data/scenes_s2_nephi.js?v=8.2"></script>
-<script src="data/scenes_s2_wife.js?v=8.2"></script>
-<script src="data/scenes_s2_zoram.js?v=8.2"></script>
+<script src="data/scenes_s2_nephi.js?v=8.3"></script>
+<script src="data/scenes_s2_wife.js?v=8.3"></script>
+<script src="data/scenes_s2_zoram.js?v=8.3"></script>
 
-<script src="data/scenes_s3_jacob.js?v=8.2"></script>
-<script src="data/scenes_s3_nephite_daughter.js?v=8.2"></script>
+<script src="data/scenes_s3_jacob.js?v=8.3"></script>
+<script src="data/scenes_s3_nephite_daughter.js?v=8.3"></script>
 
-<script src="data/scenes_s4_nephite_refugee.js?v=8.2"></script>
-<script src="data/scenes_s4_enos.js?v=8.2"></script>
-<script src="data/scenes_s4_amaleki.js?v=8.2"></script>
+<script src="data/scenes_s4_nephite_refugee.js?v=8.3"></script>
+<script src="data/scenes_s4_enos.js?v=8.3"></script>
+<script src="data/scenes_s4_amaleki.js?v=8.3"></script>
 
-<script src="data/scenes_s5_king_benjamin.js?v=8.2"></script>
-<script src="data/scenes_s5_benjamin_citizen.js?v=8.2"></script>
+<script src="data/scenes_s5_king_benjamin.js?v=8.3"></script>
+<script src="data/scenes_s5_benjamin_citizen.js?v=8.3"></script>
 
-<script src="data/quiz_engine.js?v=8.2"></script>
-<script src="data/engine.js?v=8.2"></script>
+<script src="data/quiz_engine.js?v=8.3"></script>
+<script src="data/engine.js?v=8.3"></script>
 </body>
 </html>
