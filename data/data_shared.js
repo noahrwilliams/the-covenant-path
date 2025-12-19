@@ -57,10 +57,11 @@ window.STORIES = [
 window.ASSETS = {
     characters: {
         "Nephi": "https://placehold.co/140x180/5d737e/FFF?text=Nephi",
-        "Nephi_S2": "https://placehold.co/140x180/5d737e/FFF?text=Nephi",
-        "Sariah": "https://placehold.co/140x180/8c7e5d/FFF?text=Sariah",
+        "Nephi_S2": "assets/portraits/Nephi_S2.png",
+        "Sariah": "assets/portraits/Sariah.png",
         "WifeOfNephi": "https://placehold.co/140x180/8c7e5d/FFF?text=Wife+of+Nephi",
-        "Zoram": "https://placehold.co/140x180/5d737e/FFF?text=Zoram",
+        "Zoram": "assets/portraits/Zoram.png",
+        "Laban": "assets/portraits/Laban.png",
         "Lehi": "assets/portraits/Lehi.png",
         "Laman": "https://placehold.co/100x100/963838/FFF?text=Laman",
         "Lemuel": "https://placehold.co/100x100/9e6b38/FFF?text=Lemuel",
@@ -95,7 +96,7 @@ window.ASSETS = {
         "laban_house": "https://placehold.co/750x300/2c3e50/FFF?text=Jerusalem+Night+(Laban)",
         "ship_deck": "https://placehold.co/750x300/2980b9/FFF?text=The+Ship+Deck",
         "promised_land": "https://placehold.co/750x300/27ae60/FFF?text=The+Promised+Land",
-        "settlement": "https://placehold.co/750x300/d4c5a9/333?text=Settlement",
+        "settlement": "assets/settlement.png",
         "vision_room": "https://placehold.co/750x300/5e4b35/FFF?text=Vision+of+Light",
         "temple_interior": "https://placehold.co/750x300/2980b9/FFF?text=Temple+Interior"
     }

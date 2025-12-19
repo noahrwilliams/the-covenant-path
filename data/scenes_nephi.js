@@ -92,7 +92,7 @@ Object.assign(window.scenes, {
     "laban_house": {
         text: "JERUSALEM. Laman failed to get the plates. He and Lemuel are angry and beat you and Sam with a rod. An angel appears to stop them and declare the Lord has chosen you to be a ruler over them, but Laman still murmurs.<br><i>(Read 1 Nephi 3:28-31)</i>",
         backgroundAsset: "jerusalem_night",
-        castAssets: ["Laman", "Lemuel"],
+        castAssets: ["Laman", "Lemuel", "Angel"],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
             { text: "You boldly tell them, 'Let's try again; the Lord is able to deliver us.' ", nextScene: "slaying_laban", effect: { faith: 1, unity: -1, worldly: 0 }, feedback: "They were still angry and continued to murmur, but they followed you to the walls of Jerusalem." },
@@ -102,7 +102,7 @@ Object.assign(window.scenes, {
     "slaying_laban": {
         text: "You creep into the city by night. You find Laban drunk on the ground. The Spirit commands: 'Slay him, for the Lord hath delivered him into thy hands.'<br><i>(Read 1 Nephi 4:6-13)</i>",
         backgroundAsset: "laban_house",
-        castAssets: [],
+        castAssets: ["Laban"],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
             { text: "Obey immediately.", nextScene: "return_plates", effect: { unity: -3, worldly: -3 }, setFlag: "hasBrassPlates", feedback: "You obey the immense, difficult command." },
