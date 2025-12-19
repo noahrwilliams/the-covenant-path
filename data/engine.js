@@ -526,7 +526,7 @@ function globalAction(actionType) {
     let actualDWorldly = (gameState.worldly_influence - oldWorldly).toFixed(1);
     let actualDKnowledge = (gameState.knowledge - oldKnowledge).toFixed(1);
 
-    let statString = `Faith: ${actualDFaith > 0 ? '+' : ''}${actualDFaith} | Unity: ${actualDUnity > 0 ? '+' : ''}${actualDUnity} | Price: ${actualDWorldly > 0 ? '+' : ''}${actualDWorldly} | Knowledge: ${actualDKnowledge > 0 ? '+' : ''}${actualDKnowledge}`;
+    let statString = `Faith: ${actualDFaith > 0 ? '+' : ''}${actualDFaith} | Unity: ${actualDUnity > 0 ? '+' : ''}${actualDUnity} | Pride: ${actualDWorldly > 0 ? '+' : ''}${actualDWorldly} | Knowledge: ${actualDKnowledge > 0 ? '+' : ''}${actualDKnowledge}`;
 
     let feedbackHTML = `
         <span class="feedback-title">${actionType.charAt(0).toUpperCase() + actionType.slice(1)} Action</span>
@@ -655,7 +655,7 @@ function getStatString(dF, dU, dW, dK) {
 
     const faithPart = formatStat('Faith', dF);
     const unityPart = formatStat('Unity', dU);
-    const worldlyPart = formatStat('Worldly', dW);
+    const worldlyPart = formatStat('Pride', dW);
     const knowledgePart = formatStat('Knowledge', dK);
     
     if (faithPart) parts.push(faithPart);

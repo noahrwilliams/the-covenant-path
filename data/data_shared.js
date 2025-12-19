@@ -61,7 +61,7 @@ window.ASSETS = {
         "Sariah": "https://placehold.co/140x180/8c7e5d/FFF?text=Sariah",
         "WifeOfNephi": "https://placehold.co/140x180/8c7e5d/FFF?text=Wife+of+Nephi",
         "Zoram": "https://placehold.co/140x180/5d737e/FFF?text=Zoram",
-        "Lehi": "https://placehold.co/100x100/6d5e41/FFF?text=Lehi",
+        "Lehi": "assets/portraits/Lehi.png",
         "Laman": "https://placehold.co/100x100/963838/FFF?text=Laman",
         "Lemuel": "https://placehold.co/100x100/9e6b38/FFF?text=Lemuel",
         "Sam": "https://placehold.co/100x100/5d737e/FFF?text=Sam",

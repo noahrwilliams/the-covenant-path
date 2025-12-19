@@ -7,6 +7,12 @@ window.STARTING_STATS["Nephi"] = {
     bio: "The fourth son who seeks a spiritual witness of his father's visions. He must learn to lead when his brothers rebel."
 };
 
+/* 
+1. Add event to acquire the Liahona
+2. Add opportunity to offer sacrifice
+
+*/
+
 // NEPHI SCENES - COMPLETE ARC
 Object.assign(window.scenes, {
     
@@ -18,8 +24,8 @@ Object.assign(window.scenes, {
         onEnter: { faith: 0, unity: 0, worldly: 0 }, 
         choices: [
             { text: "Courageously stand by Lehi.", nextScene: "stand_by_father_nephi", effect: { faith: 1, unity: 1, worldly: 0 }, feedback: "You stand with him. The mockery hurts, but you feel a quiet strength." },
-            { text: "Pull brothers aside to calm them.", nextScene: "calm_brothers_nephi", effect: { faith: -1, unity: 2, worldly: 1 }, feedback: "You keep the peace, but you feel the weight of compromise." },
-            { text: "Retreat home to pray.", nextScene: "secret_prayer_nephi", effect: { faith: 3, unity: -1, worldly: -2 }, covenantUnlock: "Prayer to Seek Guidance", feedback: "You prioritize the Spirit over the immediate social crisis." }
+            { text: "Pull brothers aside to calm them.", nextScene: "calm_brothers_nephi", effect: { faith: -1, unity: 1, worldly: 1 }, feedback: "You keep the peace, but you feel the weight of compromise." },
+            { text: "Retreat home to pray.", nextScene: "secret_prayer_nephi", effect: { faith: 1, unity: -1, worldly: -1 }, covenantUnlock: "Prayer to Seek Guidance", feedback: "You prioritize the Spirit over the immediate social crisis." }
         ]
     },
     "stand_by_father_nephi": {
@@ -28,8 +34,8 @@ Object.assign(window.scenes, {
         castAssets: ["Lehi"],
         onEnter: { faith: 0, unity: 0, worldly: 0 }, 
         choices: [
-            { text: "Obey immediately.", nextScene: "wilderness_valley", effect: { faith: 1, unity: 1, worldly: -2 }, feedback: "Action cures fear. You pack." },
-            { text: "Ask him to explain the vision first.", nextScene: "wilderness_valley", effect: { faith: 2, unity: 0, worldly: 0 }, feedback: "Lehi explains the destruction. Your understanding deepens." }
+            { text: "Obey immediately.", nextScene: "wilderness_valley", effect: { faith: 1, unity: -1, worldly: -1 }, feedback: "Action cures fear. Your siblings are not enthusiastic, but you faithfully pack." },
+            { text: "Ask him to explain the vision first.", nextScene: "wilderness_valley", effect: { faith: 1, unity: 0, worldly: 0 }, feedback: "Lehi explains the destruction. Your understanding deepens." }
         ]
     },
     "calm_brothers_nephi": {
@@ -38,7 +44,7 @@ Object.assign(window.scenes, {
         castAssets: ["Laman", "Lemuel"],
         onEnter: { faith: 0, unity: 0, worldly: 0 }, 
         choices: [
-            { text: "Defend father (Spend Faith).", nextScene: "wilderness_valley", effect: { faith: -1, unity: -2, worldly: 0 }, feedback: "You defend your father. It causes contention, but truth is spoken." },
+            { text: "Defend father (Spend Faith).", nextScene: "wilderness_valley", effect: { faith: 0, unity: -1, worldly: 0 }, feedback: "You defend your father. It causes contention, but truth is spoken." },
             { text: "Stay silent (Risk Faith).", nextScene: "wilderness_valley", effect: { faith: -2, unity: 1, worldly: 2 }, feedback: "You keep the peace, but your silence feels like betrayal." }
         ]
     },
@@ -48,8 +54,8 @@ Object.assign(window.scenes, {
         castAssets: [],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
-            { text: "Wrestle with God for a witness.", nextScene: "vision_confirmation_nephi", effect: { faith: 4, unity: 0, worldly: -4 }, covenantUnlock: "Spiritual Confirmation", feedback: "The Spirit visits you. Your heart is softened." },
-            { text: "Ask for safety.", nextScene: "wilderness_valley", effect: { faith: 1, unity: 0, worldly: -1 }, feedback: "You feel calm, but lack a burning witness." }
+            { text: "Wrestle with God for a witness.", nextScene: "vision_confirmation_nephi", effect: { faith: 1, unity: 0, worldly: -1 }, covenantUnlock: "Spiritual Confirmation", feedback: "The Spirit visits you. Your heart is softened." },
+            { text: "Ask for safety.", nextScene: "wilderness_valley", effect: { faith: 0, unity: 1, worldly: 1 }, feedback: "You feel calm, but lack a burning witness." }
         ]
     },
     "vision_confirmation_nephi": {
@@ -57,8 +63,8 @@ Object.assign(window.scenes, {
         backgroundAsset: "vision_room",
         castAssets: [],
         choices: [
-            { text: "Bear Testimony (Cost: -1 Faith).", nextScene: "wilderness_valley", effect: { faith: -1, unity: -1, worldly: -2 }, covenantUnlock: "Faith", feedback: "It takes spiritual energy to testify to stony hearts." },
-            { text: "Keep it to yourself.", nextScene: "wilderness_valley", effect: { faith: -2, unity: 1, worldly: 1 }, feedback: "You hide your light to save energy." }
+            { text: "Bear Testimony.", nextScene: "wilderness_valley", effect: { faith: 1, unity: -1, worldly: -2 }, covenantUnlock: "Faith", feedback: "Your brothers are not overly receptive, but the spirit is strong as you share your testimony." },
+            { text: "You patiently seek to keep the peace.", nextScene: "wilderness_valley", effect: { faith: -2, unity: 1, worldly: 1 }, feedback: "You hide your light to save energy." }
         ]
     },
 
@@ -69,28 +75,28 @@ Object.assign(window.scenes, {
         castAssets: ["Lehi", "Laman"],
         onEnter: { faith: 0, unity: 0, worldly: 0 }, 
         choices: [
-            { text: "Declare: 'I will go and do.'", nextScene: "plate_fail", effect: { faith: 3, unity: 1, worldly: -2 }, feedback: "Your declaration gladdens your father. Even Laman falls silent." },
-            { text: "Agree quietly.", nextScene: "plate_fail", effect: { faith: 0, unity: 0, worldly: 0 }, feedback: "You agree to go without complaint." }
+            { text: "Declare: 'I will go and do.'", nextScene: "plate_fail", effect: { faith: 1, unity: 0, worldly: -2 }, feedback: "Your declaration gladdens your father. Even Laman falls silent." },
+            { text: "Agree quietly.", nextScene: "plate_fail", effect: { faith: 0, unity: -1, worldly: 1 }, feedback: "You agree to go without complaint." }
         ]
     },
     "plate_fail": {
-        text: "JERUSALEM. Laman failed to get the plates. He is angry and beats you and Lemuel with a rod. An angel appears to stop him, but Laman still murmurs. Doubt and discord overcome them.<br><i>(Read 1 Nephi 3:28-31)</i>",
+        text: "JERUSALEM. Laman failed to get the plates. He is angry and beats you and Lemuel with a rod.<br><i>(Read 1 Nephi 3:28-31)</i>",
         backgroundAsset: "jerusalem_night",
         castAssets: ["Laman", "Lemuel"],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
-            { text: "Continue.", nextScene: "laban_house", effect: { faith: -1, unity: -3, worldly: 1 }, feedback: "You stop the violence, but sacrifice initiative." }
+            { text: "Continue.", nextScene: "laban_house", effect: { faith: -2, unity: -3, worldly: 1 }, feedback: "Laman and Lemuel are enraged. You have had trouble before, but not like this." }
 
         ]
     },
     "laban_house": {
-        text: "JERUSALEM. Laman failed to get the plates. He is angry and beats you and Lemuel with a rod. An angel appears to stop him, but Laman still murmurs.<br><i>(Read 1 Nephi 3:28-31)</i>",
+        text: "JERUSALEM. Laman failed to get the plates. He and Lemuel are angry and beat you and Sam with a rod. An angel appears to stop them and declare the Lord has chosen you to be a ruler over them, but Laman still murmurs.<br><i>(Read 1 Nephi 3:28-31)</i>",
         backgroundAsset: "jerusalem_night",
         castAssets: ["Laman", "Lemuel"],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
-            { text: "Rebuke with the Spirit.", nextScene: "slaying_laban", effect: { faith: -2, unity: -1, worldly: 0 }, feedback: "You pour out your spiritual reserves." },
-            { text: "Submit and endure.", nextScene: "slaying_laban", effect: { faith: 0, unity: 2, worldly: 1 }, feedback: "You stop the violence, but sacrifice initiative." }
+            { text: "You boldly tell them, 'Let's try again; the Lord is able to deliver us.' ", nextScene: "slaying_laban", effect: { faith: 1, unity: -1, worldly: 0 }, feedback: "They were still angry and continued to murmur, but they followed you to the walls of Jerusalem." },
+            { text: "You patiently endure, but lead the way back to Jerusalem.", nextScene: "slaying_laban", effect: { faith: -1, unity: -2, worldly: 1 }, feedback: "They keep complaining, but follow you. Probably to blame you later and say, 'I told you so.'" },
         ]
     },
     "slaying_laban": {
@@ -100,15 +106,15 @@ Object.assign(window.scenes, {
         onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
             { text: "Obey immediately.", nextScene: "return_plates", effect: { unity: -3, worldly: -3 }, setFlag: "hasBrassPlates", feedback: "You obey the immense, difficult command." },
-            { text: "Shrink and refuse.", nextScene: "return_plates_failure", effect: { faith: -3, worldly: 2 }, feedback: "You cannot bring yourself to do it. You flee." }
+            { text: "Shrink and refuse.", nextScene: "return_plates_failure", effect: { faith: -2, worldly: 2 }, feedback: "You cannot bring yourself to do it, and flee." }
         ]
     },
     "return_plates_failure": {
-        text: "You return empty handed. Lehi is devastated. The future of the nation is jeopardized.<br><i>(Read 1 Nephi 4:14-17 for context on why this is failure)</i>",
+        text: "You return empty handed. Lehi is devastated. The future of the nation is jeopardized.<br><i>(Read 1 Nephi 4:14-17)</i>",
         backgroundAsset: "wilderness",
         castAssets: ["Lehi"],
         choices: [
-             { text: "Repent and Try Again.", nextScene: "wilderness_valley", effect: { faith: 2, unity: -2 }, feedback: "You must start the task over. The Lord gives you another chance." }
+             { text: "Repent and Try Again.", nextScene: "wilderness_valley", effect: { faith: -3, unity: -2 }, feedback: "You must go back, but do you have the Faith to repent?" }
         ]
     },
     "return_plates": {
@@ -117,8 +123,8 @@ Object.assign(window.scenes, {
         castAssets: ["Sariah", "Lehi"],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
-            { text: "Study the Plates.", nextScene: "broken_bow", effect: { faith: 1, unity: -1, knowledge: 3 }, feedback: "You feast on the words." },
-            { text: "Rest and recover.", nextScene: "broken_bow", effect: { faith: 0, unity: 2, knowledge: 0 }, feedback: "You rebuild your physical strength." }
+            { text: "Study the Plates.", nextScene: "broken_bow", effect: { faith: 1, unity: -1, knowledge: 2 }, feedback: "You feast on the words." },
+            { text: "Rest and recover.", nextScene: "broken_bow", effect: { faith: 0, unity: 1, worldly: 2, knowledge: 0 }, feedback: "You rebuild your physical strength." }
         ]
     },
 
@@ -129,7 +135,7 @@ Object.assign(window.scenes, {
         castAssets: ["Lehi", "Laman"],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
-            { text: "Continue.", nextScene: "broken_bow_decision", effect: { faith: -4, unity: -4, worldly: 2 } }
+            { text: "Continue.", nextScene: "broken_bow_decision", effect: { faith: -4, unity: -3, worldly: 2 } }
         ]
     },
 
@@ -139,20 +145,20 @@ Object.assign(window.scenes, {
         castAssets: ["Lehi", "Laman"],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
-            { text: "Make a wood bow & ask Lehi.", nextScene: "bountiful", effect: { unity: 4, worldly: -2 }, covenantUnlock: "Repentance", feedback: "Your humility restores Lehi's faith." },
-            { text: "Complain with the family.", nextScene: "broken_bow_decision", effect: { faith: -2 }, feedback: "You join the murmuring and the Spirit leaves. Do you have enough faith to repent?" }
+            { text: "Make a wood bow and ask Lehi where to go.", nextScene: "bountiful", effect: { unity: 2, worldly: -1 }, covenantUnlock: "Repentance", feedback: "Your humility restores Lehi's faith." },
+            { text: "Complain with the family.", nextScene: "broken_bow_decision", effect: { faith: -3 }, feedback: "You join the murmuring and the Spirit leaves. Do you have enough faith to repent?" }
         ]
     },
 
     // --- PART 4: THE SHIP ---
     "bountiful": {
-        text: "You arrive at Bountiful. The Lord commands: 'Thou shalt construct a ship.' Laman and Lemuel mock you, calling you a fool.<br><i>(Read 1 Nephi 17:7-18)</i>",
+        text: "You arrive at Bountiful. The Lord commands: 'Thou shalt construct a ship.' Laman and Lemuel mock you, calling you a fool. 'We knew you could not accomplish so great a work.' <br><i>(Read 1 Nephi 17:7-18)</i>",
         backgroundAsset: "promised_land", 
         castAssets: ["Laman", "Lemuel"],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
-            { text: "Preach Scripture (Requires Knowledge 3+).", nextScene: "shock_brothers", effect: { faith: 1, knowledge: 2, unity: -1 }, feedback: "You cite Moses dividing the Red Sea." },
-            { text: "Argue back.", nextScene: "shock_brothers", effect: { faith: -2, unity: -3, worldly: 1 }, feedback: "You contend with anger." }
+            { text: "Preach Scripture.", nextScene: "shock_brothers", effect: { faith: 1, knowledge: 2, unity: -1 }, feedback: "You remind them of Moses dividing the Red Sea to lead the Israelites out of Egypt." },
+            { text: "Endure patiently.", nextScene: "shock_brothers", effect: { faith: -2, unity: -2, worldly: 1 }, feedback: "You quietly endure, but feel frustration growing." }
         ]
     },
     "shock_brothers": {
@@ -161,7 +167,7 @@ Object.assign(window.scenes, {
         castAssets: ["Laman", "Lemuel"],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
-            { text: "Faithfully stretch forth thy hand.", nextScene: "voyage_storm", effect: { faith: +2, unity: -1, worldly: -3 }, covenantUnlock: "Baptism", feedback: "The Lord shocks them and they know of a surity that the Lord is with thee (Read 1 Nephi 17:54-55)." },
+            { text: "Faithfully stretch forth thy hand.", nextScene: "voyage_storm", effect: { faith: 1, unity: -1, worldly: -1 }, covenantUnlock: "Baptism", feedback: "The Lord shocks them and they know of a surity that the Lord is with thee (Read 1 Nephi 17:54-55)." },
             { text: "Diligently work on the ship.", nextScene: "voyage_storm", effect: { faith: -2, unity: -2, worldly: 1 }, feedback: "Obedience is better than sacrifice. Faith and unity suffer." }
         ]
     },
@@ -182,7 +188,7 @@ Object.assign(window.scenes, {
         castAssets: ["Laman", "Lemuel", "Sariah"],
         onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
-            { text: "Pray for calm.", nextScene: "promised_land", effect: { faith: 0, unity: 2, worldly: -5 }, covenantUnlock: "Gift of the Holy Ghost", feedback: "You pour out your soul. The storm ceases." },
+            { text: "Pray for calm.", nextScene: "promised_land", effect: { faith: 0, unity: 2, worldly: -3 }, covenantUnlock: "Gift of the Holy Ghost", feedback: "You pour out your soul. The storm ceases." },
             { text: "Despair.", nextScene: "game_over_faith", effect: { faith: -20 }, feedback: "Your faith fails and you lose all hope." }
         ]
     },
@@ -191,8 +197,8 @@ Object.assign(window.scenes, {
         backgroundAsset: "promised_land",
         castAssets: ["Lehi", "Sariah"],
         choices: [
-            { text: "Give thanks and begin building.", nextScene: "module_end_story_exodus", effect: { faith: 1, unity: 1 }, feedback: "Story Module Complete." },
-            { text: "Seek revelation for a new assignment.", nextScene: "module_end_story_exodus", effect: { faith: 2, knowledge: 1 }, feedback: "Story Module Complete." }
+            { text: "Give thanks and begin building.", nextScene: "module_end_story_exodus", effect: { faith: 1, unity: 1 }, feedback: "Story Complete." },
+            { text: "Seek revelation for a new assignment.", nextScene: "module_end_story_exodus", effect: { faith: 1, knowledge: 1 }, feedback: "Story Complete." }
         ]
     }
 });
