@@ -7,7 +7,8 @@ let gameState = {
     currentStoryId: null, 
     covenantPathProgress: [],
     lastAction: null,
-    actionsTakenSinceChoice: 0, 
+    actionsTakenSinceChoice: 0,
+    prayServeTakenSinceChoice: 0,  // NEW: caps Pray+Serve per choice
     difficulty: 'Primary'
 };
 
@@ -180,6 +181,7 @@ function loadCharacter(characterName, storyId, difficulty) {
     gameState.covenantPathProgress = [];
     gameState.lastAction = null;
     gameState.actionsTakenSinceChoice = 0;
+    gameState.prayServeTakenSinceChoice = 0;
     
     let faith_offset = 0;
     let unity_offset = 0;
@@ -288,9 +290,10 @@ function renderScene(sceneId, isUndo = false, actionFeedback = null, choiceFeedb
         });
     }
 
-    if (choiceFeedback !== null) {
-        gameState.actionsTakenSinceChoice = 0;
-    }
+if (choiceFeedback !== null) {
+    gameState.actionsTakenSinceChoice = 0;
+    gameState.prayServeTakenSinceChoice = 0; // NEW
+}
 
     gameState.currentSceneId = sceneId;
 
@@ -412,6 +415,13 @@ function handleChoice(choiceIndex, sceneId) {
     renderScene(choice.nextScene, false, null, feedbackHTML);
 }
 
+function getPrayServeLimit() {
+    // Hard / Medium / Easy mapping to your existing difficulty names
+    if (gameState.difficulty === 'Endowed') return 2; // hard
+    if (gameState.difficulty === 'Youth')   return 3; // medium
+    return 4;                                          // Primary = easy
+}
+
 /**
  * Main game action handler for the global buttons.
  * @param {string} actionType - 'pray', 'study', or 'service'
@@ -424,6 +434,19 @@ function globalAction(actionType) {
     
     // Check if the game is over before applying action stats
     if (checkGameOver()) return;
+
+    // NEW: cap Pray + Serve uses between choices
+    if (actionType === 'pray' || actionType === 'service') {
+        const limit = getPrayServeLimit();
+        if (gameState.prayServeTakenSinceChoice >= limit) {
+            renderScene(
+                gameState.currentSceneId,
+                false,
+                `You can only ${actionType === 'pray' ? 'Pray' : 'Serve'} ${limit} time(s) between choices on this difficulty.`
+            );
+            return;
+        }
+    }
 
     let addedFaith = 0;
     let addedUnity = 0;
@@ -493,13 +516,17 @@ function globalAction(actionType) {
     // Update history, last action, and apply covenant path logic
     gameState.lastAction = actionType;
     gameState.actionsTakenSinceChoice++;
-    
+
+    if (actionType === 'pray' || actionType === 'service') {
+        gameState.prayServeTakenSinceChoice++; // NEW
+    }
+        
     let actualDFaith = (gameState.faith - oldFaith).toFixed(1);
     let actualDUnity = (gameState.unity - oldUnity).toFixed(1);
     let actualDWorldly = (gameState.worldly_influence - oldWorldly).toFixed(1);
     let actualDKnowledge = (gameState.knowledge - oldKnowledge).toFixed(1);
 
-    let statString = `Faith: ${actualDFaith > 0 ? '+' : ''}${actualDFaith} | Unity: ${actualDUnity > 0 ? '+' : ''}${actualDUnity} | Worldly: ${actualDWorldly > 0 ? '+' : ''}${actualDWorldly} | Knowledge: ${actualDKnowledge > 0 ? '+' : ''}${actualDKnowledge}`;
+    let statString = `Faith: ${actualDFaith > 0 ? '+' : ''}${actualDFaith} | Unity: ${actualDUnity > 0 ? '+' : ''}${actualDUnity} | Price: ${actualDWorldly > 0 ? '+' : ''}${actualDWorldly} | Knowledge: ${actualDKnowledge > 0 ? '+' : ''}${actualDKnowledge}`;
 
     let feedbackHTML = `
         <span class="feedback-title">${actionType.charAt(0).toUpperCase() + actionType.slice(1)} Action</span>
@@ -555,6 +582,7 @@ function applyStats(effects) {
         gameState.worldly_influence += effects.worldly || 0; 
         gameState.knowledge += effects.knowledge || 0;
     }
+
 }
 
 function clampStats() {
@@ -584,10 +612,14 @@ function updateButtonStates() {
     // Ensure the Review Records button (if it exists) is also handled here
     const reviewBtn = document.getElementById('btn-review-records'); 
 
-    const isEndowedRestricted = (gameState.difficulty === 'Endowed' && gameState.actionsTakenSinceChoice >= 1); 
-    
-    prayBtn.disabled = isEndowedRestricted;
-    serviceBtn.disabled = isEndowedRestricted;
+    const isEndowedRestricted = (gameState.difficulty === 'Endowed' && gameState.actionsTakenSinceChoice >= 1);
+
+    const prayServeLimitReached =
+        (gameState.prayServeTakenSinceChoice >= getPrayServeLimit());
+
+    prayBtn.disabled = isEndowedRestricted || prayServeLimitReached;
+    serviceBtn.disabled = isEndowedRestricted || prayServeLimitReached;
+
     if (reviewBtn) reviewBtn.disabled = isEndowedRestricted; // Apply restriction to review button
 
     if (studyBtn) {
