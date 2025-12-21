@@ -102,9 +102,10 @@ window.ASSETS = {
         "laban_house": "assets/backgrounds/laban_house.JPG",
         "ship_deck": "assets/backgrounds/ship_deck.JPG",
         "promised_land": "assets/backgrounds/promised_land.jpg",
-        "settlement": "assets/backgrounds/settlement.png",
+        "settlement": "assets/backgrounds/settlement.jpeg",
         "vision_room": "assets/backgrounds/vision_room.jpg",
         "temple_interior": "assets/backgrounds/temple_interior.jpg",
+        "wilderness": "assets/backgrounds/wilderness.jpg"
     }
 };
 
