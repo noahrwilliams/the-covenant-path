@@ -26,7 +26,7 @@ Object.assign(window.scenes, {
         onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
             { text: "Teach them the clear truth: 'He does not listen to God's word.'", nextScene: "s2_wife_sariah", effect: { faith: 1, unity: -1 }, feedback: "Hard truth." },
-            { text: "Teach them compassion: 'He is hurting inside and needs our prayers.'", nextScene: "s2_wife_sariah", effect: { unity: 1, , faith: -1, knowledge: 1 }, feedback: "Compassion." },
+            { text: "Teach them compassion: 'He is hurting inside and needs our prayers.'", nextScene: "s2_wife_sariah", effect: { unity: 1, faith: -1, knowledge: 1 }, feedback: "Compassion." },
             { text: "Tell them to avoid the topic: 'This is a private matter we don't discuss.'", nextScene: "s2_wife_sariah", effect: { unity: -1, faith: -1, worldly: 1 }, feedback: "Avoidance." }
         ]
     },
