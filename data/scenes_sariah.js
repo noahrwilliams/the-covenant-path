@@ -52,8 +52,8 @@ Object.assign(window.scenes, {
         // EROSION: The wait is agonizing.
         onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
-            { text: "Confront Lehi in grief (Spend Unity).", nextScene: "lehis_comfort", effect: { faith: -2, unity: -3, worldly: 1 }, feedback: "You cry out: 'Thou art a visionary man! My sons are no more!' (See 1 Nephi 5:2)" },
-            { text: "Retreat to the tent to weep alone.", nextScene: "lehis_comfort", effect: { faith: -1, unity: -1, worldly: 0 }, feedback: "You hide your pain, but your faith is crumbling." }
+            { text: "Confront Lehi in grief.", nextScene: "lehis_comfort", effect: { faith: -2, unity: -3, worldly: 1 }, feedback: "You cry out: 'Thou art a visionary man! My sons are no more!' (See 1 Nephi 5:2)" },
+            { text: "Retreat to the tent to weep alone.", nextScene: "lehis_comfort", effect: { faith: -1, unity: -1, worldly: 2 }, feedback: "You pridefully hide your pain. Your faith is wavers." }
         ]
     },
     "lehis_comfort": {
@@ -61,7 +61,7 @@ Object.assign(window.scenes, {
         backgroundAsset: "wilderness",
         castAssets: ["Lehi"],
         choices: [
-            { text: "Accept his testimony and pray (Build Faith).", nextScene: "sons_return_sariah", effect: { faith: 3, unity: 2, worldly: -1 }, feedback: "His words spark a hope in your heart. You wait on the Lord." },
+            { text: "Accept his testimony and pray (Build Faith).", nextScene: "sons_return_sariah", effect: { faith: 1, unity: 1, worldly: -1 }, feedback: "His words spark a hope in your heart. You wait on the Lord." },
             { text: "Remain skeptical and bitter.", nextScene: "sons_return_sariah", effect: { faith: -2, unity: -1, worldly: 1 }, feedback: "You refuse to be comforted until you see them." }
         ]
     },
@@ -72,8 +72,8 @@ Object.assign(window.scenes, {
         // RECOVERY: The miracle heals the family.
         onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
-            { text: "Declare your witness: 'Now I know of a surety.'", nextScene: "broken_bow_sariah", effect: { faith: 4, unity: 2, worldly: -3 }, covenantUnlock: "Spiritual Confirmation", feedback: "You testify that the Lord commanded your husband. (See 1 Nephi 5:8)" },
-            { text: "Prepare a feast and celebrate.", nextScene: "broken_bow_sariah", effect: { faith: 1, unity: 3, worldly: 1 }, feedback: "You focus on feeding your exhausted sons." }
+            { text: "Declare your witness: 'Now I know of a surety.'", nextScene: "broken_bow_sariah", effect: { faith: 1, unity: 0, worldly: -3 }, covenantUnlock: "Spiritual Confirmation", feedback: "You testify that the Lord commanded your husband. (See 1 Nephi 5:8)" },
+            { text: "Prepare a feast and celebrate.", nextScene: "broken_bow_sariah", effect: { faith: 0, unity: 2, worldly: 2 }, feedback: "You focus on feeding your exhausted sons." }
         ]
     },
 
@@ -95,7 +95,7 @@ Object.assign(window.scenes, {
         onEnter: { faith: 0, unity: 0, worldly: 0 }, 
         choices: [
             { text: "Gather the children and sing hymns.", nextScene: "nephi_bow_sariah", effect: { faith: 1, unity: 1, worldly: -2 }, feedback: "You distract the children and invite the Spirit, though you are weak with hunger." },
-            { text: "Weep with the other women.", nextScene: "broken_bow_sariah_decision", effect: { faith: -2, unity: -5 }, feedback: "You fall into despair. Do you have enough faith to repent?" }
+            { text: "Weep with the other women.", nextScene: "broken_bow_sariah_decision", effect: { faith: -2, unity: -3 }, feedback: "You fall into despair. Do you have enough faith to repent?" }
         ]
     },
     "nephi_bow_sariah": {
@@ -103,8 +103,8 @@ Object.assign(window.scenes, {
         backgroundAsset: "wilderness",
         castAssets: ["Nephi", "Lehi"],
         choices: [
-            { text: "Encourage Lehi to look.", nextScene: "ishmael_tragedy", effect: { faith: 2, unity: 2 }, covenantUnlock: "Repentance", feedback: "Lehi repents. He finds the direction." },
-            { text: "Wait in silence.", nextScene: "ishmael_tragedy", effect: { faith: 0, unity: 0 }, feedback: "You wait. Nephi returns with meat. (See 1 Nephi 16:30)" }
+            { text: "Encourage Lehi to look.", nextScene: "ishmael_tragedy", effect: { unity: 1, worldly: -1 }, covenantUnlock: "Repentance", feedback: "Lehi repents. He finds the direction." },
+            { text: "Wait in silence.", nextScene: "ishmael_tragedy", effect: { }, feedback: "You wait. Nephi returns with meat. (See 1 Nephi 16:30)" }
         ]
     },
 
@@ -115,7 +115,7 @@ Object.assign(window.scenes, {
         castAssets: ["Laman", "Lemuel"],
         onEnter: { faith: -2, unity: -4, worldly: 1 },
         choices: [
-            { text: "Stand between Laman and Lehi.", nextScene: "bountiful_sariah", effect: { faith: 2, unity: -3, worldly: -1 }, feedback: "You risk your relationship with your firstborn to save your husband, the prophet." },
+            { text: "Stand between Laman and Lehi.", nextScene: "bountiful_sariah", effect: { faith: 1, unity: -3, worldly: 1 }, feedback: "You risk your relationship with your firstborn to save your husband, the prophet." },
             { text: "Plead with the Lord to soften their hearts.", nextScene: "bountiful_sariah", effect: { faith: 1, unity: 1, worldly: -1 }, feedback: "The Lord chastens them. They turn away from murder. (See 1 Nephi 16:39)" }
         ]
     },
@@ -126,7 +126,7 @@ Object.assign(window.scenes, {
         onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
             { text: "Defend Nephi's work.", nextScene: "ship_built", effect: { faith: 1, unity: -2 }, feedback: "You support the ship, though you do not understand how to build it." },
-            { text: "Focus on preparing food for the voyage.", nextScene: "ship_built", effect: { faith: 0, unity: 2, worldly: 1 }, feedback: "You ensure the family has provision." }
+            { text: "Focus on preparing food for the voyage.", nextScene: "ship_built", effect: { faith: 0, unity: 1, worldly: 1 }, feedback: "You ensure the family has provision." }
         ]
     },
     "ship_built": {
@@ -134,7 +134,7 @@ Object.assign(window.scenes, {
         backgroundAsset: "ship_deck",
         castAssets: ["Lehi", "Nephi"],
         choices: [
-            { text: "Board with faith.", nextScene: "voyage_grief", effect: { faith: 2, worldly: -2 }, covenantUnlock: "Faith", feedback: "You step onto the ship." }
+            { text: "Board with faith.", nextScene: "voyage_grief", effect: { faith: 1, worldly: -2 }, covenantUnlock: "Faith", feedback: "You step onto the ship." }
         ]
     },
 
@@ -146,9 +146,9 @@ Object.assign(window.scenes, {
         // EROSION: Deadly Crisis.
         onEnter: { faith: 0, unity: 0, worldly: 0 },
         choices: [
-            { text: "Use your last strength to plead with Laman.", nextScene: "promised_land_sariah", effect: { faith: 2, unity: 3, worldly: -2 }, feedback: "They threaten you, but seeing your grey hairs and sickness eventually softens them. (See 1 Nephi 18:19)" },
-            { text: "Pray for Nephi's deliverance.", nextScene: "promised_land_sariah", effect: { faith: 4, unity: 0, worldly: -3 }, covenantUnlock: "Gift of the Holy Ghost", feedback: "You pray until you pass out. When you wake, the storm has ceased." },
-            { text: "Succumb to grief and give up.", nextScene: "game_over_faith", effect: { faith: -10 }, feedback: "You are about to be cast into a watery grave." }
+            { text: "Use your last strength to plead with Laman.", nextScene: "promised_land_sariah", effect: { faith: 1, unity: 1, worldly: -2 }, feedback: "They threaten you, but seeing your grey hairs and sickness eventually softens them. (See 1 Nephi 18:19)" },
+            { text: "Pray for Nephi's deliverance.", nextScene: "promised_land_sariah", effect: { faith: 1, unity: 1, worldly: -3 }, covenantUnlock: "Gift of the Holy Ghost", feedback: "You pray until you pass out. When you wake, the storm has ceased." },
+            { text: "Succumb to grief and weep hopelessly with the other women.", nextScene: "game_over_faith", effect: { faith: -8, worldly: 2 }, feedback: "Hope disappears. You feel you are about to be cast into a watery grave. Do you have enough faith to repent?" }
         ]
     },
     "promised_land_sariah": {
@@ -156,8 +156,8 @@ Object.assign(window.scenes, {
         backgroundAsset: "promised_land",
         castAssets: ["Lehi", "Nephi"],
         choices: [
-            { text: "Focus entirely on healing and rest.", nextScene: "module_end_story_exodus", effect: { unity: 1, worldly: -1 }, feedback: "Story Module Complete." },
-            { text: "Pray for the souls who remained in Jerusalem.", nextScene: "module_end_story_exodus", effect: { faith: 2 }, feedback: "Story Module Complete." }
+            { text: "Focus entirely on healing and rest.", nextScene: "module_end_story_exodus", effect: { unity: 1, worldly: -1 }, feedback: "Story Complete." },
+            { text: "Pray for the souls who remained in Jerusalem.", nextScene: "module_end_story_exodus", effect: { faith: 2 }, feedback: "Story Complete." }
         ]
     }
 });
