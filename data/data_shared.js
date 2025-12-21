@@ -70,42 +70,41 @@ window.ASSETS = {
         "Sherem": "assets/portraits/Sherem.png",
         "Nephite_Daughter": "assets/portraits/Nephite_Daughter.png",
         "Enos": "assets/portraits/Enos.png",
-        "Amaleki": "https://placehold.co/100x100/6d5e41/FFF?text=Amaleki",
-        "Nephite_Refugee": "https://placehold.co/140x180/8c7e5d/FFF?text=Nephite+Refugee",
-        "Mosiah_I": "https://placehold.co/140x180/5d737e/FFF?text=King+Mosiah+I",
+        "Amaleki": "assets/portraits/Amaleki.png",
+        "Nephite_Refugee": "assets/portraits/Young_Family_Listening.png",
+        "Mosiah_I": "assets/portraits/King_Mosiah_I.png",
         "King_Benjamin": "assets/portraits/King_Benjamin.png",
         "King_Laman": "assets/portraits/King_Laman.png",
         "King_Noah": "assets/portraits/King_Noah.png",
-        "Mormon": "https://placehold.co/140x180/5d737e/FFF?text=Mormon",
-        "Mosiah_II": "https://placehold.co/100x100/6d5e41/FFF?text=King+Mosiah",
-        "Helaman": "https://placehold.co/140x180/5d737e/FFF?text=Helaman",
-        "Helorum": "https://placehold.co/100x100/5d737e/FFF?text=Helorum",
+        "Mormon": "assets/portraits/Mormon.png",
+        "Mosiah_II": "assets/portraits/King_Mosiah_II.png",
+        "Helaman_son_of_Benjamin": "assets/portraits/Helaman_son_of_Benjamin.png",
+        "Helorum": "assets/portraits/Helorum.png",
         "Angel": "assets/portraits/Angel.png",
-        "Spouse": "https://placehold.co/140x180/8c7e5d/FFF?text=Spouse",
-        "Child": "https://placehold.co/140x180/5d737e/FFF?text=Child",
-        "Neighbor": "https://placehold.co/140x180/5d737e/FFF?text=Neighbor",
-        "Benjamin_Citizen": "https://placehold.co/140x180/5d737e/FFF?text=Benjamin+Citizen",
+        "Spouse": "assets/portraits/Spouses.png",
+        "Child": "assets/portraits/Child.png",
+        "Neighbor": "assets/portraits/Neighbors.png",
+        "Benjamin_Citizen": "assets/portraits/Benjamin_Citizen.png"
     },
 
 /* Need to find:
 -- Mosiah_I
---
+-- Helaman_son_of_Benjamin
 --
 */
 
 
     backgrounds: {
-        "jerusalem_street": "https://placehold.co/750x300/d4c5a9/333?text=Jerusalem+Streets",
-        "jerusalem_night": "https://placehold.co/750x300/2c3e50/FFF?text=Jerusalem+Night",
-        "house_interior": "https://placehold.co/750x300/5e4b35/FFF?text=House+Interior",
-        "desert_gates": "https://placehold.co/750x300/c0392b/FFF?text=City+Gates",
-        "wilderness": "https://placehold.co/750x300/8e44ad/FFF?text=Wilderness+Valley",
-        "laban_house": "https://placehold.co/750x300/2c3e50/FFF?text=Jerusalem+Night+(Laban)",
-        "ship_deck": "https://placehold.co/750x300/2980b9/FFF?text=The+Ship+Deck",
-        "promised_land": "https://placehold.co/750x300/27ae60/FFF?text=The+Promised+Land",
-        "settlement": "assets/settlement.png",
-        "vision_room": "https://placehold.co/750x300/5e4b35/FFF?text=Vision+of+Light",
-        "temple_interior": "https://placehold.co/750x300/2980b9/FFF?text=Temple+Interior"
+        "jerusalem_street": "assets/backgrounds/jerusalem_street.jpg",
+        "jerusalem_night": "assets/backgrounds/jerusalem_night.jpeg",
+        "house_interior": "assets/backgrounds/house_interior.jpg",
+        "desert_gates": "assets/backgrounds/desert_gates.JPG",
+        "laban_house": "assets/backgrounds/laban_house.JPG",
+        "ship_deck": "assets/backgrounds/ship_deck.JPG",
+        "promised_land": "assets/backgrounds/promised_land.jpg",
+        "settlement": "assets/backgrounds/settlement.png",
+        "vision_room": "assets/backgrounds/vision_room.jpg",
+        "temple_interior": "assets/backgrounds/temple_interior.jpg",
     }
 };
 

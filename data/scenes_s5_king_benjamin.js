@@ -1,4 +1,4 @@
-// Character IDs: King_Benjamin, Mosiah, Helaman, Helorum, Amaleki, Angel
+// Character IDs: King_Benjamin, Mosiah, Helaman_son_of_Benjamin, Helorum, Amaleki, Angel
 // Background IDs: house_interior, settlement, wilderness
 
 window.STARTING_STATS["King_Benjamin"] = {
@@ -118,7 +118,7 @@ Object.assign(window.scenes, {
     text:
       "You gather your sons. Kingship is not merely a throne; it is accountability before God. You will teach them the records and the covenant purpose of a people who forget easily.<br><i>(Read Mosiah 1:1–4)</i>",
     backgroundAsset: "house_interior",
-    castAssets: ["King_Benjamin", "Mosiah_II", "Helaman", "Helorum", "Amaleki"],
+    castAssets: ["King_Benjamin", "Mosiah_II", "Helaman_son_of_Benjamin", "Helorum", "Amaleki"],
     choices: [
       { text: "Teach them that records preserve faith, not status.", nextScene: "s5_kb_pathC_succession_2", effect: { faith: 1 }, feedback: "You frame leadership as stewardship." },
       { text: "Teach them that records preserve your dynasty and name.", nextScene: "s5_kb_pathC_succession_2", effect: { worldly: 1 }, feedback: "Legacy becomes an idol." },
