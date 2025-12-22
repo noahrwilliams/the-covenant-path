@@ -17,7 +17,7 @@ window.STARTING_STATS["Nephi"] = {
 Object.assign(window.scenes, {
     
     "tutorial_nephi": {
-        text: "INTRODUCTION: Gameplay balances Faith, Unity, and Pride stats.<br>If Faith or Unity get to 0, or Pride gets to 10, your story ends.<br>Choices will impact stats, as do regular Prayer and Service.<br> Additionally, some events will have large negative impact, so be diligent so you are not caught unprepared.<br>Prayer and Service are always available. Additionally, once you have the brass plates, you will also always have the option to Review Records.<br>Reviewing the record is a scripture quiz where you gain points dependent on how you score.<br>The effects of Prayer, Record Review, and Service are limited by difficulty level and reduced with consecutive use. It is best to consistently make small and simple actions.",
+        text: "INTRODUCTION: Gameplay balances Faith, Unity, and Pride stats. If Faith or Unity get to 0, or Pride gets to 10, your story ends. Choices will impact stats, as do regular Prayer and Service. Additionally, some events will have large negative impact, so be diligent so you are not caught unprepared. Prayer and Service are always available. Additionally, once you have the brass plates, you will also always have the option to Review Records. Reviewing the record is a scripture quiz where you gain points dependent on how you score. The effects of Prayer, Record Review, and Service are limited by difficulty level and reduced with consecutive use. It is best to consistently make small and simple actions.",
         backgroundAsset: "brass_plates",
         castAssets: ["Lehi", "Sariah"],
         onEnter: { faith: 0, unity: 0, worldly: 0 }, 

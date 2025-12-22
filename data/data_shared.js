@@ -106,7 +106,7 @@ window.ASSETS = {
         "vision_room": "assets/backgrounds/vision_room.jpg",
         "temple_interior": "assets/backgrounds/temple_interior.jpg",
         "wilderness": "assets/backgrounds/wilderness.jpg",
-        "brass_plates": "assets/backgrounds/brass_plates.jpeg.jpg"
+        "brass_plates": "assets/backgrounds/brass_plates.jpeg"
     }
 };
 

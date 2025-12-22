@@ -3,15 +3,28 @@ window.STARTING_STATS["Sariah"] = {
     storyId: "exodus",
     displayName: "Sariah", // Optional displayName
     faith: 6, unity: 7, worldly_influence: 4, knowledge: 0, 
-    hasBrassPlates: false, initialScene: "intro_sariah",
+    hasBrassPlates: false, initialScene: "tutorial_sariah",
     bio: "A mother torn between faith in her husband and fear for her sons' safety in the dangerous desert."
 };
+
+/* "INTRODUCTION: Gameplay balances Faith, Unity, and Pride stats. If Faith or Unity get to 0, or Pride gets to 10, your story ends. Choices will impact stats, as do regular Prayer and Service. Additionally, some events will have large negative impact, so be diligent so you are not caught unprepared. Prayer and Service are always available. Additionally, once you have the brass plates, you will also always have the option to Review Records. Reviewing the record is a scripture quiz where you gain points dependent on how you score. The effects of Prayer, Record Review, and Service are limited by difficulty level and reduced with consecutive use. It is best to consistently make small and simple actions.", */
 
 // SARIAH SCENES - COMPLETE ARC
 Object.assign(window.scenes, {
     // --- COPY/PASTE THE SCENE CONTENT FROM THE PREVIOUS TURN HERE ---
     
     // --- PART 1: THE DEPARTURE ---
+
+    "tutorial_sariah": {
+        text: "INTRODUCTION: Gameplay balances Faith, Unity, and Pride stats. If Faith or Unity get to 0, or Pride gets to 10, your story ends. Choices will impact stats, as do regular Prayer and Service. Additionally, some events will have large negative impact, so be diligent so you are not caught unprepared. Prayer and Service are always available. Additionally, once you have the brass plates, you will also always have the option to Review Records. Reviewing the record is a scripture quiz where you gain points dependent on how you score. The effects of Prayer, Record Review, and Service are limited by difficulty level and reduced with consecutive use. It is best to consistently make small and simple actions.",
+        backgroundAsset: "brass_plates",
+        castAssets: ["Lehi", "Nephi"],
+        onEnter: { faith: 0, unity: 0, worldly: 0 },
+        choices: [
+            { text: "Begin your story.", nextScene: "intro_sariah" }
+        ]
+    },
+
     "intro_sariah": {
         text: "JERUSALEM, 600 BC. The city is dangerous, but it is your home. Lehi has returned from a vision declaring you must leave everything—your gold, your house, your friends—and flee into the wilderness.<br><i>(Read 1 Nephi 2:2-4)</i>",
         backgroundAsset: "house_interior",
