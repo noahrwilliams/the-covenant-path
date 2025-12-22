@@ -3,7 +3,7 @@ window.STARTING_STATS["Nephi"] = {
     storyId: "exodus",
     displayName: "Nephi", // Optional displayName
     faith: 6, unity: 6, worldly_influence: 2, knowledge: 0, 
-    hasBrassPlates: false, initialScene: "intro_nephi",
+    hasBrassPlates: false, initialScene: "tutorial_nephi",
     bio: "The fourth son who seeks a spiritual witness of his father's visions. He must learn to lead when his brothers rebel."
 };
 
@@ -16,6 +16,16 @@ window.STARTING_STATS["Nephi"] = {
 // NEPHI SCENES - COMPLETE ARC
 Object.assign(window.scenes, {
     
+    "tutorial_nephi": {
+        text: "INTRODUCTION: Gameplay balances Faith, Unity, and Pride stats.<br>If Faith or Unity get to 0, or Pride gets to 10, your story ends.<br>Choices will impact stats, as do regular Prayer and Service.<br> Additionally, some events will have large negative impact, so be diligent so you are not caught unprepared.<br>Prayer and Service are always available. Additionally, once you have the brass plates, you will also always have the option to Review Records.<br>Reviewing the record is a scripture quiz where you gain points dependent on how you score.<br>The effects of Prayer, Record Review, and Service are limited by difficulty level and reduced with consecutive use. It is best to consistently make small and simple actions.",
+        backgroundAsset: "brass_plates",
+        castAssets: ["Lehi", "Sariah"],
+        onEnter: { faith: 0, unity: 0, worldly: 0 }, 
+        choices: [
+            { text: "Begin your story.", nextScene: "intro_nephi" }
+        ]
+    },
+
     // --- PART 1: JERUSALEM ---
     "intro_nephi": {
         text: "JERUSALEM, 600 BC. The streets are crowded. Lehi is shouting to the people, prophesying that Jerusalem will be destroyed. The crowd is hostile. Your brothers are ashamed.<br><i>(Read 1 Nephi 1:18-20)</i>",
